@@ -1,0 +1,19 @@
+vizlab: "0.1.4"
+info:
+  id: hurricane-matthew
+  name: Visualization long name
+  date: 2016-10-06
+  publish-date: 2016-10-20
+  path: /hurricane-matthew
+  analytics-id: UA-78530187-1
+  description: >-
+    Describe project here
+  thumbnail:    
+    url:    
+    width: 250    
+    height: 250    
+    alttext:
+fetch:
+process:
+visualize:
+publish:
