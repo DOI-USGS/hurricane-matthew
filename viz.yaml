@@ -16,13 +16,24 @@ info:
 fetch:
   -
     id: counties
-    location: data/counties.zip
+    location: cache/counties.zip
+    reader: shp
+    fetcher: counties
+    mimetype: application/zip
+  -
+    id: matthew-track
+    location: cache/matthew.zip
+    ocean: al
+    stormnum: 14
+    year: 2016
+    reader: shp
+    fetcher: hurricaneTrack
+    mimetype: application/zip
 process:
   -
     id: matthew-counties
     location: cache/matthew-counties.rds
     processor: matthew_counties
-    reader: shp
     depends: "counties"
 visualize:
   -
