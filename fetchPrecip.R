@@ -38,6 +38,7 @@ fetch.precip <- function(viz){
   library(geoknife)
   library(tidyr)
   
+  #TODO: time zones
   startDate <- as.Date("2016-10-5")
   endDate <- as.Date("2016-10-6")
   states <- c("FL","GA","SC","NC")
