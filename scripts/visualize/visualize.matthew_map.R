@@ -1,11 +1,11 @@
-visualize.matthew_map <- function(id, fileout='plot_out.svg'){
+visualize.matthew_map <- function(viz, fileout='plot_out.svg'){
   library(rgdal)
   library(rgeos)
   library(httr)
   library(dplyr)
   
   
-  states <- 'FL'
+  states <- c("FL","GA","SC","NC")
   
   destination = tempfile(pattern = 'counties', fileext='.zip')
   epsg_code <- '+init=epsg:3086' 
