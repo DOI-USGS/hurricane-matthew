@@ -2,15 +2,17 @@
 #get site stats 
 #classify in process step?
 
-fetch.discharge <- function(viz){
+#fetch.discharge <- function(viz){
   hitNWIS <- function(states, startDate, endDate){
     for(st in states){
-      
+      startDateTime <- as.POSIXct(startDate)
+      endDateTime <- as.POSIXct(endDate)
+      attr(startDate)
       stDV <- renameNWISColumns(readNWISdata(service="iv",
                                              parameterCd="00060",
                                              stateCd = st,
-                                             startDate = startDate,
-                                             endDate = ))
+                                             startDate = startDateTime,
+                                             endDate = endDateTime))
       if(st != states[1]){
         storm.data <- full_join(storm.data,stDV)
         sites <- full_join(sites, attr(stDV, "siteInfo"))
@@ -28,37 +30,38 @@ fetch.discharge <- function(viz){
       currentSites <- readNWISstat(siteNumbers = getSites,
                                    parameterCd = "00060", 
                                    statReportType="daily",
-                                   statType=c("p10","p25","p50","p75","p90","mean"),
-                                   startDate = startDate, endDate = endDate)
+                                   statType=c("p10","p25","p50","p75","p90","mean"))
       statData <- rbind(statData,currentSites)
     }
     
-    finalJoin <- left_join(storm.data,statData)
+    #NOTE: won't deal with crossing months
+    statData.storm <- statData[statData$month_nu == month(startDate) & 
+                                 statData$day_nu >= day(startDate) & 
+                                 statData$day_nu <= day(endDate),]
+                                 statData$day_nu <= day(endDate),]
+    
+    finalJoin <- left_join(storm.data,statData.storm)
     finalJoin <- left_join(finalJoin,sites) 
     
     #remove sites without current data 
-    finalJoin <- finalJoin[!is.na(finalJoin$Flow),] 
-    
+    #finalJoin <- finalJoin[!is.na(finalJoin$Flow),] 
+    return(finalJoin)
   }#end
+  
   library(dataRetrieval)
   library(dplyr)
-  #TODO: call it
+  library(lubridate)
   
-}
+  #TODO: timezones
+  startDate <- as.Date("2016-10-5")
+  endDate <- as.Date("2016-10-6")
+  states <- c("FL","GA","SC","NC")
+  
+  qData <- hitNWIS(states = states, startDate = startDate, endDate = endDate)
+  #location <- viz[['location']]
+  #write.csv(precip, file=location, row.names = FALSE)
+#}
 
 
 
 
-#retrieve stats data, dealing with 10 site limit to stat service requests
-
-
-
-
-#classify current discharge values
-finalJoin$class <- NA
-finalJoin$class <- ifelse(is.na(finalJoin$p25), 
-                          ifelse(finalJoin$Flow > finalJoin$p50_va, "darkorange1","greenyellow"),
-                          ifelse(finalJoin$Flow < finalJoin$p25_va, "cyan",
-                                 ifelse(finalJoin$Flow > finalJoin$p75_va, "red2","green4")))
-return(finalJoin)
-}
