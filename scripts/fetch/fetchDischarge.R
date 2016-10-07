@@ -2,7 +2,7 @@
 #get site stats 
 #classify in process step?
 
-#fetch.discharge <- function(viz){
+fetch.discharge <- function(viz){
   hitNWIS <- function(states, startDate, endDate){
     for(st in states){
       stDV <- renameNWISColumns(readNWISdata(service="iv",
@@ -55,9 +55,9 @@
   states <- c("FL","GA","SC","NC")
   
   qData <- hitNWIS(states = states, startDate = startDate, endDate = endDate)
-  #location <- viz[['location']]
-  #write.csv(precip, file=location, row.names = FALSE)
-#}
+  location <- viz[['location']]
+  write.csv(qData, file=location, row.names = FALSE)
+}
 
 
 
