@@ -64,8 +64,25 @@ fetch:
     id: discharge-data
     fetcher: discharge
     location: cache/discharge.rds
-    states: ["FL","SC","NC","GA"]
     start.date: "2016-10-5"
+    depends: ["sites-data","precip-data"]
+    reader: rds
+    refetch: false
+    comment: disabling refetch for now, re-enable to get updates to work
+  -
+    id: sites-data
+    fetcher: sites
+    location: cache/sites.rds
+    start.date: "2016-10-5"
+    states: ["FL","SC","NC","GA"]
+    reader: rds
+    refetch: false
+    comment: disabling refetch for now, re-enable to get updates to work
+  -
+    id: stats-data
+    fetcher: stats
+    location: cache/stats.rds
+    depends: ["sites-data"]
     reader: rds
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
@@ -99,7 +116,7 @@ process:
     location: cache/discharge-classify.rds
     processor: classify
     reader: rds
-    depends: "discharge-data"
+    depends: ["discharge-data","stats-data"]
   -
     id: precip-colors
     location: cache/precip-colors.json
@@ -117,10 +134,10 @@ process:
     depends: ["precip-colors", "precip-data"]
   -
     id: matthew-sites
-    location: cache/sites.rds
+    location: cache/sites_geo.rds
     processor: sites
     reader: rds
-    depends: ["discharge-data","matthew-counties"]
+    depends: ["sites-data","matthew-counties"]
 visualize:
   -
     id: matthew-map
@@ -161,10 +178,10 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", "header-footer-css","precip-colors", "jquery-js", "animate-js", "svg-css"]
+    depends: ["header-section", "figure-section", "data-sources", "footer-section", "map-figure-css", "header-footer-css","precip-colors", "jquery-js", "animate-js", "svg-css"]
     context:
       resources: ["map-figure-css","header-footer-css", "jquery-js", "precip-colors", "animate-js", "svg-css"]
-      sections: [ "header-section", "figure-section", "data-sources" ]
+      sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
   -
     id: figure-section
     template: layout/templates/mapFigure.mustache
@@ -186,12 +203,31 @@ publish:
       logo: usgs-logo
       caption: Precipitation from Hurricane Matthew
   -
+    id: footer-section
+    template: layout/templates/footer.mustache
+    publisher: section
+    context:
+      id: footer
+  -
     id: data-sources
     template: layout/templates/dataSources.mustache
     publisher: section
     context:
       id: dataSources
       title: Data Sources
+      line1: "Streamflow: U.S. Geological Survey National Water Information System ("
+      waterDataLink: http://waterdata.usgs.gov/nwis
+      line2: ). Discharge daily percentiles were calculated using the USGS Statistics Web Service (beta,
+      usgsSwsLink: http://waterservices.usgs.gov/rest/Statistics-Service-Test-Tool.html
+      line3: )
+      line4: "Precipitation: National Weather Service Environmental Modeling Center National Center for Environmental Prediction Stage IV precipitation analysis ("
+      emcLink: http://www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/stage4/
+      line5: ), aggregated according to Blodgett (2013, 
+      pubsLink: http://pubs.usgs.gov/fs/2013/3035/pdf/fs2013-3035.pdf
+      line6: )
+      line7: "Storm Track: National Oceanic and Atmospheric Administration National Hurricane Center Preliminary Best Track for Hurricane Matthew ("
+      nhcLink: http://www.nhc.noaa.gov/gis/
+      line8: )
   -
     id: svg-css
     location: layout/css/matthew-svg.css
