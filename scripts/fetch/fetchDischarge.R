@@ -1,6 +1,9 @@
 #fetch NWIS iv data, downsample to hourly
 
 fetch.discharge <- function(viz){
+  required <- c("states", "start.date", "location")
+  checkRequired(viz, required)
+  
   hitNWIS <- function(states, startDate, endDate){
     for(st in states){
       stDV <- renameNWISColumns(readNWISdata(service="iv",
@@ -49,15 +52,14 @@ fetch.discharge <- function(viz){
   library(dataRetrieval)
   library(dplyr)
   library(lubridate)
-  
-  #TODO: get dates & states from a yaml
-  startDate <- as.Date("2016-10-5")
+
+  startDate <-  as.Date(viz[["start.date"]])
   endDate <- Sys.Date()
-  states <- c("FL","GA","SC","NC")
+  states <- viz[['states']]
   
   qData <- hitNWIS(states = states, startDate = startDate, endDate = endDate)
   location <- viz[['location']]
-  write.csv(qData, file=location, row.names = FALSE)
+  saveRDS(qData, file=location)
 }
 
 

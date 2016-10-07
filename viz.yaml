@@ -56,14 +56,9 @@ fetch:
     id: discharge-data
     fetcher: discharge
     location: cache/discharge.csv
+    states: ["FL","SC","NC","GA"]
+    start.date: "2016-10-5"
     mimetype: text/csv
-    refetch: false
-    comment: disabling refetch for now, re-enable to get updates to work
-  -
-    id: site-data
-    fetcher: sites
-    location: cache/sites.rds
-    reader: rds
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
 process:
@@ -91,6 +86,12 @@ process:
     processor: precip_colors
     bins: 9
     pallete: "Blues"
+  -
+    id: matthew-sites
+    location: cache/discharge-w-class.rds
+    processor: sites
+    reader: rds
+    depends: "discharge-data"
 visualize:
   -
     id: matthew-map
