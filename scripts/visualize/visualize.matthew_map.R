@@ -6,6 +6,7 @@ visualize.matthew_map <- function(viz){
   track <- readData(viz[['depends']][4])
   col.bins <- readData(viz[['depends']][5])
   library(svglite)
+  library(dplyr)
   
   svglite::svglite(viz[['location']])
   par(mai=c(0,0,0,0), omi=c(0,0,0,0))
