@@ -2,7 +2,7 @@
 #get site stats 
 #classify in process step?
 
-#fetch.discharge <- function(viz){
+fetch.discharge <- function(viz){
   hitNWIS <- function(states, startDate, endDate){
     for(st in states){
       startDateTime <- as.POSIXct(startDate)
@@ -38,7 +38,6 @@
     statData.storm <- statData[statData$month_nu == month(startDate) & 
                                  statData$day_nu >= day(startDate) & 
                                  statData$day_nu <= day(endDate),]
-                                 statData$day_nu <= day(endDate),]
     
     finalJoin <- left_join(storm.data,statData.storm)
     finalJoin <- left_join(finalJoin,sites) 
@@ -58,9 +57,9 @@
   states <- c("FL","GA","SC","NC")
   
   qData <- hitNWIS(states = states, startDate = startDate, endDate = endDate)
-  #location <- viz[['location']]
-  #write.csv(precip, file=location, row.names = FALSE)
-#}
+  location <- viz[['location']]
+  write.csv(qData, file=location, row.names = FALSE)
+}
 
 
 
