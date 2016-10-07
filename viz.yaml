@@ -16,6 +16,7 @@ info:
 fetch:
   -
     id: counties
+    fetcher: counties
     location: data/counties.zip
   -
     id: flowlines
