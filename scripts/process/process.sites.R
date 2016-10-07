@@ -1,7 +1,6 @@
 process.sites <- function(viz){
   library(rgeos)
   library(sp)
-  
   required <- c("depends", "location")
   checkRequired(viz, required)
   
@@ -10,7 +9,7 @@ process.sites <- function(viz){
   
   sites <- discharge$sites
   
-  coordinates(sites) <- ~ dec_long_va + dec_lat_va
+  coordinates(sites) <- ~ dec_lon_va + dec_lat_va
   proj4string(sites) <- CRS("+proj=longlat +ellps=GRS80 +no_defs")
   sites <- spTransform(sites, CRS(proj4string(counties)))
   

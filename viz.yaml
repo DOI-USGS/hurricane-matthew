@@ -90,7 +90,7 @@ process:
     depends: ["flowlines","matthew-counties"]
   -
     id: discharge-classify
-    location: cache/discharge.rds
+    location: cache/discharge-classify.rds
     processor: classify
     reader: rds
     depends: "discharge-data"
