@@ -96,22 +96,38 @@ visualize:
     inline: true
     title: "title..."
     alttext: "alt text..."
+    
 publish:
+  -
+    id: map-figure-css
+    location: layout/css/map-figure.css
+    mimetype: text/css
+  - 
+    id: header-footer-css
+    location: layout/css/header-footer.css
+    mimetype: text/css
   -
     id: matthew-page
     name: index
     template: fullPage
     publisher: page
-    depends: ["figure-section"]
+    depends: ["header-section", "figure-section", "map-figure-css", "header-footer-css"]
     context:
-      resources: []
-      sections: [ "figure-section" ]
+      resources: ["map-figure-css","header-footer-css"]
+      sections: [ "header-section", "figure-section" ]
   -
     id: figure-section
-    template: simplefigure
+    template: layout/templates/mapFigure.mustache
     publisher: section
     depends: [ "matthew-map" ]
     context:
       id: map-figure
       figure: matthew-map
       caption: Precipitation from Hurricane Matthew
+  -
+    id: header-section
+    template: layout/templates/header.mustache
+    publisher: section
+    context:
+      id: header
+      title: Hurricane Matthew Precipitation
