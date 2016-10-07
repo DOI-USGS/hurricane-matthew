@@ -63,7 +63,7 @@ fetch:
     id: site-data
     fetcher: sites
     location: cache/sites.rds
-    mimetype: rds
+    reader: rds
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
 process:
