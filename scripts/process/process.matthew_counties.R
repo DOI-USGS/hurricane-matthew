@@ -25,3 +25,16 @@ process.matthew_states <- function(viz){
   
   saveRDS(states, viz[['location']])
 }
+
+process.matthew_track <- function(viz){
+  library(rgeos)
+  library(sp)
+  
+  counties <- readData(viz[['depends']][2])
+  track <- readData(viz[['depends']][1])
+  track <- spTransform(track, CRS(proj4string(counties)))
+  
+  # here do "over" analysis for masking?
+  
+  saveRDS(track, viz[['location']])
+}

@@ -89,6 +89,12 @@ process:
     reader: rds
     depends: ["flowlines","matthew-counties"]
   -
+    id: storm-track
+    location: cache/storm-track.rds
+    processor: matthew_track
+    reader: rds
+    depends: ["matthew-track", "matthew-counties"]
+  -
     id: discharge-classify
     location: cache/discharge-classify.rds
     processor: classify
@@ -98,13 +104,14 @@ process:
     id: precip-colors
     location: cache/precip-colors.json
     processor: precip_colors
+    reader: json
     bins: 9
     pallete: "Blues"
   - 
     id: classifyBins
     location: cache/precipBinned.Rds
     processor: classifyBins
-    depends: ["precip-colors", "precip_data"]
+    depends: ["precip-colors", "precip-data"]
   -
     id: matthew-sites
     location: cache/sites.rds
@@ -116,7 +123,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track"]
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
     inline: true
