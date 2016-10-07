@@ -1,4 +1,11 @@
-read.shp <- function(viz){
-  counties = readOGR(viz[['something']], layer='US_Counties')
-  # :?????
+readData.shp <- function(viz){
+  library(rgdal)
+  shp.path <- file.path(tempdir(), 'tmp')
+  if (!dir.exists(shp.path)){
+    dir.create(shp.path)
+  }
+  unzip(viz[['location']], exdir = shp.path)
+  layer <- tools::file_path_sans_ext(list.files(shp.path, pattern='*.shp'))
+  data.out = readOGR(shp.path, layer=layer)
+  return(data.out)
 }
