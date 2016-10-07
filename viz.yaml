@@ -87,6 +87,12 @@ process:
     reader: rds
     depends: ["flowlines","matthew-counties"]
   -
+    id: storm-track
+    location: cache/storm-track.rds
+    processor: matthew_track
+    reader: rds
+    depends: ["matthew-track", "matthew-counties"]
+  -
     id: discharge-classify
     location: cache/discharge-w-class.rds
     processor: classify
@@ -103,7 +109,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track"]
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
     inline: true
