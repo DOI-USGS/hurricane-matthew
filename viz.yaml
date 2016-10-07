@@ -47,7 +47,7 @@ fetch:
     id: flowlines
     fetcher: flowlines
     location: cache/nhdflowline_network.zip
-    mapRange: [-88.132324, -75.432129, 24.994771,36.482036]
+    mapRange: [-100, -75.432129, 24.994771,40]
     streamorder: 6
     reader: shp
     mimetype: application/zip
@@ -123,10 +123,10 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["figure-section"]
+    depends: ["figure-section", "svg-css"]
     context:
-      resources: []
-      sections: [ "figure-section" ]
+      resources: ["svg-css"]
+      sections: [ "figure-section"]
   -
     id: figure-section
     template: simplefigure
@@ -136,3 +136,7 @@ publish:
       id: map-figure
       figure: matthew-map
       caption: Precipitation from Hurricane Matthew
+  -
+    id: svg-css
+    location: layout/css/matthew-svg.css
+    mimetype: text/css
