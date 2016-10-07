@@ -85,6 +85,8 @@ process:
     processor: precip_colors
     bins: 9
     pallete: "Blues"
+    mimetype: application/javascript
+    export: true
 visualize:
   -
     id: matthew-map
@@ -98,13 +100,21 @@ visualize:
     alttext: "alt text..."
 publish:
   -
+    id: jquery-js
+    location: layout/js/jquery-3.1.1.min.js
+    mimetype: application/javascript
+  -
+    id: animate-js
+    location: layout/js/animate.js
+    mimetype: application/javascript
+  -
     id: matthew-page
     name: index
     template: fullPage
     publisher: page
-    depends: ["figure-section"]
+    depends: ["figure-section", "precip-colors", "jquery-js", "animate-js"]
     context:
-      resources: []
+      resources: ["jquery-js", "precip-colors", "animate-js"]
       sections: [ "figure-section" ]
   -
     id: figure-section
