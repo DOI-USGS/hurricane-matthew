@@ -26,7 +26,7 @@ visualize.matthew_map <- function(viz){
   p <- xml_find_all(svg, '//*[local-name()="path"]')
   
   num.time <- 10
-  num.bins <- 6
+  num.bins <- 9
   
   for (i in 1:length(counties)){
     steps <- paste('prcp', 1:num.time, sep='-')
