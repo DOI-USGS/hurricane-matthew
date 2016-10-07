@@ -4,9 +4,10 @@ visualize.matthew_map <- function(viz){
   flowlines <- readData(viz[['depends']][2])
   states <- readData(viz[['depends']][3])
   track <- readData(viz[['depends']][4])
-  precipData <- readData(viz[['depends']][5])
+  col.bins <- readData(viz[['depends']][5])
   
   library(svglite)
+  library(dplyr)
   
   svglite::svglite(viz[['location']])
   par(mai=c(0,0,0,0), omi=c(0,0,0,0))
@@ -35,12 +36,15 @@ visualize.matthew_map <- function(viz){
   # find the paths for the counties, add IDs
   p <- xml_find_all(svg, '//*[local-name()="path"]')
   
-  num.time <- 10
-  num.bins <- 9
+  num.time <- group_by(col.bins, fips) %>% tally %>% .$n %>% unique()
+  if (length(num.time) != 1){
+    stop('all of the counties dont have the same number of timesteps!')
+  }
   
   for (i in 1:length(counties)){
     steps <- paste('prcp', 1:num.time, sep='-')
-    time.classes <- paste(steps, sample(1:num.bins, num.time, replace=TRUE), sep='-', collapse=' ') # these are fake
+    bins <- filter(col.bins, fips == as.character(counties$FIPS[i])) %>% .$cols
+    time.classes <- paste(steps, bins, sep='-', collapse=' ') 
     xml_attr(p[[i]], 'id') <- paste0('FIP-', as.character(counties$FIPS[i]))
     xml_attr(p[[i]], 'class') <- sprintf('county-polygon %s', time.classes)
     xml_attr(p[[i]], 'style') <- NULL
