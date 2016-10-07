@@ -10,3 +10,7 @@ readData.shp <- function(viz){
   unlink(shp.path, recursive = TRUE)
   return(data.out)
 }
+
+readData.json <- function(viz){
+  jsonlite::fromJSON(viz[['location']])
+}

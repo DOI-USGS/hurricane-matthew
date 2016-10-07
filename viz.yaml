@@ -104,13 +104,14 @@ process:
     id: precip-colors
     location: cache/precip-colors.json
     processor: precip_colors
+    reader: json
     bins: 9
     pallete: "Blues"
   - 
     id: classifyBins
     location: cache/precipBinned.Rds
     processor: classifyBins
-    depends: ["precip-colors", "precip_data"]
+    depends: ["precip-colors", "precip-data"]
   -
     id: matthew-sites
     location: cache/sites.rds
