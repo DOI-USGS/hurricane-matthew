@@ -39,9 +39,8 @@ fetch.precip <- function(viz){
   
   #TODO: get dates and states from a yaml
   startDate <- as.POSIXct("2016-10-5 00:00:00", tz="America/New_York")
-  endDate <- as.POSIXct("2016-10-6 23:00:00", tz = "America/New_York")
+  endDate <- NA
   attr(startDate, 'tzone') <- "UTC"
-  attr(endDate, 'tzone') <- "UTC"
   
   states <- c("FL","GA","SC","NC")
   
