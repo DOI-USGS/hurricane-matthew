@@ -56,11 +56,11 @@ visualize.matthew_map <- function(viz){
   g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
   g.track <- xml_add_child(svg, 'g', id='track','class'='track-polyline')
   pl <- xml_find_all(svg, '//*[local-name()="polyline"]')
-  for (i in 1:length(flowlines)){
-    xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
+  for (i in (length(pl)+1 - length(track)): length(pl)){
+    xml_add_child(g.track, 'polyline', points = xml_attr(pl[i], 'points'))
   }
-  for (j in i:length(pl)){
-    xml_add_child(g.track, 'polyline', points = xml_attr(pl[j], 'points'))
+  for (i in 1:(length(pl)- length(track))){
+    xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
   }
   d <- xml_find_all(svg, '//*[local-name()="defs"]')
   xml_remove(pl)
