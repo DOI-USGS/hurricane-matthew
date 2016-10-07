@@ -105,6 +105,7 @@ process:
     location: cache/precipBinned.Rds
     processor: classifyBins
     depends: ["precip-colors", "precip_data"]
+    reader: rds
   -
     id: matthew-sites
     location: cache/sites.rds
@@ -116,7 +117,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "classifyBins"]
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
     inline: true
