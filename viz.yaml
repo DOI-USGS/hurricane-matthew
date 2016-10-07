@@ -70,6 +70,12 @@ process:
     processor: classify
     reader: rds
     depends: "discharge-data"
+  -
+    id: precip-colors
+    location: cache/precip-colors.json
+    processor: precip_colors
+    bins: 9
+    pallete: "Blues"
 visualize:
   -
     id: matthew-map
