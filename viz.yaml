@@ -191,6 +191,19 @@ publish:
     context:
       id: dataSources
       title: Data Sources
+      line1: "Streamflow: U.S. Geological Survey National Water Information System ("
+      waterDataLink: http://waterdata.usgs.gov/nwis
+      line2: ). Discharge daily percentiles were calculated using the USGS Statistics Web Service (beta,
+      usgsSwsLink: http://waterservices.usgs.gov/rest/Statistics-Service-Test-Tool.html
+      line3: )
+      line4: "Precipitation: National Weather Service Environmental Modeling Center National Center for Environmental Prediction Stage IV precipitation analysis ("
+      emcLink: http://www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/stage4/
+      line5: ), aggregated according to Blodgett (2013, 
+      pubsLink: http://pubs.usgs.gov/fs/2013/3035/pdf/fs2013-3035.pdf
+      line6: )
+      line7: "Storm Track: National Oceanic and Atmospheric Administration National Hurricane Center Preliminary Best Track for Hurricane Matthew ("
+      nhcLink: http://www.nhc.noaa.gov/gis/
+      line8: )
   -
     id: svg-css
     location: layout/css/matthew-svg.css
