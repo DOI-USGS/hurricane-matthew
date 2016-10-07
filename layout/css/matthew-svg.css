@@ -14,15 +14,22 @@ line, polyline, path, circle {
 		}
 		.county-polygon{
 		    fill: #DCDCDC;
-		    stroke: #FFFFFF;  
+		    stroke: #c6c6c6;
 		    stroke-width:0.5;
 		}
 		.state-polygon {
-		  fill: #c6c6c6;
-		  stroke: #FFFFFF;  
+		  fill: #E8E8E8;
+		  stroke: #c6c6c6;
 		  stroke-width:0.5;
 		}
 		.background {
 					fill: grey;
 					stroke: none
 				}
+		.hidden {
+		  opacity:0;
+		}
+		
+		.shown {
+		  opacity:1;
+		}
