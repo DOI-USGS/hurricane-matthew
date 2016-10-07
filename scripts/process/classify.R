@@ -4,10 +4,18 @@ process.classify <- function(viz){
   
   #classify current discharge values
   finalJoin$class <- NA
-  finalJoin$class <- ifelse(is.na(finalJoin$p25), 
-                            ifelse(finalJoin$Flow > finalJoin$p50_va, "darkorange1","greenyellow"),
-                            ifelse(finalJoin$Flow < finalJoin$p25_va, "cyan",
-                                   ifelse(finalJoin$Flow > finalJoin$p75_va, "red2","green4")))
+  finalJoin$class[finalJoin$Flow > finalJoin$p75_va] <- "navy"
+  finalJoin$class[finalJoin$Flow < finalJoin$p25_va] <- "red2"
+  
+  finalJoin$class[finalJoin$Flow > finalJoin$p25_va & 
+                    finalJoin$Flow <= finalJoin$p50_va] <- "green4"
+  finalJoin$class[finalJoin$Flow > finalJoin$p50_va &
+                    finalJoin$Flow <= finalJoin$p75_va] <- "blue"
+  
+  finalJoin$class[is.na(finalJoin$class) & 
+                    finalJoin$Flow > finalJoin$p50_va] <- "cyan"
+  finalJoin$class[is.na(finalJoin$class) & 
+                    finalJoin$Flow < finalJoin$p50_va] <- "yellow"
   
   saveRDS(finalJoin, viz[['location']])
 }
