@@ -63,8 +63,10 @@ fetch:
   -
     id: discharge-data
     fetcher: discharge
-    location: cache/discharge.csv
-    mimetype: text/csv
+    location: cache/discharge.rds
+    states: ["FL","SC","NC","GA"]
+    start.date: "2016-10-5"
+    reader: rds
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
 process:
@@ -88,7 +90,7 @@ process:
     depends: ["flowlines","matthew-counties"]
   -
     id: discharge-classify
-    location: cache/discharge-w-class.rds
+    location: cache/discharge-classify.rds
     processor: classify
     reader: rds
     depends: "discharge-data"
@@ -98,6 +100,12 @@ process:
     processor: precip_colors
     bins: 9
     pallete: "Blues"
+  -
+    id: matthew-sites
+    location: cache/sites.rds
+    processor: sites
+    reader: rds
+    depends: ["discharge-data","matthew-counties"]
 visualize:
   -
     id: matthew-map
