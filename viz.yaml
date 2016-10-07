@@ -64,8 +64,16 @@ fetch:
     id: discharge-data
     fetcher: discharge
     location: cache/discharge.rds
-    states: ["FL","SC","NC","GA"]
     start.date: "2016-10-5"
+    depends: ["sites-data"]
+    reader: rds
+    refetch: false
+    comment: disabling refetch for now, re-enable to get updates to work
+  -
+    id: sites-data
+    fetcher: sites
+    location: cache/sites.rds
+    states: ["FL","SC","NC","GA"]
     reader: rds
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
@@ -107,10 +115,10 @@ process:
     depends: ["precip-colors", "precip_data"]
   -
     id: matthew-sites
-    location: cache/sites.rds
+    location: cache/sites_geo.rds
     processor: sites
     reader: rds
-    depends: ["discharge-data","matthew-counties"]
+    depends: ["sites-data","matthew-counties"]
 visualize:
   -
     id: matthew-map
