@@ -17,20 +17,22 @@ process.classify <- function(viz){
   
   #classify current discharge values
   finalJoin$class <- NA
-  finalJoin$class[finalJoin$Flow > finalJoin$p75_va] <- "navy"
-  finalJoin$class[finalJoin$Flow < finalJoin$p25_va] <- "red2"
+  finalJoin$class[finalJoin$Flow > finalJoin$p75_va] <- ">75"
+  finalJoin$class[finalJoin$Flow <= finalJoin$p10_va] <- "<10"
+  
+  finalJoin$class[finalJoin$Flow > finalJoin$p10_va & 
+                    finalJoin$Flow <= finalJoin$p25_va] <- "10-25"
   
   finalJoin$class[finalJoin$Flow > finalJoin$p25_va & 
-                    finalJoin$Flow <= finalJoin$p50_va] <- "green4"
+                    finalJoin$Flow <= finalJoin$p50_va] <- "25-50"
   
   finalJoin$class[finalJoin$Flow > finalJoin$p50_va &
-                    finalJoin$Flow <= finalJoin$p75_va] <- "blue"
+                    finalJoin$Flow <= finalJoin$p75_va] <- "50-75"
   
   finalJoin$class[is.na(finalJoin$class) & 
-                    finalJoin$Flow > finalJoin$p50_va] <- "cyan"
+                    finalJoin$Flow < finalJoin$p25_va] <- "<25"
+
+  classify <- select(finalJoin, site_no, dateTime, class)
   
-  finalJoin$class[is.na(finalJoin$class) & 
-                    finalJoin$Flow < finalJoin$p50_va] <- "yellow"
-  
-  saveRDS(finalJoin, viz[['location']])
+  saveRDS(classify, viz[['location']])
 }
