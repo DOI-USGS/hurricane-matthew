@@ -5,13 +5,14 @@ process.classifyBins <- function(viz){
   
   colSteps <- readData(viz[['depends']][1]) #vector of actual color palette codes
   precipData <- readData(viz[['depends']][2]) #actual data
-  precip_breaks <- seq(0,10, length.out = ncol(colSteps))
+  precip_breaks <- seq(0,0.5, length.out = ncol(colSteps))
   
 
   precipData$precipVal <- precipData$precipVal/25.4 #convert mm to inches
   
-  precipData <- precipData %>% mutate(cols = cut(precipVal, breaks = precip_breaks, labels = names(colSteps), right=FALSE)) %>% 
-    mutate(cols = as.character(cols))
+  precipData <- precipData %>% mutate(cols = cut(precipVal, breaks = precip_breaks, labels = FALSE)) %>% 
+    mutate(cols = ifelse(is.na(cols), 1, cols), cols = as.character(cols)) %>% select(fips, DateTime, cols)
+    
   
   #want to cut down precipData to only relevant info?
   
