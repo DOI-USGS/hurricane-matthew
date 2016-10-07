@@ -4,8 +4,10 @@ process.matthew_counties <- function(viz){
   
   epsg_code <- '+init=epsg:3086' 
   counties <- readData(viz[['depends']])
-  counties = spTransform(counties, CRS(epsg_code))
-  
   counties <- counties[counties$STATE %in% states, ]
+  
+  counties <- spTransform(counties, CRS(epsg_code))
+  counties <- rgeos::gSimplify(counties, 100)
+  
   saveRDS(counties, viz[['location']])
 }
