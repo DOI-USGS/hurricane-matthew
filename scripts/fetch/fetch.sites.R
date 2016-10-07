@@ -25,17 +25,17 @@ fetch.sites <- function(viz){
       select(site_no, station_nm, dec_lat_va, dec_long_va) %>%
       data.frame() 
     
-    sites2 <- readNWISdata(service = "site",
-                          parameterCd="00060",
-                          siteOutput="Expanded",
-                          site = sites_sum$site_no)
-    sites_sum2 <- select(sites2, dec_lat_va, dec_long_va, station_nm,
-                         site_no, contrib_drain_area_va) %>%
-      filter(contrib_drain_area_va > 1000) %>%
-      select(site_no, station_nm, dec_lat_va, dec_long_va) 
+    # sites2 <- readNWISdata(service = "site",
+    #                       parameterCd="00060",
+    #                       siteOutput="Expanded",
+    #                       site = sites_sum$site_no)
+    # sites_sum2 <- select(sites2, dec_lat_va, dec_long_va, station_nm,
+    #                      site_no, contrib_drain_area_va) %>%
+    #   filter(contrib_drain_area_va > 100) %>%
+    #   select(site_no, station_nm, dec_lat_va, dec_long_va) 
 
 
-    site_sum_all <- bind_rows(site_sum_all, sites_sum2)
+    site_sum_all <- bind_rows(site_sum_all, sites_sum)
 
   }
 
