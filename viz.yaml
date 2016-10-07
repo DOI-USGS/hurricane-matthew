@@ -102,10 +102,10 @@ process:
     pallete: "Blues"
   -
     id: matthew-sites
-    location: cache/discharge-w-class.rds
+    location: cache/sites.rds
     processor: sites
     reader: rds
-    depends: "discharge-data"
+    depends: ["discharge-data","matthew-counties"]
 visualize:
   -
     id: matthew-map
