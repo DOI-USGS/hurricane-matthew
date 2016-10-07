@@ -107,6 +107,8 @@ process:
     reader: json
     bins: 9
     pallete: "Blues"
+    mimetype: application/javascript
+    export: true
   - 
     id: classifyBins
     location: cache/precipBinned.Rds
@@ -131,14 +133,22 @@ visualize:
     alttext: "alt text..."
 publish:
   -
+    id: jquery-js
+    location: layout/js/jquery-3.1.1.min.js
+    mimetype: application/javascript
+  -
+    id: animate-js
+    location: layout/js/animate.js
+    mimetype: application/javascript
+  -
     id: matthew-page
     name: index
     template: fullPage
     publisher: page
-    depends: ["figure-section", "svg-css"]
+    depends: ["figure-section", "precip-colors", "jquery-js", "animate-js", "svg-css"]
     context:
-      resources: ["svg-css"]
-      sections: [ "figure-section"]
+      resources: ["jquery-js", "precip-colors", "animate-js", "svg-css"]
+      sections: [ "figure-section" ]
   -
     id: figure-section
     template: simplefigure
