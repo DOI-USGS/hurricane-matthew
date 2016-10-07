@@ -111,7 +111,7 @@ process:
     export: true
   - 
     id: classifyBins
-    location: cache/precipBinned.Rds
+    location: cache/precipBinned.rds
     processor: classifyBins
     reader: rds
     depends: ["precip-colors", "precip-data"]
