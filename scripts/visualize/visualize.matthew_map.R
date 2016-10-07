@@ -51,6 +51,8 @@ visualize.matthew_map <- function(viz){
   for (i in 1:length(pl)){
     xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
   }
+  d <- xml_find_all(svg, '//*[local-name()="defs"]')
   xml_remove(pl)
+  xml_remove(d)
   write_xml(svg, viz[['location']])
 }
