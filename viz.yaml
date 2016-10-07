@@ -107,6 +107,12 @@ publish:
     location: layout/css/header-footer.css
     mimetype: text/css
   -
+    id: usgs-logo
+    location: images/usgsLogo.png
+    mimetype: image/png
+    title: "USGS Logo"
+    alttext: "USGS Logo"
+  -
     id: matthew-page
     name: index
     template: fullPage
@@ -123,11 +129,14 @@ publish:
     context:
       id: map-figure
       figure: matthew-map
-      caption: Precipitation from Hurricane Matthew
+      title: Hurricane Matthew’s Impact on River Flow
+      caption: Hurricane Matthew made landfall in Florida on October 7, 2016. In the map above, the hurricane’s impact on precipitation and streamflow are shown as the storm makes landfall and moves up the coast of the southeastern US.
   -
     id: header-section
     template: layout/templates/header.mustache
     publisher: section
+    depends: ["usgs-logo"]
     context:
       id: header
       title: Hurricane Matthew Precipitation
+      logo: usgs-logo

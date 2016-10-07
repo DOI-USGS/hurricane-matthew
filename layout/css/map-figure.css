@@ -4,8 +4,12 @@ a{text-decoration:none;}
 
 #map-figure{
   padding:10px;
-  text-align:center;
   font-size:.9em;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+figurecaption{
+  line-height:1.5em;
 }
 
 @media screen and (min-width:768px){
