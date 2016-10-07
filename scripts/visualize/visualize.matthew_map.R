@@ -4,6 +4,7 @@ visualize.matthew_map <- function(viz){
   flowlines <- readData(viz[['depends']][2])
   states <- readData(viz[['depends']][3])
   track <- readData(viz[['depends']][4])
+  col.bins <- readData(viz[['depends']][5])
   library(svglite)
   
   svglite::svglite(viz[['location']])
