@@ -22,6 +22,7 @@ fetch:
     location: cache/counties.zip
     reader: shp
     fetcher: counties
+    scripts: scripts/fetch/fetch.counties.R
     refetch: false
     mimetype: application/zip
   -
@@ -29,6 +30,7 @@ fetch:
     location: cache/states.zip
     reader: shp
     fetcher: states
+    scripts: scripts/fetch/fetch.counties.R
     refetch: false
     mimetype: application/zip
   -
@@ -39,6 +41,7 @@ fetch:
     year: 2016
     reader: shp
     fetcher: hurricaneTrack
+    scripts: scripts/fetch/hurricaneTrack.R
     mimetype: application/zip
     metadata: "Updates every 6 hours on http://www.nhc.noaa.gov/gis/"
     refetch: false
@@ -46,6 +49,7 @@ fetch:
   -
     id: flowlines
     fetcher: flowlines
+    scripts: scripts/fetch/fetch.flowlines.R
     location: cache/nhdflowline_network.zip
     mapRange: [-100, -75.432129, 24.994771,40]
     streamorder: 6
@@ -56,6 +60,7 @@ fetch:
   -
     id: precip-data
     fetcher: precip
+    scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv
     refetch: false
@@ -64,6 +69,7 @@ fetch:
     id: discharge-data
     fetcher: discharge
     location: cache/discharge.rds
+    scripts: scripts/fetch/fetchDischarge.R
     start.date: "2016-10-5"
     depends: ["sites-data","precip-data"]
     reader: rds
@@ -72,6 +78,7 @@ fetch:
   -
     id: sites-data
     fetcher: sites
+    scripts: scripts/fetch/fetch.sites.R
     location: cache/sites.rds
     start.date: "2016-10-5"
     states: ["FL","SC","NC","GA"]
@@ -81,6 +88,7 @@ fetch:
   -
     id: stats-data
     fetcher: stats
+    scripts: scripts/fetch/fetch.stats.R
     location: cache/stats.rds
     depends: ["sites-data"]
     reader: rds
@@ -91,36 +99,42 @@ process:
     id: matthew-counties
     location: cache/matthew-counties.rds
     processor: matthew_counties
+    scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: "counties"
   -
     id: matthew-states
     location: cache/matthew-states.rds
     processor: matthew_states
+    scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: "states"
   -
     id: matthew-flowlines
     location: cache/matthew-flowlines.rds
     processor: flowlines
+    scripts: scripts/process/process.flowlines.R
     reader: rds
     depends: ["flowlines","matthew-counties"]
   -
     id: storm-track
     location: cache/storm-track.rds
     processor: matthew_track
+    scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: ["matthew-track", "matthew-counties"]
   -
     id: discharge-classify
     location: cache/discharge-classify.rds
     processor: classify
+    scripts: scripts/process/classify.R
     reader: rds
     depends: ["discharge-data","stats-data"]
   -
     id: precip-colors
     location: cache/precip-colors.json
     processor: precip_colors
+    scripts: scripts/process/process.precip_colors.R
     reader: json
     bins: 9
     pallete: "Blues"
@@ -130,12 +144,14 @@ process:
     id: classifyBins
     location: cache/precipBinned.rds
     processor: classifyBins
+    scripts: scripts/process/process.classifyBins.R
     reader: rds
     depends: ["precip-colors", "precip-data"]
   -
     id: matthew-sites
     location: cache/sites_geo.rds
     processor: sites
+    scripts: scripts/process/process.sites.R
     reader: rds
     depends: ["sites-data","matthew-counties"]
 visualize:
@@ -143,6 +159,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
+    scripts: scripts/visualize/visualize.matthew_map.R
     depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins"]
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
