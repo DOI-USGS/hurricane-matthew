@@ -1,0 +1,28 @@
+line, polyline, path, circle {
+		    fill: none;
+		    stroke-linecap: round;
+		    stroke-linejoin: round;
+		    stroke-miterlimit: 10.00;
+		}
+		.river-polyline {
+		    stroke: #1E90FF;
+		}
+		
+		.track-polyline {
+		    stroke: red;
+		    stroke-width:4;
+		}
+		.county-polygon{
+		    fill: #DCDCDC;
+		    stroke: #FFFFFF;  
+		    stroke-width:0.5;
+		}
+		.state-polygon {
+		  fill: #c6c6c6;
+		  stroke: #FFFFFF;  
+		  stroke-width:0.5;
+		}
+		.background {
+					fill: grey;
+					stroke: none
+				}
