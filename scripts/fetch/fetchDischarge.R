@@ -10,6 +10,9 @@ fetch.discharge <- function(viz){
   
   sites <- readData(viz[['depends']][1])
   precipData <- readData(viz[['depends']][2]) 
+  precipData$full_dateTime <- as.POSIXct(precipData$DateTime, tz="America/New_York")
+  
+  time.steps <- unique(precipData$full_dateTime)
   
   start.date <-  as.Date(viz[["start.date"]])
   n.sites <- nrow(sites)
