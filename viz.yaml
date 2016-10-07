@@ -41,6 +41,16 @@ fetch:
     streamorder: 6
     reader: shp
     mimetype: application/zip
+  -
+    id: precip-data
+    fetcher: precip
+    location: cache/precip.csv
+    mimetype: text/csv
+  -
+    id: discharge-data
+    fetcher: discharge
+    location: cache/discharge.csv
+    mimetype: text/csv
 process:
   -
     id: matthew-counties
@@ -48,6 +58,12 @@ process:
     processor: matthew_counties
     reader: rds
     depends: "counties"
+  -
+    id: discharge-classify
+    location: cache/discharge-w-class.rds
+    processor: classify
+    reader: rds
+    depends: "discharge-data"
 visualize:
   -
     id: matthew-map
