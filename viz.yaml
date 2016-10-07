@@ -107,6 +107,8 @@ process:
     reader: json
     bins: 9
     pallete: "Blues"
+    mimetype: application/javascript
+    export: true
   - 
     id: classifyBins
     location: cache/precipBinned.Rds
@@ -146,13 +148,21 @@ publish:
     title: "USGS Logo"
     alttext: "USGS Logo"
   -
+    id: jquery-js
+    location: layout/js/jquery-3.1.1.min.js
+    mimetype: application/javascript
+  -
+    id: animate-js
+    location: layout/js/animate.js
+    mimetype: application/javascript
+  -
     id: matthew-page
     name: index
     template: fullPage
     publisher: page
-    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", "header-footer-css", "svg-css"]
+    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", "header-footer-css","precip-colors", "jquery-js", "animate-js", "svg-css"]
     context:
-      resources: ["map-figure-css","header-footer-css", "svg-css"]
+      resources: ["map-figure-css","header-footer-css", "jquery-js", "precip-colors", "animate-js", "svg-css"]
       sections: [ "header-section", "figure-section", "data-sources" ]
   -
     id: figure-section
