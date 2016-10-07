@@ -5,14 +5,12 @@
 #fetch.discharge <- function(viz){
   hitNWIS <- function(states, startDate, endDate){
     for(st in states){
-      startDateTime <- as.POSIXct(startDate)
-      endDateTime <- as.POSIXct(endDate)
-      attr(startDate)
       stDV <- renameNWISColumns(readNWISdata(service="iv",
                                              parameterCd="00060",
                                              stateCd = st,
-                                             startDate = startDateTime,
-                                             endDate = endDateTime))
+                                             startDate = startDate,
+                                             endDate = endDate,
+                                             tz = "America/New_York"))
       if(st != states[1]){
         storm.data <- full_join(storm.data,stDV)
         sites <- full_join(sites, attr(stDV, "siteInfo"))
@@ -37,7 +35,6 @@
     #NOTE: won't deal with crossing months
     statData.storm <- statData[statData$month_nu == month(startDate) & 
                                  statData$day_nu >= day(startDate) & 
-                                 statData$day_nu <= day(endDate),]
                                  statData$day_nu <= day(endDate),]
     
     finalJoin <- left_join(storm.data,statData.storm)
