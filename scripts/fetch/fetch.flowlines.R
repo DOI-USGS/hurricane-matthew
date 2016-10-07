@@ -29,11 +29,8 @@ fetch.flowlines <- function(viz) {
                       '</wfs:Query>',
                       '</wfs:GetFeature>')
   
+  setupFoldersForFile(viz[['location']])
   resp <- POST(postURL, body = filterXML, write_disk(viz[['location']], overwrite=T))
-  if (status_code(resp) >= 400) {
-    stop("Error downloading file ", message_for_status(resp))
-  }
-  cat(content(resp, type = raw), file = viz[['location']])
 }
 
 
