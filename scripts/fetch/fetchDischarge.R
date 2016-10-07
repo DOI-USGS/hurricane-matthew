@@ -1,65 +1,44 @@
 #fetch NWIS iv data, downsample to hourly
 
 fetch.discharge <- function(viz){
-  required <- c("states", "start.date", "location")
+  library(dataRetrieval)
+  library(lubridate)
+  library(dplyr)
+  
+  required <- c("depends", "start.date", "location")
   checkRequired(viz, required)
   
-  hitNWIS <- function(states, startDate, endDate){
-    for(st in states){
-      stDV <- renameNWISColumns(readNWISdata(service="iv",
-                                             parameterCd="00060",
-                                             stateCd = st,
-                                             startDate = startDate,
-                                             endDate = endDate,
-                                             tz = "America/New_York"))
-      if(st != states[1]){
-        storm.data <- full_join(storm.data,stDV)
-        sites <- full_join(sites, attr(stDV, "siteInfo"))
-      } else {
-        storm.data <- stDV
-        sites <- attr(stDV, "siteInfo")
-      }
-    }
-    
-    #downsample to hourly
-    storm.data <- filter(storm.data, minute(dateTime)==0)
-    
-    #stats service
-    reqBks <- seq(1,nrow(sites),by=10)
-    statData <- data.frame()
-    for(i in reqBks) {
-      getSites <- sites$site_no[i:(i+9)]
-      currentSites <- readNWISstat(siteNumbers = getSites,
-                                   parameterCd = "00060", 
-                                   statReportType="daily",
-                                   statType=c("p10","p25","p50","p75","p90","mean"))
-      statData <- rbind(statData,currentSites)
-    }
-    
-    #NOTE: won't deal with crossing months
-    statData.storm <- statData[statData$month_nu == month(startDate) & 
-                                 statData$day_nu >= day(startDate) & 
-                                 statData$day_nu <= day(endDate),]
-    
-    finalJoin <- left_join(storm.data,statData.storm)
-    finalJoin <- left_join(finalJoin,sites) 
-    
-    #remove sites without current data 
-    #finalJoin <- finalJoin[!is.na(finalJoin$Flow),] 
-    return(list(finalJoin=finalJoin, sites=sites))
-  }#end
+  sites <- readData(viz[['depends']][1])
+  precipData <- readData(viz[['depends']][2]) 
+  precipData$full_dateTime <- as.POSIXct(precipData$DateTime, tz="America/New_York")
   
-  library(dataRetrieval)
-  library(dplyr)
-  library(lubridate)
-
-  startDate <-  as.Date(viz[["start.date"]])
-  endDate <- Sys.Date()
-  states <- viz[['states']]
+  time.steps <- unique(precipData$full_dateTime)
   
-  qData <- hitNWIS(states = states, startDate = startDate, endDate = endDate)
+  start.date <-  as.Date(viz[["start.date"]])
+  n.sites <- nrow(sites)
+  n.bins <- 5
+  site.bins <- 1:(n.sites/n.bins)
+  
+  discharge <- data.frame()
+  
+  for(i in 1:(n.bins+1)){
+    
+    site.to.call <- sites$site_no[(i*site.bins)]
+    site.to.call <- site.to.call[!is.na(site.to.call)]
+    stDV <- renameNWISColumns(readNWISdata(service="iv",
+                                           parameterCd="00060",
+                                           sites = site.to.call,
+                                           startDate = start.date,
+                                           tz = "America/New_York"))
+    
+    discharge <- bind_rows(discharge, stDV)
+  }
+  
+  #downsample to hourly: TODO: get precip data?
+  discharge <- filter(discharge, minute(dateTime)==0)
+  
   location <- viz[['location']]
-  saveRDS(qData, file=location)
+  saveRDS(discharge, file=location)
 }
 
 
