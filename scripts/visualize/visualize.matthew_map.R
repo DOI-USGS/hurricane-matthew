@@ -2,12 +2,14 @@ visualize.matthew_map <- function(viz){
   
   counties <- readData(viz[['depends']][1])
   flowlines <- readData(viz[['depends']][2])
+  states <- readData(viz[['depends']][3])
   library(svglite)
   
   svglite::svglite(viz[['location']])
   par(mai=c(0,0,0,0), omi=c(0,0,0,0))
   sp::plot(counties)
   sp::plot(flowlines, add=TRUE)
+  sp::plot(states, add=TRUE)
   dev.off()
   
   library(xml2)
@@ -16,9 +18,13 @@ visualize.matthew_map <- function(viz){
   
   # let this thing scale:
   xml_attr(svg, "preserveAspectRatio") <- "xMinYMin meet" 
+  vb <- strsplit(xml_attr(svg, 'viewBox'),'[ ]')[[1]]
   
-  # clean up junk that svglite adds:
   r <- xml_find_all(svg, '//*[local-name()="rect"]')
+  
+  xml_add_sibling(xml_children(svg)[[1]], 'rect', .where='before', width=vb[3], height=vb[4], class='background')
+
+  # clean up junk that svglite adds:
   .junk <- lapply(r, xml_remove)
   
   
@@ -35,6 +41,9 @@ visualize.matthew_map <- function(viz){
     xml_attr(p[[i]], 'class') <- sprintf('county-polygon %s', time.classes)
     xml_attr(p[[i]], 'style') <- NULL
     xml_attr(p[[i]], 'clip-path') <- NULL
+  }
+  for (j in i:length(p)){
+    xml_attr(p[[j]], 'class') <- 'state-polygon'
   }
   
   g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
