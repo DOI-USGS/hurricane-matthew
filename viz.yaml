@@ -33,6 +33,8 @@ fetch:
     fetcher: hurricaneTrack
     mimetype: application/zip
     metadata: "Updates every 6 hours on http://www.nhc.noaa.gov/gis/"
+    refetch: false
+    comment: disabling refetch until timestamp is hooked up
   -
     id: flowlines
     fetcher: flowlines
@@ -41,16 +43,22 @@ fetch:
     streamorder: 6
     reader: shp
     mimetype: application/zip
+    refetch: false
+    comment: disabling refetch for now, delete cache to update
   -
     id: precip-data
     fetcher: precip
     location: cache/precip.csv
     mimetype: text/csv
+    refetch: false
+    comment: disabling refetch to avoid too many GDP requests
   -
     id: discharge-data
     fetcher: discharge
     location: cache/discharge.csv
     mimetype: text/csv
+    refetch: false
+    comment: disabling refetch for now, re-enable to get updates to work
 process:
   -
     id: matthew-counties
