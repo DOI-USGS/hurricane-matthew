@@ -25,6 +25,13 @@ fetch:
     refetch: false
     mimetype: application/zip
   -
+    id: states
+    location: cache/states.zip
+    reader: shp
+    fetcher: states
+    refetch: false
+    mimetype: application/zip
+  -
     id: matthew-track
     location: cache/matthew.zip
     ocean: al
@@ -68,6 +75,12 @@ process:
     reader: rds
     depends: "counties"
   -
+    id: matthew-states
+    location: cache/matthew-states.rds
+    processor: matthew_states
+    reader: rds
+    depends: "states"
+  -
     id: matthew-flowlines
     location: cache/matthew-flowlines.rds
     processor: flowlines
@@ -90,7 +103,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states"]
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
     inline: true

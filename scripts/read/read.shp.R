@@ -7,5 +7,6 @@ readData.shp <- function(viz){
   unzip(viz[['location']], exdir = shp.path)
   layer <- tools::file_path_sans_ext(list.files(shp.path, pattern='*.shp'))
   data.out = readOGR(shp.path, layer=layer)
+  unlink(shp.path, recursive = TRUE)
   return(data.out)
 }
