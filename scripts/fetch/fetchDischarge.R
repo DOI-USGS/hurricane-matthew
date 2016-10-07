@@ -1,18 +1,14 @@
 #fetch NWIS iv data, downsample to hourly
-#get site stats 
-#classify in process step?
 
 fetch.discharge <- function(viz){
   hitNWIS <- function(states, startDate, endDate){
     for(st in states){
-      startDateTime <- startDate#as.POSIXct(startDate)
-      endDateTime <- endDate#as.POSIXct(endDate)
-      
       stDV <- renameNWISColumns(readNWISdata(service="iv",
                                              parameterCd="00060",
                                              stateCd = st,
-                                             startDate = startDateTime,
-                                             endDate = endDateTime))
+                                             startDate = startDate,
+                                             endDate = endDate,
+                                             tz = "America/New_York"))
       if(st != states[1]){
         storm.data <- full_join(storm.data,stDV)
         sites <- full_join(sites, attr(stDV, "siteInfo"))
@@ -21,6 +17,9 @@ fetch.discharge <- function(viz){
         sites <- attr(stDV, "siteInfo")
       }
     }
+    
+    #downsample to hourly
+    storm.data <- filter(storm.data, minute(dateTime)==0)
     
     #stats service
     reqBks <- seq(1,nrow(sites),by=10)
@@ -51,7 +50,7 @@ fetch.discharge <- function(viz){
   library(dplyr)
   library(lubridate)
   
-  #TODO: timezones
+  #TODO: get dates & states from a yaml
   startDate <- as.Date("2016-10-5")
   endDate <- as.Date("2016-10-6")
   states <- c("FL","GA","SC","NC")

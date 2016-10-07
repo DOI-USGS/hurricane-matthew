@@ -20,8 +20,7 @@ fetch.precip <- function(viz){
     
     fabric <- webdata(url = 'http://cida.usgs.gov/thredds/dodsC/stageiv_combined', 
                       variables = "Total_precipitation_surface_1_Hour_Accumulation", 
-                      times = c(as.POSIXct(startDate), 
-                                as.POSIXct(endDate)))
+                      times = c(startDate, endDate))
     
     job <- geoknife(stencil, fabric, wait = TRUE, REQUIRE_FULL_COVERAGE=FALSE)
     check(job)
@@ -38,12 +37,16 @@ fetch.precip <- function(viz){
   library(geoknife)
   library(tidyr)
   
-  #TODO: time zones
-  startDate <- as.Date("2016-10-5")
-  endDate <- as.Date("2016-10-6")
+  #TODO: get dates and states from a yaml
+  startDate <- as.POSIXct("2016-10-5 00:00:00", tz="America/New_York")
+  endDate <- as.POSIXct("2016-10-6 23:00:00", tz = "America/New_York")
+  attr(startDate, 'tzone') <- "UTC"
+  attr(endDate, 'tzone') <- "UTC"
+  
   states <- c("FL","GA","SC","NC")
   
   precip <- getPrecip(states, startDate, endDate)
+  attr(precip$DateTime, 'tzone') <- "America/New_York" #back to eastern
   location <- viz[['location']]
   write.csv(precip, file=location, row.names = FALSE)
 }
