@@ -178,10 +178,10 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", "header-footer-css","precip-colors", "jquery-js", "animate-js", "svg-css"]
+    depends: ["header-section", "figure-section", "data-sources", "footer-section", "map-figure-css", "header-footer-css","precip-colors", "jquery-js", "animate-js", "svg-css"]
     context:
       resources: ["map-figure-css","header-footer-css", "jquery-js", "precip-colors", "animate-js", "svg-css"]
-      sections: [ "header-section", "figure-section", "data-sources" ]
+      sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
   -
     id: figure-section
     template: layout/templates/mapFigure.mustache
@@ -202,6 +202,12 @@ publish:
       title: Hurricane Matthew Precipitation
       logo: usgs-logo
       caption: Precipitation from Hurricane Matthew
+  -
+    id: footer-section
+    template: layout/templates/footer.mustache
+    publisher: section
+    context:
+      id: footer
   -
     id: data-sources
     template: layout/templates/dataSources.mustache
