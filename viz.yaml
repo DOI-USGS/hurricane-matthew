@@ -64,7 +64,6 @@ fetch:
     id: discharge-data
     fetcher: discharge
     location: cache/discharge.rds
-    start.date: "2016-10-5"
     depends: ["sites-data"]
     reader: rds
     refetch: false
@@ -73,6 +72,7 @@ fetch:
     id: sites-data
     fetcher: sites
     location: cache/sites.rds
+    start.date: "2016-10-5"
     states: ["FL","SC","NC","GA"]
     reader: rds
     refetch: false
