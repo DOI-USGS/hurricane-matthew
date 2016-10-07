@@ -150,10 +150,10 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["header-section", "figure-section", "map-figure-css", "header-footer-css", "svg-css"]
+    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", "header-footer-css", "svg-css"]
     context:
       resources: ["map-figure-css","header-footer-css", "svg-css"]
-      sections: [ "header-section", "figure-section" ]
+      sections: [ "header-section", "figure-section", "data-sources" ]
   -
     id: figure-section
     template: layout/templates/mapFigure.mustache
@@ -174,6 +174,13 @@ publish:
       title: Hurricane Matthew Precipitation
       logo: usgs-logo
       caption: Precipitation from Hurricane Matthew
+  -
+    id: data-sources
+    template: layout/templates/dataSources.mustache
+    publisher: section
+    context:
+      id: dataSources
+      title: Data Sources
   -
     id: svg-css
     location: layout/css/matthew-svg.css
