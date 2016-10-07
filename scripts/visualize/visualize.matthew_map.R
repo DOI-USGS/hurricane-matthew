@@ -5,7 +5,7 @@ visualize.matthew_map <- function(viz){
   
   svglite::svglite(viz[['location']])
   par(mai=c(0,0,0,0), omi=c(0,0,0,0))
-  plot(counties)
+  sp::plot(counties)
   dev.off()
   
   library(xml2)
