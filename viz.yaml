@@ -98,6 +98,11 @@ process:
     processor: precip_colors
     bins: 9
     pallete: "Blues"
+  - 
+    id: classifyBins
+    location: cache/precipBinned.Rds
+    processor: classifyBins
+    depends: ["precip-colors", "precip_data"]
 visualize:
   -
     id: matthew-map
