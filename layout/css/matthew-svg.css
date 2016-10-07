@@ -8,10 +8,15 @@ line, polyline, path, circle {
 		polyline {
 		    stroke: #1E90FF;
 		}
-		.county-polygon, .state-polygon{
+		.county-polygon{
 		    fill: #DCDCDC;
 		    stroke: #FFFFFF;  
 		    stroke-width:0.5;
+		}
+		.state-polygon {
+		  fill: #ededed;
+		  stroke: #FFFFFF;  
+		  stroke-width:0.5;
 		}
 		.background {
 					fill: grey;
