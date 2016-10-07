@@ -12,3 +12,16 @@ process.matthew_counties <- function(viz){
   
   saveRDS(counties, viz[['location']])
 }
+
+process.matthew_states <- function(viz){
+  library(rgeos)
+  skip.states <- c("Florida","Georgia","South Carolina","North Carolina")
+  
+  epsg_code <- '+init=epsg:3086' 
+  states <- readData(viz[['depends']])
+  states <- states[!states$STATE %in% skip.states, ]
+  states <- rgeos::gSimplify(states, 0.01)
+  states <- spTransform(states, CRS(epsg_code))
+  
+  saveRDS(states, viz[['location']])
+}
