@@ -25,9 +25,14 @@ visualize.matthew_map <- function(viz){
   # find the paths for the counties, add IDs
   p <- xml_find_all(svg, '//*[local-name()="path"]')
   
+  num.time <- 10
+  num.bins <- 9
+  
   for (i in 1:length(counties)){
+    steps <- paste('prcp', 1:num.time, sep='-')
+    time.classes <- paste(steps, sample(1:num.bins, num.time, replace=TRUE), sep='-', collapse=' ') # these are fake
     xml_attr(p[[i]], 'id') <- paste0('FIP-', as.character(counties$FIPS[i]))
-    xml_attr(p[[i]], 'class') <- 'county-polygon'
+    xml_attr(p[[i]], 'class') <- sprintf('county-polygon %s', time.classes)
     xml_attr(p[[i]], 'style') <- NULL
     xml_attr(p[[i]], 'clip-path') <- NULL
   }
