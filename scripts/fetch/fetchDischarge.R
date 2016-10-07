@@ -52,7 +52,7 @@ fetch.discharge <- function(viz){
   
   #TODO: get dates & states from a yaml
   startDate <- as.Date("2016-10-5")
-  endDate <- as.Date("2016-10-6")
+  endDate <- Sys.Date()
   states <- c("FL","GA","SC","NC")
   
   qData <- hitNWIS(states = states, startDate = startDate, endDate = endDate)
