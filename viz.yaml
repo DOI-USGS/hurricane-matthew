@@ -55,10 +55,10 @@ fetch:
   -
     id: discharge-data
     fetcher: discharge
-    location: cache/discharge.csv
+    location: cache/discharge.rds
     states: ["FL","SC","NC","GA"]
     start.date: "2016-10-5"
-    mimetype: text/csv
+    reader: rds
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
 process:
@@ -76,7 +76,7 @@ process:
     depends: ["flowlines","matthew-counties"]
   -
     id: discharge-classify
-    location: cache/discharge-w-class.rds
+    location: cache/discharge.rds
     processor: classify
     reader: rds
     depends: "discharge-data"

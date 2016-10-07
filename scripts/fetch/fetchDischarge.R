@@ -46,7 +46,7 @@ fetch.discharge <- function(viz){
     
     #remove sites without current data 
     #finalJoin <- finalJoin[!is.na(finalJoin$Flow),] 
-    return(finalJoin)
+    return(list(finalJoin=finalJoin, sites=sites))
   }#end
   
   library(dataRetrieval)

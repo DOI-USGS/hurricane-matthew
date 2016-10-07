@@ -1,6 +1,7 @@
 process.classify <- function(viz){
   #this is just what was left over from my script that wasn't fetch
   finalJoin <- readData(viz[['depends']])
+  finalJoin <- finalJoin$finalJoin
   
   #classify current discharge values
   finalJoin$class <- NA
