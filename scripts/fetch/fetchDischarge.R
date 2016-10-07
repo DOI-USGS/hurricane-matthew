@@ -5,9 +5,9 @@
 fetch.discharge <- function(viz){
   hitNWIS <- function(states, startDate, endDate){
     for(st in states){
-      startDateTime <- as.POSIXct(startDate)
-      endDateTime <- as.POSIXct(endDate)
-      attr(startDate)
+      startDateTime <- startDate#as.POSIXct(startDate)
+      endDateTime <- endDate#as.POSIXct(endDate)
+      
       stDV <- renameNWISColumns(readNWISdata(service="iv",
                                              parameterCd="00060",
                                              stateCd = st,
