@@ -1,6 +1,6 @@
 visualize.matthew_map <- function(viz){
   
-  
+  counties <- readData(viz[['depends']])
   library(svglite)
   
   svglite::svglite(viz[['location']])
