@@ -67,6 +67,12 @@ process:
     reader: rds
     depends: "counties"
   -
+    id: matthew-flowlines
+    location: cache/matthew-flowlines.rds
+    processor: flowlines
+    reader: rds
+    depends: ["flowlines","matthew-counties"]
+  -
     id: discharge-classify
     location: cache/discharge-w-class.rds
     processor: classify
@@ -77,7 +83,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: "matthew-counties"
+    depends: ["matthew-counties","matthew-flowlines"]
     mapdata: "matthew-counties"
     mimetype: image/png
     title: "title..."
