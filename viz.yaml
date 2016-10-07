@@ -59,6 +59,13 @@ fetch:
     mimetype: text/csv
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
+  -
+    id: site-data
+    fetcher: sites
+    location: cache/sites.rds
+    mimetype: rds
+    refetch: false
+    comment: disabling refetch for now, re-enable to get updates to work
 process:
   -
     id: matthew-counties
