@@ -22,6 +22,7 @@ fetch:
     location: cache/counties.zip
     reader: shp
     fetcher: counties
+    refetch: false
     mimetype: application/zip
   -
     id: matthew-track
@@ -79,7 +80,26 @@ visualize:
     visualizer: matthew_map
     depends: "matthew-counties"
     mapdata: "matthew-counties"
-    mimetype: image/png
+    mimetype: image/svg+xml
+    inline: true
     title: "title..."
     alttext: "alt text..."
 publish:
+  -
+    id: matthew-page
+    name: index
+    template: fullPage
+    publisher: page
+    depends: ["figure-section"]
+    context:
+      resources: []
+      sections: [ "figure-section" ]
+  -
+    id: figure-section
+    template: simplefigure
+    publisher: section
+    depends: [ "matthew-map" ]
+    context:
+      id: map-figure
+      figure: matthew-map
+      caption: Precipitation from Hurricane Matthew
