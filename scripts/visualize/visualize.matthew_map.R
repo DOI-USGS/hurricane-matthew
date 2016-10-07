@@ -3,6 +3,7 @@ visualize.matthew_map <- function(viz){
   counties <- readData(viz[['depends']][1])
   flowlines <- readData(viz[['depends']][2])
   states <- readData(viz[['depends']][3])
+  track <- readData(viz[['depends']][4])
   library(svglite)
   
   svglite::svglite(viz[['location']])
@@ -10,6 +11,7 @@ visualize.matthew_map <- function(viz){
   sp::plot(counties)
   sp::plot(flowlines, add=TRUE)
   sp::plot(states, add=TRUE)
+  sp::plot(track, add=TRUE)
   dev.off()
   
   library(xml2)
@@ -47,9 +49,13 @@ visualize.matthew_map <- function(viz){
   }
   
   g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
+  g.track <- xml_add_child(svg, 'g', id='track','class'='track-polyline')
   pl <- xml_find_all(svg, '//*[local-name()="polyline"]')
-  for (i in 1:length(pl)){
+  for (i in 1:length(flowlines)){
     xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
+  }
+  for (j in i:length(pl)){
+    xml_add_child(g.track, 'polyline', points = xml_attr(pl[j], 'points'))
   }
   d <- xml_find_all(svg, '//*[local-name()="defs"]')
   xml_remove(pl)

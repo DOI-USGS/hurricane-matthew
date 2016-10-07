@@ -97,6 +97,12 @@ process:
     reader: rds
     depends: ["flowlines","matthew-counties"]
   -
+    id: storm-track
+    location: cache/storm-track.rds
+    processor: matthew_track
+    reader: rds
+    depends: ["matthew-track", "matthew-counties"]
+  -
     id: discharge-classify
     location: cache/discharge-classify.rds
     processor: classify
@@ -106,13 +112,16 @@ process:
     id: precip-colors
     location: cache/precip-colors.json
     processor: precip_colors
+    reader: json
     bins: 9
     pallete: "Blues"
+    mimetype: application/javascript
+    export: true
   - 
     id: classifyBins
     location: cache/precipBinned.Rds
     processor: classifyBins
-    depends: ["precip-colors", "precip_data"]
+    depends: ["precip-colors", "precip-data"]
   -
     id: matthew-sites
     location: cache/sites_geo.rds
@@ -124,31 +133,72 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track"]
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
     inline: true
     title: "title..."
     alttext: "alt text..."
+    
 publish:
+  -
+    id: map-figure-css
+    location: layout/css/map-figure.css
+    mimetype: text/css
+  - 
+    id: header-footer-css
+    location: layout/css/header-footer.css
+    mimetype: text/css
+  -
+    id: usgs-logo
+    location: images/usgsLogo.png
+    mimetype: image/png
+    title: "USGS Logo"
+    alttext: "USGS Logo"
+  -
+    id: jquery-js
+    location: layout/js/jquery-3.1.1.min.js
+    mimetype: application/javascript
+  -
+    id: animate-js
+    location: layout/js/animate.js
+    mimetype: application/javascript
   -
     id: matthew-page
     name: index
     template: fullPage
     publisher: page
-    depends: ["figure-section", "svg-css"]
+    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", "header-footer-css","precip-colors", "jquery-js", "animate-js", "svg-css"]
     context:
-      resources: ["svg-css"]
-      sections: [ "figure-section"]
+      resources: ["map-figure-css","header-footer-css", "jquery-js", "precip-colors", "animate-js", "svg-css"]
+      sections: [ "header-section", "figure-section", "data-sources" ]
   -
     id: figure-section
-    template: simplefigure
+    template: layout/templates/mapFigure.mustache
     publisher: section
     depends: [ "matthew-map" ]
     context:
       id: map-figure
       figure: matthew-map
+      title: Hurricane Matthew’s Impact on River Flow
+      caption: Hurricane Matthew made landfall in Florida on October 7, 2016. In the map above, the hurricane’s impact on precipitation and streamflow are shown as the storm makes landfall and moves up the coast of the southeastern US.
+  -
+    id: header-section
+    template: layout/templates/header.mustache
+    publisher: section
+    depends: ["usgs-logo"]
+    context:
+      id: header
+      title: Hurricane Matthew Precipitation
+      logo: usgs-logo
       caption: Precipitation from Hurricane Matthew
+  -
+    id: data-sources
+    template: layout/templates/dataSources.mustache
+    publisher: section
+    context:
+      id: dataSources
+      title: Data Sources
   -
     id: svg-css
     location: layout/css/matthew-svg.css
