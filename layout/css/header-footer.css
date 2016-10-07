@@ -23,6 +23,43 @@ p {
 	width:80px;
 	}
 	
+#footer{
+	background:rgb(0,51,102);
+	min-height:400px;
+	font-size: 1.2em;
+	color:#fff;
+	border-top:5px solid rgb(210,210,210);
+	}
+	
+#footer .p-share{
+  margin-bottom:15px;
+}
+
+#footer p {
+  font-size:0.85em;
+  font-weight: 300;
+}
+	
+#footer a:visited{
+  color:#008173;
+}
+
+/* Parts:share */
+.p-share {
+  text-align: center;
+}
+
+.p-share a {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  background-color: #263238;
+  border-radius: 100%;
+  color: #eceff1;
+  margin: 0 .5rem;
+}
+	
 	@media screen and (min-width:768px){
 	  /*Header CSS*/
   	#logo{
