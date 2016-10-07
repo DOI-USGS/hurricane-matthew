@@ -115,10 +115,10 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["figure-section"]
+    depends: ["figure-section", "svg-css"]
     context:
-      resources: []
-      sections: [ "figure-section" ]
+      resources: ["svg-css"]
+      sections: [ "figure-section"]
   -
     id: figure-section
     template: simplefigure
@@ -128,3 +128,7 @@ publish:
       id: map-figure
       figure: matthew-map
       caption: Precipitation from Hurricane Matthew
+  -
+    id: svg-css
+    location: layout/css/matthew-svg.css
+    mimetype: text/css
