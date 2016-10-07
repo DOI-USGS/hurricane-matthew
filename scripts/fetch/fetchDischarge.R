@@ -8,7 +8,9 @@ fetch.discharge <- function(viz){
   required <- c("depends", "start.date", "location")
   checkRequired(viz, required)
   
-  sites <- readData(viz[['depends']])
+  sites <- readData(viz[['depends']][1])
+  precipData <- readData(viz[['depends']][2]) 
+  
   start.date <-  as.Date(viz[["start.date"]])
   n.sites <- nrow(sites)
   n.bins <- 5

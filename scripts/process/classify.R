@@ -1,4 +1,6 @@
 process.classify <- function(viz){
+  library(dplyr)
+  
   #this is just what was left over from my script that wasn't fetch
   discharge <- readData(viz[['depends']][1])
   stats <- readData(viz[['depends']][2])

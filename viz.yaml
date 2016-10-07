@@ -64,7 +64,8 @@ fetch:
     id: discharge-data
     fetcher: discharge
     location: cache/discharge.rds
-    depends: ["sites-data"]
+    start.date: "2016-10-5"
+    depends: ["sites-data","precip-data"]
     reader: rds
     refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
