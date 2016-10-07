@@ -2,6 +2,7 @@ auth.R
 cache/
 user/
 figures/
+target/
 vizlab/
 makefile
 
