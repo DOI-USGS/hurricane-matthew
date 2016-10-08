@@ -1,3 +1,7 @@
+# viz <- yaml.load_file("viz.yaml")
+# viz <- viz$visualize
+# viz <- viz[[1]]
+
 visualize.matthew_map <- function(viz){
   
   counties <- readData(viz[['depends']][1])
@@ -6,6 +10,8 @@ visualize.matthew_map <- function(viz){
   track <- readData(viz[['depends']][4])
   col.bins <- readData(viz[['depends']][5])
   storm <- readData(viz[['depends']][6])
+  gages <- readData(viz[['depends']][7])
+  
   library(svglite)
   library(dplyr)
   
@@ -16,6 +22,7 @@ visualize.matthew_map <- function(viz){
   sp::plot(states, add=TRUE)
   sp::plot(track, add=TRUE)
   sp::plot(storm, pch=20, add=TRUE)
+  sp::plot(gages, pch=20, add=TRUE)
   fip.cd <- as.character(counties$FIPS[counties@plotOrder])
   dev.off()
   # m3 <- map('county', regions = precipData$county_mapname, 
@@ -70,7 +77,7 @@ visualize.matthew_map <- function(viz){
   for (i in 1:(length(pl)- length(track))){
     xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
   }
-  for (i in 1:length(cr)){
+  for (i in 1:length(storm)){
     xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('storm-',i), r='8', class='storm-dot')
   }
   d <- xml_find_all(svg, '//*[local-name()="defs"]')

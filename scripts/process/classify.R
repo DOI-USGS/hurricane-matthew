@@ -1,9 +1,14 @@
+# viz <- yaml.load_file("viz.yaml")
+# viz <- viz$process 
+# viz <- viz[[9]]
+
 process.classify <- function(viz){
   library(dplyr)
   library(lubridate)
   #this is just what was left over from my script that wasn't fetch
   discharge <- readData(viz[['depends']][1])
   stats <- readData(viz[['depends']][2])
+  colSteps <- readData(viz[['depends']][3])
   
   discharge <- mutate(discharge,
                       month_nu = as.integer(month(dateTime)+1),
@@ -17,20 +22,20 @@ process.classify <- function(viz){
   
   #classify current discharge values
   finalJoin$class <- NA
-  finalJoin$class[finalJoin$Flow > finalJoin$p75_va] <- ">75"
-  finalJoin$class[finalJoin$Flow <= finalJoin$p10_va] <- "<10"
+  finalJoin$class[finalJoin$Flow > finalJoin$p75_va] <- colSteps[["bin-6"]]
+  finalJoin$class[finalJoin$Flow <= finalJoin$p10_va] <- colSteps[["bin-1"]]
   
   finalJoin$class[finalJoin$Flow > finalJoin$p10_va & 
-                    finalJoin$Flow <= finalJoin$p25_va] <- "10-25"
+                    finalJoin$Flow <= finalJoin$p25_va] <- colSteps[["bin-3"]]
   
   finalJoin$class[finalJoin$Flow > finalJoin$p25_va & 
-                    finalJoin$Flow <= finalJoin$p50_va] <- "25-50"
+                    finalJoin$Flow <= finalJoin$p50_va] <- colSteps[["bin-4"]]
   
   finalJoin$class[finalJoin$Flow > finalJoin$p50_va &
-                    finalJoin$Flow <= finalJoin$p75_va] <- "50-75"
+                    finalJoin$Flow <= finalJoin$p75_va] <- colSteps[["bin-5"]]
   
   finalJoin$class[is.na(finalJoin$class) & 
-                    finalJoin$Flow < finalJoin$p25_va] <- "<25"
+                    finalJoin$Flow < finalJoin$p25_va] <- colSteps[["bin-2"]]
 
   classify <- select(finalJoin, site_no, dateTime, class)
   

@@ -8,7 +8,7 @@ process.classifyBins <- function(viz){
   precip_breaks <- seq(0,0.5, length.out = ncol(colSteps))
   
 
-    precipData$precipVal <- precipData$precipVal/25.4 #convert mm to inches
+  precipData$precipVal <- precipData$precipVal/25.4 #convert mm to inches
   
   precipData <- precipData %>% mutate(cols = cut(precipVal, breaks = precip_breaks, labels = FALSE)) %>% 
     mutate(cols = ifelse(precipVal > tail(precip_breaks,1), ncol(colSteps), cols)) %>% 
