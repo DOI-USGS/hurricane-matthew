@@ -130,13 +130,6 @@ process:
     reader: rds
     depends: ["matthew-track", "matthew-counties"]  
   -
-    id: discharge-classify
-    location: cache/discharge-classify.rds
-    processor: classify
-    scripts: scripts/process/classify.R
-    reader: rds
-    depends: ["discharge-data","stats-data"]
-  -
     id: precip-colors
     location: cache/precip-colors.json
     processor: precip_colors
@@ -146,6 +139,14 @@ process:
     pallete: "Blues"
     mimetype: application/javascript
     export: true
+  -
+    id: gage_colors
+    location: cache/gage_colors.rds
+    processor: gage_colors
+    scripts: scripts/process/process.gage_colors.R
+    reader: rds
+    bins: 6
+    pallete: "Reds"
   - 
     id: classifyBins
     location: cache/precipBinned.rds
@@ -153,6 +154,13 @@ process:
     scripts: scripts/process/process.classifyBins.R
     reader: rds
     depends: ["precip-colors", "precip-data"]
+  -
+    id: discharge-classify
+    location: cache/discharge-classify.rds
+    processor: classify
+    scripts: scripts/process/classify.R
+    reader: rds
+    depends: ["discharge-data","stats-data","gage-colors"]
   -
     id: matthew-sites
     location: cache/sites_geo.rds
@@ -165,7 +173,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 'storm-location']
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 'storm-location',"matthew-sites", "discharge-classify"]
     scripts: scripts/visualize/visualize.matthew_map.R
     mapdata: "matthew-counties"
     mimetype: image/svg+xml

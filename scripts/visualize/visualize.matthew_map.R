@@ -6,6 +6,8 @@ visualize.matthew_map <- function(viz){
   track <- readData(viz[['depends']][4])
   col.bins <- readData(viz[['depends']][5])
   storm <- readData(viz[['depends']][6])
+  gages <- readData(viz[['depends']][7])
+  
   library(svglite)
   library(dplyr)
   
@@ -15,6 +17,7 @@ visualize.matthew_map <- function(viz){
   sp::plot(flowlines, add=TRUE)
   sp::plot(states, add=TRUE)
   sp::plot(track, add=TRUE)
+  sp::plot(gages,add=TRUE)
   plot(storm, pch=20, add=TRUE)
   fip.cd <- as.character(counties$FIPS[counties@plotOrder])
   dev.off()
