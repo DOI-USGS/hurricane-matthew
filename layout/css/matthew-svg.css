@@ -9,8 +9,8 @@ line, polyline, path{
 		}
 		
 		.track-polyline {
-		    stroke: red;
-		    stroke-width:4;
+		    stroke: #e0eeee;
+		    stroke-width:2;
 		}
 		.county-polygon{
 		    fill: #DCDCDC;
@@ -23,6 +23,9 @@ line, polyline, path{
 		  stroke-width:0.5;
 		}
 		.background {
-					fill: grey;
+					fill: #8f8f8f;
 					stroke: none
 				}
+		.storm-dot {
+		  fill: #869ab2;
+		}

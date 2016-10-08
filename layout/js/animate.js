@@ -1,8 +1,12 @@
 var prcpColors = undefined;
+var prcpTimes = undefined;
 
 var setColors = function() {
   $.get( "js/precip-colors.json", function( data ) {
     prcpColors = data
+  });
+  $.get( "js/times.json", function( data ) {
+    prcpTimes = data
   });
 }
 
@@ -25,6 +29,6 @@ var animatePrcp = function(timestep) {
     } else {
       storm.setAttribute('style','opacity: 1.0;')
     }
-    
+    document.getElementById('timestamp-text').firstChild.data = prcpTimes.times[timestep-1]; // zero indexed
   }
 }

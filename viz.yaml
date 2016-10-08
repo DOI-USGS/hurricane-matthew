@@ -167,6 +167,13 @@ process:
     scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: ["sites-data","matthew-counties"]
+  - id: timesteps
+    location: target/js/times.json
+    processor: timesteps
+    scripts: scripts/process/process.matthew_counties.R
+    reader: json
+    depends: "classifyBins"
+    comment: "TOTAL HACK, writing into TARGET. How the heck do you get the other json in there?"
 visualize:
   -
     id: matthew-map

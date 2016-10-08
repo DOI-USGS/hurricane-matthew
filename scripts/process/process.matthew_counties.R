@@ -56,6 +56,13 @@ process.matthew_sites <- function(viz){
   saveRDS(sites, viz[['location']])
 }
 
+process.timesteps <- function(viz){
+  #"classifyBins",'storm-location'
+  library(dplyr)
+  library(jsonlite)
+  times <- readData(viz[['depends']][1]) %>% select(DateTime) %>% unique() %>% .$DateTime
+  cat(jsonlite::toJSON(list(times=times)), file = viz[['location']])
+}
 process.storm_location <- function(viz){
   
   library(rgeos)

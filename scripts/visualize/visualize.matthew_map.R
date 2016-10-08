@@ -68,8 +68,8 @@ visualize.matthew_map <- function(viz){
   }
 
   g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
-  g.storm <- xml_add_child(svg, 'g', id='storm','class'='storm-dots')
   g.track <- xml_add_child(svg, 'g', id='track','class'='track-polyline')
+  g.storm <- xml_add_child(svg, 'g', id='storm','class'='storm-dots')
   pl <- xml_find_all(svg, '//*[local-name()="polyline"]')
   for (i in (length(pl)+1 - length(track)): length(pl)){
     xml_add_child(g.track, 'polyline', points = xml_attr(pl[i], 'points'))
@@ -79,7 +79,7 @@ visualize.matthew_map <- function(viz){
   }
   
   for (i in 1:length(gages)){ # FRAGILE - assumes all gages are on the map!!
-    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('nwis-',i), r='2', class='nwis-dot')
+    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('nwis-',i), r='2', class='nwis-dot', onclick=sprintf("window.open('http://waterdata.usgs.gov/nwis/uv?site_no=%s','_blank')", gages$site_no[i]))
   }
   storm.i <- length(storm)
   for (i in length(cr):(length(gages)+1)){ # assumes that LAST of the storm is on the map!!
@@ -87,6 +87,7 @@ visualize.matthew_map <- function(viz){
     storm.i <- storm.i - 1
   }
   
+  xml_add_child(svg, 'text', ' ', id='timestamp-text', class='time-text', x='150', y='500')
   d <- xml_find_all(svg, '//*[local-name()="defs"]')
   xml_remove(pl)
   xml_remove(d)
