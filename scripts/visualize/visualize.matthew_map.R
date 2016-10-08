@@ -71,7 +71,7 @@ visualize.matthew_map <- function(viz){
     xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
   }
   for (i in 1:length(cr)){
-    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('storm-',i), r='8', opacity='0.0')
+    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('storm-',i), r='8', class='storm-dot')
   }
   d <- xml_find_all(svg, '//*[local-name()="defs"]')
   xml_remove(pl)

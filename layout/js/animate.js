@@ -10,6 +10,7 @@ var animatePrcp = function(timestep) {
   for (var i=0; i<prcpColors.length; i++) {
     var bin = i + 1;
     var selector = ".prcp-" + timestep + "-" + bin;
+    var stormDot = ".storm-dot";
     // hacky, we should modify json structure
     var color = prcpColors[i][Object.keys(prcpColors[i])[0]][0];
     // switch to style for transition
@@ -18,10 +19,11 @@ var animatePrcp = function(timestep) {
       "transition": "fill 2s"
     };
     $(selector).css("fill", color);
+    $(stormDot).css("opacity", "0");
     var storm = document.getElementById("storm-" + timestep);
     if (!storm){
     } else {
-      storm.setAttribute('opacity','1.0')
+      storm.setAttribute('style','opacity: 1.0;')
     }
     
   }
