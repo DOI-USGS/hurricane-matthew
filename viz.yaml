@@ -241,10 +241,21 @@ publish:
       caption: Precipitation from Hurricane Matthew
   -
     id: footer-section
-    template: layout/templates/footer.mustache
-    publisher: section
-    context:
-      id: footer
+    template: footer
+    publisher: footer
+    depends: header-footer-css
+    blogsInFooter: TRUE
+    vizzies:
+      - name: Microplastics in the Great Lakes
+        org: USGS-VIZLAB
+        repo: great-lakes-microplastics
+      - name: Climate Change and Freshwater Fish
+        org: USGS-VIZLAB
+        repo: climate-fish-habitat
+    blogs: 
+      - name: Using the dataRetrieval Stats Service
+        url: https://owi.usgs.gov/blog/stats-service-map/
+        thumbLoc: https://owi.usgs.gov/blog/images/owi-mobile.png
   -
     id: data-sources
     template: layout/templates/dataSources.mustache
@@ -269,3 +280,4 @@ publish:
     id: svg-css
     location: layout/css/matthew-svg.css
     mimetype: text/css
+  
