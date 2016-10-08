@@ -26,6 +26,15 @@ line, polyline, path{
 					fill: #8f8f8f;
 					stroke: none
 				}
-		.storm-dot {
-		  fill: #869ab2;
+		.storm-dot, .storm-dot-legend {
+		  fill: red;
+		}
+		.time-text {
+		  font-size: 1.8em;
+		}
+		.watermark {
+		  fill: #DCDCDC;
+		  stroke: #c6c6c6;
+		  stroke-width:0.5;
+		  opacity: 0.4;
 		}

@@ -15,8 +15,7 @@ var animatePrcp = function(timestep) {
     var bin = i + 1;
     var selector = ".prcp-" + timestep + "-" + bin;
     var stormDot = ".storm-dot";
-    // hacky, we should modify json structure
-    var color = prcpColors[i][Object.keys(prcpColors[i])[0]][0];
+    var color = prcpColors[i];
     // switch to style for transition
     var style = {
       "fill": color,
