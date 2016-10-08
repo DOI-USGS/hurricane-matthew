@@ -5,7 +5,7 @@ process.gage_colors <- function(viz){
   checkRequired(viz, required)
   
   cols <- RColorBrewer::brewer.pal(viz[['bins']], viz[['pallete']])
-  names(cols) <- paste0("bin-",1:5)
+  names(cols) <- paste0("bin-",1:viz[['bins']])
   saveRDS(cols, viz[["location"]])
   # json <- lapply(1:viz[['bins']], function(x) {
   #   out <- list(cols[x])

@@ -140,7 +140,7 @@ process:
     mimetype: application/javascript
     export: true
   -
-    id: gage_colors
+    id: gage-colors
     location: cache/gage_colors.rds
     processor: gage_colors
     scripts: scripts/process/process.gage_colors.R
@@ -164,7 +164,7 @@ process:
   -
     id: matthew-sites
     location: cache/sites_geo.rds
-    processor: sites
+    processor: matthew_sites
     scripts: scripts/process/process.sites.R
     reader: rds
     depends: ["sites-data","matthew-counties"]

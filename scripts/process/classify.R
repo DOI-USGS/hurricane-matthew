@@ -1,3 +1,7 @@
+# viz <- yaml.load_file("viz.yaml")
+# viz <- viz$process 
+# viz <- viz[[9]]
+
 process.classify <- function(viz){
   library(dplyr)
   library(lubridate)

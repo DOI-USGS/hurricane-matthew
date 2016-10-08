@@ -1,3 +1,7 @@
+# viz <- yaml.load_file("viz.yaml")
+# viz <- viz$visualize
+# viz <- viz[[1]]
+
 visualize.matthew_map <- function(viz){
   
   counties <- readData(viz[['depends']][1])
