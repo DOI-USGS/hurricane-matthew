@@ -18,5 +18,11 @@ var animatePrcp = function(timestep) {
       "transition": "fill 2s"
     };
     $(selector).css("fill", color);
+    var storm = document.getElementById("storm-" + timestep);
+    if (!storm){
+    } else {
+      storm.setAttribute('opacity','1.0')
+    }
+    
   }
 }
