@@ -11,6 +11,7 @@ process.classifyBins <- function(viz){
   precipData$precipVal <- precipData$precipVal/25.4 #convert mm to inches
   
   precipData <- precipData %>% mutate(cols = cut(precipVal, breaks = precip_breaks, labels = FALSE)) %>% 
+    mutate(cols = ifelse(precipVal > tail(precip_breaks,1), ncol(colSteps), cols)) %>% 
     mutate(cols = ifelse(is.na(cols), 1, cols), cols = as.character(cols)) %>% select(fips, DateTime, cols)
     
   

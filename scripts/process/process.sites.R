@@ -1,3 +1,7 @@
+# viz <- yaml.load_file("viz.yaml")
+# viz <- viz$process
+# viz <- viz[[10]]
+
 process.sites <- function(viz){
   library(rgeos)
   library(sp)
