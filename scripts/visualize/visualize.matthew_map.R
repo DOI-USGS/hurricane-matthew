@@ -21,8 +21,8 @@ visualize.matthew_map <- function(viz){
   sp::plot(flowlines, add=TRUE)
   sp::plot(states, add=TRUE)
   sp::plot(track, add=TRUE)
-  sp::plot(storm, pch=20, add=TRUE)
   sp::plot(gages, pch=20, add=TRUE)
+  sp::plot(storm, pch=20, add=TRUE)
   fip.cd <- as.character(counties$FIPS[counties@plotOrder])
   dev.off()
   # m3 <- map('county', regions = precipData$county_mapname, 
@@ -63,7 +63,7 @@ visualize.matthew_map <- function(viz){
 
   }
   
-  for (j in i:length(p)){
+  for (j in (i+1):length(p)){
     xml_attr(p[[j]], 'class') <- 'state-polygon'
   }
 
@@ -77,9 +77,16 @@ visualize.matthew_map <- function(viz){
   for (i in 1:(length(pl)- length(track))){
     xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
   }
-  for (i in 1:length(storm)){
-    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('storm-',i), r='8', class='storm-dot')
+  
+  for (i in 1:length(gages)){ # FRAGILE - assumes all gages are on the map!!
+    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('nwis-',i), r='2', class='nwis-dot')
   }
+  storm.i <- length(storm)
+  for (i in length(cr):(length(gages)+1)){ # assumes that LAST of the storm is on the map!!
+    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('storm-',storm.i), r='8', class='storm-dot')
+    storm.i <- storm.i - 1
+  }
+  
   d <- xml_find_all(svg, '//*[local-name()="defs"]')
   xml_remove(pl)
   xml_remove(d)

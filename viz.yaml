@@ -164,7 +164,7 @@ process:
     id: matthew-sites
     location: cache/sites_geo.rds
     processor: matthew_sites
-    scripts: scripts/process/process.sites.R
+    scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: ["sites-data","matthew-counties"]
 visualize:
