@@ -39,6 +39,23 @@ process.matthew_track <- function(viz){
   saveRDS(track, viz[['location']])
 }
 
+process.matthew_sites <- function(viz){
+  library(rgeos)
+  library(sp)
+  library(dplyr)
+  
+  counties <- readData(viz[['depends']][2])
+  sites <- readData(viz[['depends']][1])
+  pts <- cbind(sites$dec_long_va, sites$dec_lat_va)
+  sites <- SpatialPointsDataFrame(pts, proj4string=CRS("+proj=longlat +datum=WGS84"), 
+                                     data = sites %>% select(site_no, station_nm) %>% data.frame)
+  sites <- spTransform(sites, CRS(proj4string(counties)))
+  
+  # here do "over" analysis for masking?
+  
+  saveRDS(sites, viz[['location']])
+}
+
 process.storm_location <- function(viz){
   
   library(rgeos)
