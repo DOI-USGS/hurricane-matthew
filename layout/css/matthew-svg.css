@@ -13,8 +13,8 @@ line, polyline, path{
 		    stroke-width:2;
 		}
 		.sparkline {
-		    stroke: #e0eeee;
-		    stroke-width:0.75;
+		    stroke: #e0e0e0;
+		    stroke-width:1.5;
 		}
 		.county-polygon{
 		    fill: #DCDCDC;
@@ -43,6 +43,9 @@ line, polyline, path{
 		}
 		.legend-title {
 		  font-size: 1.3em;
+		}
+		.nwis-dot:hover {
+		  fill: grey;
 		}
 		.watermark {
 		  fill: #DCDCDC;
