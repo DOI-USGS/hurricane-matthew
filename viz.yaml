@@ -102,6 +102,13 @@ process:
     reader: rds
     depends: "counties"
   -
+    id: discharge-sparks
+    location: cache/discharge-sparks.rds
+    processor: discharge_sparks
+    scripts: scripts/process/process.matthew_counties.R
+    reader: rds
+    depends: ["discharge-data","timesteps"]
+  -
     id: matthew-states
     location: cache/matthew-states.rds
     processor: matthew_states
@@ -147,12 +154,19 @@ process:
     bins: 6
     pallete: "Reds"
   - 
+    id: precip-breaks
+    location: cache/precip_breaks.rds
+    processor: precip_breaks
+    scripts: scripts/process/process.classifyBins.R
+    reader: rds
+    depends: ["precip-colors"]
+  - 
     id: classifyBins
     location: cache/precipBinned.rds
     processor: classifyBins
     scripts: scripts/process/process.classifyBins.R
     reader: rds
-    depends: ["precip-colors", "precip-data"]
+    depends: ["precip-breaks", "precip-data"]
   -
     id: discharge-classify
     location: cache/discharge-classify.rds
@@ -179,7 +193,7 @@ visualize:
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 'storm-location',"matthew-sites", "discharge-classify", "precip-colors"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 'storm-location',"matthew-sites", "discharge-classify", "precip-colors", "precip-breaks", "discharge-sparks"]
     scripts: scripts/visualize/visualize.matthew_map.R
     mapdata: "matthew-counties"
     mimetype: image/svg+xml

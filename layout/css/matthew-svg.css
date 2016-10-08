@@ -12,11 +12,20 @@ line, polyline, path{
 		    stroke: #e0eeee;
 		    stroke-width:2;
 		}
+		.sparkline {
+		    stroke: #e0eeee;
+		    stroke-width:0.75;
+		}
 		.county-polygon{
 		    fill: #DCDCDC;
 		    stroke: #c6c6c6;
 		    stroke-width:0.5;
+		    
 		}
+		.county-polygon:hover, .state-polygon:hover { 
+      stroke: #ffffff;
+      fill-opacity: 0.92;
+    }
 		.state-polygon {
 		  fill: #E8E8E8;
 		  stroke: #c6c6c6;
@@ -30,7 +39,10 @@ line, polyline, path{
 		  fill: red;
 		}
 		.time-text {
-		  font-size: 1.8em;
+		  font-size: 1.5em;
+		}
+		.legend-title {
+		  font-size: 1.3em;
 		}
 		.watermark {
 		  fill: #DCDCDC;

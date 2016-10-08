@@ -13,6 +13,8 @@ visualize.matthew_map <- function(viz){
   gages <- readData(viz[['depends']][7])
   prctl <- readData(viz[['depends']][8])
   legend.bins <- readData(viz[['depends']][9])
+  legend.breaks <- readData(viz[['depends']][10])
+  spark.sites <- readData(viz[['depends']][11])
   
   library(svglite)
   library(dplyr)
@@ -84,8 +86,17 @@ visualize.matthew_map <- function(viz){
   }
   
   for (i in 1:length(gages)){ # FRAGILE - assumes all gages are on the map!!
-    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=sprintf('nwis-%s',gages$site_no[i]), r='2', class='nwis-dot',# fill=fill[1], # temporary, just for showing the colors
-                  onclick=sprintf("window.open('http://waterdata.usgs.gov/nwis/uv?site_no=%s','_blank')", gages$site_no[i]))
+    
+    svg.points <- filter(spark.sites, site_no == gages$site_no[i]) %>% .$points
+    if (!is.null(svg.points) && !is.na(svg.points[1])){
+      xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=sprintf('nwis-%s',gages$site_no[i]), r='2', class='nwis-dot',# fill=fill[1], # temporary, just for showing the colors
+                    onclick=sprintf("window.open('http://waterdata.usgs.gov/nwis/uv?site_no=%s','_blank')", gages$site_no[i]),
+                    onmouseover=sprintf("document.getElementById('sparkline-%s').setAttribute('class', 'sparkline')", gages$site_no[i]),
+                    onmouseout=sprintf("document.getElementById('sparkline-%s').setAttribute('class', 'hidden')", gages$site_no[i]))
+      g.dot <- xml_add_child(svg, 'g', transform=sprintf('translate(%s,%s)', xml_attr(cr[i], 'cx'), xml_attr(cr[i], 'cy')))
+      xml_add_child(g.dot, 'polyline', points = svg.points[1], class='hidden', id=paste0('sparkline-',gages$site_no[i]))
+    }
+    
   }
   storm.i <- length(storm)
   for (i in length(cr):(length(gages)+1)){ # assumes that LAST of the storm is on the map!!
@@ -93,11 +104,15 @@ visualize.matthew_map <- function(viz){
     storm.i <- storm.i - 1
   }
   
-  ys <- as.character(seq(0, 150, length.out = length(legend.bins)))
+  xml_add_child(g.legend, 'rect', x="-8", y="-8", width='175', height='235', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
+  xml_add_child(g.legend, 'text', 'Legend', 'class'='legend-title', dy='0.75em')
+  
+  ys <- as.character(seq(24, 160, length.out = length(legend.bins)))
   box.w <- '12'
   for (i in 1:length(legend.bins)){
     xml_add_child(g.legend, 'rect', 'height'=box.w, 'width'=box.w, y = ys[i], id=paste0('precip-bin-',i), fill=legend.bins[i], class='precip-legend-bin')
-    xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+as.numeric(box.w)/2), 'dy'= "0.33em", class='precip-legend-text', paste0('precip-bin-',i))
+    leg.txt <- ifelse(i == length(legend.breaks), sprintf('> %s inches per hour', legend.breaks[i]), sprintf('%s to %s', legend.breaks[i], legend.breaks[i+1]))
+    xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+as.numeric(box.w)/2), 'dy'= "0.33em", class='precip-legend-text', leg.txt)
   }
   xml_add_child(g.legend, 'path', d=sprintf('M-4,%s h%s',as.character(as.numeric(ys[i])+30), 20), class='track-polyline')
   xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='8', class='storm-dot-legend', cy = as.character(as.numeric(ys[i])+30), class='storm-legend-dot')
