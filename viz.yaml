@@ -62,7 +62,7 @@ fetch:
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv
-    refetch: false
+    refetch: true
     comment: disabling refetch to avoid too many GDP requests
   -
     id: discharge-data
