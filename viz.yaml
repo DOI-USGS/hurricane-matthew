@@ -241,22 +241,11 @@ publish:
       caption: Precipitation from Hurricane Matthew
   -
     id: footer-section
-    template: footer
-    publisher: footer
-    depends: header-footer-css
-    blogsInFooter: TRUE
-    vizzies:
-      - name: Microplastics in the Great Lakes
-        org: USGS-VIZLAB
-        repo: great-lakes-microplastics
-      - name: Climate Change and Freshwater Fish
-        org: USGS-VIZLAB
-        repo: climate-fish-habitat
-    blogs: 
-      - name: Using the dataRetrieval Stats Service
-        url: https://owi.usgs.gov/blog/stats-service-map/
-        thumbLoc: https://owi.usgs.gov/blog/images/owi-mobile.png
-  -
+    template: layout/templates/footer.mustache
+    publisher: section
+    context:
+      id: footer
+  - 
     id: data-sources
     template: layout/templates/dataSources.mustache
     publisher: section
