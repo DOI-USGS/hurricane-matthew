@@ -76,7 +76,7 @@ grab_spark <- function(vals){
 }
 
 process.discharge_sparks <- function(viz){
-  
+  library(dplyr)
   disch <- readData(viz[['depends']][1])
   times <- readData(viz[['depends']][2]) %>% .$times %>% 
     as.POSIXct(format = '%b %d %I:%M %p', tz= "America/New_York")
