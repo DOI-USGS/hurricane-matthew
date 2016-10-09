@@ -34,6 +34,11 @@ figurecaption{
   text-decoration:underline;
 }
 
+#buttonContainer {
+  margin: 10px auto 10px auto;
+  text-align: center;
+}
+
 @media screen and (min-width:768px){
   #map-figure,
   #dataSources{
