@@ -251,14 +251,13 @@ publish:
       id: map-figure
       figure: matthew-map
       title: Hurricane Matthew’s Impact on River Flow
-      caption:
-        line1: >-
-          Hurricane Matthew made landfall in Florida on October 7, 2016.
-          In the map above, the hurricane’s impact on precipitation and streamflow are 
-          shown as the storm moves up the coast of the southeastern US. Discharge (cubic feet per second) 
-          at US Geological Survey gaging stations within ~150 km of the storm cone is shown 
-          through time (right panel). Gages shown do not include the US Geological Survey 
-          Short-Term Network gages deployed to capture more detailed effects of the hurricane (
+      line1: >-
+        Hurricane Matthew made landfall in Florida on October 7, 2016.
+        In the map above, the hurricane’s impact on precipitation and streamflow are 
+        shown as the storm moves up the coast of the southeastern US. Discharge (cubic feet per second) 
+        at US Geological Survey gaging stations within ~150 km of the storm cone is shown 
+        through time (right panel). Gages shown do not include the US Geological Survey 
+        Short-Term Network gages deployed to capture more detailed effects of the hurricane (
       SPNLink: "http://stn.wim.usgs.gov/fev/#MatthewOctober2016"
       line2: ). 
   -
@@ -280,7 +279,9 @@ publish:
       title: Data Sources
       line1: "Streamflow: U.S. Geological Survey National Water Information System ("
       waterDataLink: http://waterdata.usgs.gov/nwis
-      line2: ). Time series of discharge at gages within 150 km of the storm cone are shown through time, normalized to site-specific maximum discharge observed over the duration of the hurricane. 
+      line2: >-
+        ). Time series of discharge at gages within 150 km of the storm cone are shown through time, 
+        normalized to site-specific maximum discharge observed over the duration of the hurricane. 
       line4: "Precipitation: National Weather Service Environmental Modeling Center National Center for Environmental Prediction Stage IV precipitation analysis ("
       emcLink: http://www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/stage4/
       line5: ), aggregated according to Blodgett (2013, 
