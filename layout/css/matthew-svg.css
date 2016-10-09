@@ -67,3 +67,15 @@ line, polyline, path{
 		  stroke-width:0.5;
 		  opacity: 0.4;
 		}
+		.hidden {
+		  opacity: 0;
+		}
+		.shown {
+		  opacity: 1;
+		}
+	.tooltip-box{
+    stroke-width: 0.5;
+    stroke: #696969;
+    opacity: 0.95;
+    fill: #f2f2f2;
+  }
