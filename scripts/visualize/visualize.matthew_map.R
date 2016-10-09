@@ -103,7 +103,7 @@ visualize.matthew_map <- function(viz){
   d <- xml_add_child(svg, 'defs') 
   cp <- xml_add_child(d, 'clipPath', id="spark-clip")
   xml_add_child(cp, 'rect', x=as.character(min.x), height=vb[4], width = as.character(max.x-min.x), id="spark-clip-rect")
-  m = xml_add_child(d, 'mask', id="spark-opacity", x="0", y="0", width="1", height="1", maskContentUnits="objectBoundingBox")
+  m = xml_add_child(d, 'mask', id="spark-opacity", x="0", y="-1", width="1", height="3", maskContentUnits="objectBoundingBox")
   xml_add_child(m, 'rect', x="0", y="-1", width="1", height="3", style="fill-opacity: 0.25; fill: white;", id='spark-light-mask')
   xml_add_child(m, 'rect', x="0", y="-1", width="0", height="3", style="fill-opacity: 1; fill: white;", id='spark-full-mask')
   xml_add_child(svg, 'rect', x='580', y='5', width="132", height='40', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')

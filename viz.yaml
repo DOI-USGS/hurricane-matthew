@@ -186,7 +186,7 @@ process:
     processor: timesteps
     scripts: scripts/process/process.matthew_counties.R
     reader: json
-    depends: ["sites-data","matthew-counties"]
+    depends: "classifyBins"
     export: true
     mimetype: application/javascript
     comment: "TOTAL HACK, writing into TARGET. How the heck do you get the other json in there?"
