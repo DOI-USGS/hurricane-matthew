@@ -47,6 +47,9 @@ line, polyline, path{
 .legend-title {
   font-size: 1.3em;
 }
+.smallprint-text {
+  font-size: 0.8em;
+}
 .nwis-dot, .nwis-legend-dot,.nwis-dot:hover, .nwis-bold,.nwis {
   fill: #057083;
   stroke: white;

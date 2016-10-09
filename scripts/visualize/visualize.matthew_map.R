@@ -87,22 +87,15 @@ visualize.matthew_map <- function(viz){
   
   
   cnt = 0; # count how many actually have data
-  min.x <- NA
-  max.x <- NA
   for (i in 1:length(gages)){
     svg.points <- filter(spark.sites, site_no == gages$site_no[i]) %>% .$points
     if (!is.null(svg.points) && !is.na(svg.points[1])){
       cnt = cnt+1
-      xs <- sapply(strsplit(strsplit(svg.points,'[ ]')[[1]], '[,]'), function(x) as.numeric(x[1]))
-      min.x <- min(xs, min.x, na.rm = TRUE)
-      max.x <- max(xs, max.x, na.rm = TRUE)
     }
   }
   d <- xml_find_all(svg, '//*[local-name()="defs"]')
   xml_remove(d)
   d <- xml_add_child(svg, 'defs') 
-  cp <- xml_add_child(d, 'clipPath', id="spark-clip")
-  xml_add_child(cp, 'rect', x=as.character(min.x), height=vb[4], width = as.character(max.x-min.x), id="spark-clip-rect")
   m = xml_add_child(d, 'mask', id="spark-opacity", x="0", y="-1", width="1", height="3", maskContentUnits="objectBoundingBox")
   xml_add_child(m, 'rect', x="0", y="-1", width="1", height="3", style="fill-opacity: 0.25; fill: white;", id='spark-light-mask')
   xml_add_child(m, 'rect', x="0", y="-1", width="0", height="3", style="fill-opacity: 1; fill: white;", id='spark-full-mask')
@@ -128,8 +121,7 @@ visualize.matthew_map <- function(viz){
                     onclick=sprintf("openNWIS('%s')", gages$site_no[i]),
                     onmouseover=sprintf("setBold('nwis-%s');", gages$site_no[i]),
                     onmouseout=sprintf("setNormal('nwis-%s');hovertext(' ');", gages$site_no[i]),
-                    style="mask: url(#spark-opacity)",
-                    'clip-path'="url(#spark-clip)", onmousemove=sprintf("hovertext('NWIS %s',evt);",gages$site_no[i]))
+                    style="mask: url(#spark-opacity)",onmousemove=sprintf("hovertext('NWIS %s',evt);",gages$site_no[i]))
     }
     
   }
@@ -139,7 +131,7 @@ visualize.matthew_map <- function(viz){
     storm.i <- storm.i - 1
   }
   
-  xml_add_child(g.legend, 'rect', x="-8", y="-8", width='175', height='235', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
+  xml_add_child(g.legend, 'rect', x="-8", y="-8", width='175', height='246', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
   xml_add_child(g.legend, 'text', 'Legend', 'class'='legend-title', dy='0.75em')
   
   ys <- as.character(seq(24, 160, length.out = length(legend.bins)))
@@ -149,12 +141,13 @@ visualize.matthew_map <- function(viz){
     leg.txt <- ifelse(i == length(legend.breaks), sprintf('> %s inches per hour', legend.breaks[i]), sprintf('%s to %s', legend.breaks[i], legend.breaks[i+1]))
     xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+as.numeric(box.w)/2), 'dy'= "0.33em", class='precip-legend-text', leg.txt)
   }
-  xml_add_child(g.legend, 'path', d=sprintf('M-4,%s h%s',as.character(as.numeric(ys[i])+30), 20), class='track-polyline')
-  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='8', class='storm-dot-legend', cy = as.character(as.numeric(ys[i])+30), class='storm-legend-dot')
-  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+30), 'dy'= "0.33em", class='storm-legend-text', "Hurricane Matthew")
+  xml_add_child(g.legend, 'text', x=box.w, 'dx'="-0.3em", y=as.character(as.numeric(ys[i])+as.numeric(box.w)/2), 'dy'= "1.6em", class='smallprint-text', "(county average precip)")
+  xml_add_child(g.legend, 'path', d=sprintf('M-4,%s h%s',as.character(as.numeric(ys[i])+40), 20), class='track-polyline')
+  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='8', class='storm-dot-legend', cy = as.character(as.numeric(ys[i])+40), class='storm-legend-dot')
+  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+40), 'dy'= "0.33em", class='storm-legend-text', "Hurricane Matthew")
   
-  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='3', cy = as.character(as.numeric(ys[i])+53), class='nwis-legend-dot')
-  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+53), 'dy'= "0.33em", class='nwis-legend-text', "USGS stream gage")
+  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='3', cy = as.character(as.numeric(ys[i])+60), class='nwis-legend-dot')
+  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+60), 'dy'= "0.33em", class='nwis-legend-text', "USGS stream gage")
   
   xml_add_child(svg, 'text', ' ', id='timestamp-text', class='time-text', x="490", y="320", 'text-anchor'="middle")
   
