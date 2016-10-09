@@ -3,7 +3,6 @@ process.classifyBins <- function(viz){
   
   #need to get bins
   
-  
   precip_breaks <- readData(viz[['depends']][1]) 
   precipData <- readData(viz[['depends']][2]) 
 

@@ -62,7 +62,7 @@ fetch:
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv
-    refetch: true
+    refetch: false 
     comment: disabling refetch to avoid too many GDP requests
   -
     id: discharge-data
@@ -180,20 +180,27 @@ process:
     scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: ["sites-data","matthew-counties", "storm-track"]
-  - 
+  -
     id: timesteps
-    location: target/js/times.json
+    location: cache/times.json
     processor: timesteps
     scripts: scripts/process/process.matthew_counties.R
     reader: json
-    depends: "classifyBins"
+    depends: ["sites-data","matthew-counties"]
+    export: true
+    mimetype: application/javascript
     comment: "TOTAL HACK, writing into TARGET. How the heck do you get the other json in there?"
+    comment-reply: >-
+      export true allows it to be exported to target, 
+      mimetype javascript is a hack to use a publisher that works, we should be able
+      to either add a json publisher or, general data publisher so this ends up in data/times.json.
 visualize:
   -
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 'storm-location',"matthew-sites", "discharge-classify", "precip-colors", "precip-breaks", "discharge-sparks"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 
+      'storm-location',"matthew-sites", "discharge-classify", "precip-colors", "precip-breaks", "discharge-sparks"]
     scripts: scripts/visualize/visualize.matthew_map.R
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
@@ -229,10 +236,12 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["header-section", "figure-section", "data-sources", "footer-section", "map-figure-css", "header-footer-css","precip-colors", "jquery-js", "animate-js", "svg-css"]
+    depends: ["header-section", "figure-section", "data-sources", "map-figure-css",
+      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css"]
     context:
-      resources: ["map-figure-css","header-footer-css", "jquery-js", "precip-colors", "animate-js", "svg-css"]
-      sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
+      resources: ["map-figure-css","header-footer-css", "jquery-js", "precip-colors",
+        "timesteps", "animate-js", "svg-css"]
+      sections: [ "header-section", "figure-section", "data-sources" ]
   -
     id: figure-section
     template: layout/templates/mapFigure.mustache
@@ -242,7 +251,10 @@ publish:
       id: map-figure
       figure: matthew-map
       title: Hurricane Matthew’s Impact on River Flow
-      caption: Hurricane Matthew made landfall in Florida on October 7, 2016. In the map above, the hurricane’s impact on precipitation and streamflow are shown as the storm makes landfall and moves up the coast of the southeastern US.
+      caption: >-
+        Hurricane Matthew made landfall in Florida on October 7, 2016.
+        In the map above, the hurricane’s impact on precipitation and streamflow are 
+        shown as the storm makes landfall and moves up the coast of the southeastern US.
   -
     id: header-section
     template: layout/templates/header.mustache
@@ -254,12 +266,6 @@ publish:
       logo: usgs-logo
       caption: Precipitation from Hurricane Matthew
   -
-    id: footer-section
-    template: layout/templates/footer.mustache
-    publisher: section
-    context:
-      id: footer
-  - 
     id: data-sources
     template: layout/templates/dataSources.mustache
     publisher: section
@@ -279,6 +285,24 @@ publish:
       line7: "Storm Track: National Oceanic and Atmospheric Administration National Hurricane Center Preliminary Best Track for Hurricane Matthew ("
       nhcLink: http://www.nhc.noaa.gov/gis/
       line8: )
+# Turning off footer, I think this code needs to be checked in
+#  -
+#    id: footer-section
+#    template: footer
+#    publisher: footer
+#    depends: header-footer-css
+#    blogsInFooter: TRUE
+#    vizzies:
+#      - name: Microplastics in the Great Lakes
+#        org: USGS-VIZLAB
+#        repo: great-lakes-microplastics
+#      - name: Climate Change and Freshwater Fish
+#        org: USGS-VIZLAB
+#        repo: climate-fish-habitat
+#    blogs: 
+#      - name: Using the dataRetrieval Stats Service
+#        url: https://owi.usgs.gov/blog/stats-service-map/
+#        thumbLoc: https://owi.usgs.gov/blog/images/owi-mobile.png
   -
     id: svg-css
     location: layout/css/matthew-svg.css

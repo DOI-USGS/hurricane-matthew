@@ -36,3 +36,33 @@ var animatePrcp = function(timestep) {
   document.getElementById('spark-light-mask').setAttribute('width', 1-darkWidth);
   document.getElementById('spark-full-mask').setAttribute('width',darkWidth);
 }
+
+$(document).ready(function() {
+  setColors();
+  var running = false;
+  var interval;
+  var intervalLength = 1000; // 1 sec
+  var timestep = 1;
+  var button = $("#playButton");
+  button.click(function(){
+    if (running) {
+      clearInterval(interval);
+      running = false;
+      button.html("Play")
+    } else {
+      running = true;
+      button.html("Pause")
+      interval = setInterval(function() {
+        if (timestep < prcpTimes.times.length) {
+          animatePrcp(timestep);
+          timestep++;
+        } else {
+          timestep = 1;
+          clearInterval(interval);
+          running = false;
+          button.html("Play")
+        }
+      }, intervalLength)
+    }
+  });
+});
