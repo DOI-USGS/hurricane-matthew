@@ -1,4 +1,4 @@
-line, polyline, path, circle {
+line, polyline, path{
 		    fill: none;
 		    stroke-linecap: round;
 		    stroke-linejoin: round;
@@ -9,8 +9,8 @@ line, polyline, path, circle {
 		}
 		
 		.track-polyline {
-		    stroke: red;
-		    stroke-width:4;
+		    stroke: #e0eeee;
+		    stroke-width:2;
 		}
 		.county-polygon{
 		    fill: #DCDCDC;
@@ -23,13 +23,18 @@ line, polyline, path, circle {
 		  stroke-width:0.5;
 		}
 		.background {
-					fill: grey;
+					fill: #8f8f8f;
 					stroke: none
 				}
-		.hidden {
-		  opacity:0;
+		.storm-dot, .storm-dot-legend {
+		  fill: red;
 		}
-		
-		.shown {
-		  opacity:1;
+		.time-text {
+		  font-size: 1.8em;
+		}
+		.watermark {
+		  fill: #DCDCDC;
+		  stroke: #c6c6c6;
+		  stroke-width:0.5;
+		  opacity: 0.4;
 		}

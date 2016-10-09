@@ -44,7 +44,6 @@ fetch:
     scripts: scripts/fetch/hurricaneTrack.R
     mimetype: application/zip
     metadata: "Updates every 6 hours on http://www.nhc.noaa.gov/gis/"
-    refetch: false
     comment: disabling refetch until timestamp is hooked up
   -
     id: flowlines
@@ -63,7 +62,7 @@ fetch:
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv
-    refetch: FALSE
+    refetch: true
     comment: disabling refetch to avoid too many GDP requests
   -
     id: discharge-data
@@ -165,15 +164,22 @@ process:
     id: matthew-sites
     location: cache/sites_geo.rds
     processor: matthew_sites
-    scripts: scripts/process/process.sites.R
+    scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: ["sites-data","matthew-counties"]
+  - id: timesteps
+    location: target/js/times.json
+    processor: timesteps
+    scripts: scripts/process/process.matthew_counties.R
+    reader: json
+    depends: "classifyBins"
+    comment: "TOTAL HACK, writing into TARGET. How the heck do you get the other json in there?"
 visualize:
   -
     id: matthew-map
     location: figures/matthew-water.svg
     visualizer: matthew_map
-    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 'storm-location',"matthew-sites", "discharge-classify"]
+    depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 'storm-location',"matthew-sites", "discharge-classify", "precip-colors"]
     scripts: scripts/visualize/visualize.matthew_map.R
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
