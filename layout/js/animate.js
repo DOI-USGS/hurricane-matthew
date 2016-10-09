@@ -1,7 +1,6 @@
 var prcpColors = undefined;
 var prcpTimes = undefined;
 
-var width = undefined;
 
 var setColors = function() {
   $.get( "js/precip-colors.json", function( data ) {
@@ -10,7 +9,6 @@ var setColors = function() {
   $.get( "js/times.json", function( data ) {
     prcpTimes = data
   });
-  width = document.getElementById('spark-clip-rect').getAttribute('width');
 }
 
 var animatePrcp = function(timestep) {
@@ -33,5 +31,8 @@ var animatePrcp = function(timestep) {
     }
   }
   document.getElementById('timestamp-text').firstChild.data = prcpTimes.times[timestep-1]; // zero indexed
-  document.getElementById('spark-clip-rect').setAttribute('width', width/prcpTimes.times.length*(timestep));
+  var darkWidth = timestep/prcpTimes.times.length;
+  document.getElementById('spark-light-mask').setAttribute('x', darkWidth);
+  document.getElementById('spark-light-mask').setAttribute('width', 1-darkWidth);
+  document.getElementById('spark-full-mask').setAttribute('width',darkWidth);
 }

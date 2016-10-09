@@ -103,6 +103,9 @@ visualize.matthew_map <- function(viz){
   d <- xml_add_child(svg, 'defs') 
   cp <- xml_add_child(d, 'clipPath', id="spark-clip")
   xml_add_child(cp, 'rect', x=as.character(min.x), height=vb[4], width = as.character(max.x-min.x), id="spark-clip-rect")
+  m = xml_add_child(d, 'mask', id="spark-opacity", x="0", y="0", width="1", height="1", maskContentUnits="objectBoundingBox")
+  xml_add_child(m, 'rect', x="0", y="-1", width="1", height="3", style="fill-opacity: 0.25; fill: white;", id='spark-light-mask')
+  xml_add_child(m, 'rect', x="0", y="-1", width="0", height="3", style="fill-opacity: 1; fill: white;", id='spark-full-mask')
   xml_add_child(svg, 'rect', x='580', y='5', width="132", height='40', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
   xml_add_child(svg, 'text', x='646', y='30', 'USGS stream', dy='-0.5em', 'text-anchor'='middle')
   xml_add_child(svg, 'text', x='646', y='30', 'gage discharge', dy='0.5em', "text-anchor"='middle')
@@ -123,6 +126,7 @@ visualize.matthew_map <- function(viz){
       xml_add_child(g.dot, 'polyline', points = svg.points[1], class='sparkline', id=paste0('sparkline-',gages$site_no[i]), 
                     onmouseover=sprintf("document.getElementById('nwis-%s').setAttribute('class', 'nwis-bold');", gages$site_no[i]),
                     onmouseout=sprintf("document.getElementById('nwis-%s').setAttribute('class', 'nwis-dot');", gages$site_no[i]),
+                    style="mask: url(#spark-opacity)",
                     'clip-path'="url(#spark-clip)")
     }
     
