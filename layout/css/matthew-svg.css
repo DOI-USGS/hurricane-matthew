@@ -13,12 +13,12 @@ line, polyline, path{
 		    stroke-width:2;
 		}
 		.sparkline {
-		    stroke: #e0e0e0;
+		    stroke: #6ACDCD;
 		    stroke-width:1.5;
 		}
 		.sparkline-bold,.sparkline:hover  {
-		    stroke: #e0e0e0;
-		    stroke-width:3.5;
+		    stroke: #6ACDCD;
+		    stroke-width:3.0;
 		}
 		.county-polygon{
 		    fill: #DCDCDC;
@@ -43,19 +43,21 @@ line, polyline, path{
 		  fill: red;
 		}
 		.time-text {
-		  font-size: 1.35em;
+		  font-size: 1.25em;
 		}
 		.legend-title {
 		  font-size: 1.3em;
 		}
-		.nwis-dot, .nwis-legend-dot {
-		  fill: grey;
+		.nwis-dot, .nwis-legend-dot,.nwis-dot:hover, .nwis-bold {
+		  fill: #057083;
+		  stroke: white;
+		  stroke-width:0.75;
 		}
 		
 		.nwis-dot:hover, .nwis-bold {
-		  fill: grey;
-		  transform: scale(1.8);
+		  transform: scale(2.2);
 		  fill-opacity: 0.7;
+		  
 		}
 		.watermark {
 		  fill: #DCDCDC;

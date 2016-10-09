@@ -43,7 +43,7 @@ process.matthew_sites <- function(viz){
   library(rgeos)
   library(sp)
   library(dplyr)
-  ignore.sites <- c('02171645','02135200','02240000') # sites that hydropeak or are otherwise not representative
+  ignore.sites <- c('02171645','02135200','02240000','02274325','02236500') # sites that hydropeak or are otherwise not representative
   counties <- readData(viz[['depends']][2])
   sites <- readData(viz[['depends']][1]) %>% 
     filter(!site_no %in% ignore.sites) %>% 

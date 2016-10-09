@@ -118,7 +118,7 @@ visualize.matthew_map <- function(viz){
     if (!is.null(svg.points) && !is.na(svg.points[1])){
       cnt = cnt+1
       g.dot <- xml_add_child(g.storm, 'g', transform=sprintf('translate(%s,%s)', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy')))
-      xml_add_child(g.dot, 'circle', id=sprintf('nwis-%s',gages$site_no[i]), r='2', class='nwis-dot',
+      xml_add_child(g.dot, 'circle', id=sprintf('nwis-%s',gages$site_no[i]), r='3', class='nwis-dot',
                     onclick=sprintf("window.open('http://waterdata.usgs.gov/nwis/uv?site_no=%s','_blank')", gages$site_no[i]),
                     onmouseover=sprintf("document.getElementById('sparkline-%s').setAttribute('class', 'sparkline-bold')", gages$site_no[i]),
                     onmouseout=sprintf("document.getElementById('sparkline-%s').setAttribute('class', 'sparkline')", gages$site_no[i]))
@@ -151,7 +151,7 @@ visualize.matthew_map <- function(viz){
   xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='8', class='storm-dot-legend', cy = as.character(as.numeric(ys[i])+30), class='storm-legend-dot')
   xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+30), 'dy'= "0.33em", class='storm-legend-text', "Hurricane Matthew")
   
-  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='2', cy = as.character(as.numeric(ys[i])+53), class='nwis-legend-dot')
+  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='3', cy = as.character(as.numeric(ys[i])+53), class='nwis-legend-dot')
   xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+53), 'dy'= "0.33em", class='nwis-legend-text', "USGS stream gage")
   
   xml_add_child(svg, 'text', ' ', id='timestamp-text', class='time-text', x="490", y="320", 'text-anchor'="middle")
