@@ -43,25 +43,54 @@ process.matthew_sites <- function(viz){
   library(rgeos)
   library(sp)
   library(dplyr)
-  
+  ignore.sites <- c('02171645','02135200','02240000','02274325','02236500') # sites that hydropeak or are otherwise not representative
   counties <- readData(viz[['depends']][2])
-  sites <- readData(viz[['depends']][1])
+  sites <- readData(viz[['depends']][1]) %>% 
+    filter(!site_no %in% ignore.sites) %>% 
+    arrange(desc(dec_lat_va))
+  track <- readData(viz[['depends']][3])
+  buffered.track <- gBuffer( track, width=150000, byid=TRUE )
   pts <- cbind(sites$dec_long_va, sites$dec_lat_va)
   sites <- SpatialPointsDataFrame(pts, proj4string=CRS("+proj=longlat +datum=WGS84"), 
                                      data = sites %>% select(site_no, station_nm) %>% data.frame)
   sites <- spTransform(sites, CRS(proj4string(counties)))
+  overlap <- gContains(buffered.track, sites, byid = TRUE) %>% rowSums() %>% as.logical()
   
   # here do "over" analysis for masking?
   
-  saveRDS(sites, viz[['location']])
+  saveRDS(sites[overlap, ], viz[['location']])
 }
 
 process.timesteps <- function(viz){
   #"classifyBins",'storm-location'
   library(dplyr)
   library(jsonlite)
-  times <- readData(viz[['depends']][1]) %>% select(DateTime) %>% unique() %>% .$DateTime
+  times <- readData(viz[['depends']][1]) %>% select(DateTime) %>% 
+    unique() %>% .$DateTime %>% as.POSIXct %>% format('%b %d %I:%M %p')
   cat(jsonlite::toJSON(list(times=times)), file = viz[['location']])
+}
+library(svglite)
+library(xml2)
+grab_spark <- function(vals){
+  
+  x = svglite::xmlSVG({
+    par(omi=c(0,0,0,0), mai=c(0,0,0,0))
+    plot(vals, type='l', axes=F, ann=F)
+  }, height=0.2, width=2)
+  xml2::xml_attr(xml2::xml_find_first(x, '//*[local-name()="polyline"]'),'points')
+}
+
+process.discharge_sparks <- function(viz){
+  library(dplyr)
+  disch <- readData(viz[['depends']][1])
+  times <- readData(viz[['depends']][2]) %>% .$times %>% 
+    as.POSIXct(format = '%b %d %I:%M %p', tz= "America/New_York")
+  interp_q <- function(x,y){
+    approx(x, y, xout = times)$y %>% grab_spark
+  }
+  sparks <- group_by(disch, site_no) %>% 
+    summarize(points = interp_q(dateTime, Flow_Inst))
+  saveRDS(sparks, viz[['location']])
 }
 process.storm_location <- function(viz){
   

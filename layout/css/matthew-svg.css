@@ -1,40 +1,79 @@
 line, polyline, path{
-		    fill: none;
-		    stroke-linecap: round;
-		    stroke-linejoin: round;
-		    stroke-miterlimit: 10.00;
-		}
-		.river-polyline {
-		    stroke: #1E90FF;
-		}
+  fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-miterlimit: 10.00;
+}
+.river-polyline {
+	stroke: #1E90FF;
+}
 		
-		.track-polyline {
-		    stroke: #e0eeee;
-		    stroke-width:2;
-		}
-		.county-polygon{
-		    fill: #DCDCDC;
-		    stroke: #c6c6c6;
-		    stroke-width:0.5;
-		}
-		.state-polygon {
-		  fill: #E8E8E8;
-		  stroke: #c6c6c6;
-		  stroke-width:0.5;
-		}
-		.background {
-					fill: #8f8f8f;
-					stroke: none
-				}
-		.storm-dot, .storm-dot-legend {
-		  fill: red;
-		}
-		.time-text {
-		  font-size: 1.8em;
-		}
-		.watermark {
-		  fill: #DCDCDC;
-		  stroke: #c6c6c6;
-		  stroke-width:0.5;
-		  opacity: 0.4;
-		}
+.track-polyline {
+  stroke: #e0eeee;
+  stroke-width:2;
+}
+.sparkline {
+	stroke: #6ACDCD;
+	stroke-width:1.5;
+}
+.sparkline-bold,.sparkline:hover  {
+  stroke: #6ACDCD;
+  stroke-width:3.0;
+}
+.county-polygon{
+  fill: #DCDCDC;
+  stroke: #c6c6c6;
+  stroke-width:0.5;
+}
+.county-polygon:hover, .state-polygon:hover { 
+  stroke: #ffffff;
+  fill-opacity: 0.92;
+  }
+.state-polygon {
+  fill: #E8E8E8;
+  stroke: #c6c6c6;
+  stroke-width:0.5;
+}
+.background {
+  fill: #8f8f8f;
+  stroke: none
+}
+.storm-dot, .storm-dot-legend {
+  fill: red;
+}
+.time-text {
+  font-size: 1.25em;
+}
+.legend-title {
+  font-size: 1.3em;
+}
+.nwis-dot, .nwis-legend-dot,.nwis-dot:hover, .nwis-bold {
+  fill: #057083;
+  stroke: white;
+}
+.nwis-dot, .nwis-legend-dot{
+  stroke-width:0.75;
+}
+.nwis-dot:hover, .nwis-bold {
+  transform: scale(2.2);
+  fill-opacity: 0.7;
+  stroke-width:0.35;
+}
+.watermark {
+  fill: #DCDCDC;
+  stroke: #c6c6c6;
+  stroke-width:0.5;
+  opacity: 0.4;
+}
+.hidden {
+  opacity: 0;
+}
+.shown {
+  opacity: 1;
+}
+.tooltip-box{
+  stroke-width: 0.5;
+  stroke: #696969;
+  opacity: 0.95;
+  fill: #f2f2f2;
+}
