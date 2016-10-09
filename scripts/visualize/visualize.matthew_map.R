@@ -119,15 +119,15 @@ visualize.matthew_map <- function(viz){
       cnt = cnt+1
       g.dot <- xml_add_child(g.storm, 'g', transform=sprintf('translate(%s,%s)', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy')))
       xml_add_child(g.dot, 'circle', id=sprintf('nwis-%s',gages$site_no[i]), r='3', class='nwis-dot',
-                    onclick=sprintf("window.open('http://waterdata.usgs.gov/nwis/uv?site_no=%s','_blank')", gages$site_no[i]),
-                    onmouseover=sprintf("document.getElementById('sparkline-%s').setAttribute('class', 'sparkline-bold')", gages$site_no[i]),
-                    onmouseout=sprintf("document.getElementById('sparkline-%s').setAttribute('class', 'sparkline');hovertext(' ');", gages$site_no[i]),
+                    onclick=sprintf("openNWIS('%s')", gages$site_no[i]),
+                    onmouseover=sprintf("setBold('sparkline-%s');", gages$site_no[i]),
+                    onmouseout=sprintf("setNormal('sparkline-%s');hovertext(' ');", gages$site_no[i]),
                     onmousemove=sprintf("hovertext('NWIS %s',evt);",gages$site_no[i]))
       g.dot <- xml_add_child(g.storm, 'g', transform=sprintf('translate(%s,%s)', "570", ys[cnt])) 
       xml_add_child(g.dot, 'polyline', points = svg.points[1], class='sparkline', id=paste0('sparkline-',gages$site_no[i]), 
-                    onclick=sprintf("window.open('http://waterdata.usgs.gov/nwis/uv?site_no=%s','_blank')", gages$site_no[i]),
-                    onmouseover=sprintf("document.getElementById('nwis-%s').setAttribute('class', 'nwis-bold');", gages$site_no[i]),
-                    onmouseout=sprintf("document.getElementById('nwis-%s').setAttribute('class', 'nwis-dot');hovertext(' ');", gages$site_no[i]),
+                    onclick=sprintf("openNWIS('%s')", gages$site_no[i]),
+                    onmouseover=sprintf("setBold('nwis-%s');", gages$site_no[i]),
+                    onmouseout=sprintf("setNormal('nwis-%s');hovertext(' ');", gages$site_no[i]),
                     style="mask: url(#spark-opacity)",
                     'clip-path'="url(#spark-clip)", onmousemove=sprintf("hovertext('NWIS %s',evt);",gages$site_no[i]))
     }
