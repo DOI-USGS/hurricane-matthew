@@ -31,3 +31,33 @@ var animatePrcp = function(timestep) {
     document.getElementById('timestamp-text').firstChild.data = prcpTimes.times[timestep-1]; // zero indexed
   }
 }
+
+$(document).ready(function() {
+  setColors();
+  var running = false;
+  var interval;
+  var intervalLength = 1000; // 1 sec
+  var timestep = 1;
+  var button = $("#playButton");
+  button.click(function(){
+    if (running) {
+      clearInterval(interval);
+      running = false;
+      button.html("Play")
+    } else {
+      running = true;
+      button.html("Pause")
+      interval = setInterval(function() {
+        if (timestep < prcpTimes.times.length) {
+          animatePrcp(timestep);
+          timestep++;
+        } else {
+          timestep = 1;
+          clearInterval(interval);
+          running = false;
+          button.html("Play")
+        }
+      }, intervalLength)
+    }
+  });
+});
