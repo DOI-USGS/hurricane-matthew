@@ -43,9 +43,10 @@ process.matthew_sites <- function(viz){
   library(rgeos)
   library(sp)
   library(dplyr)
-  
+  ignore.sites <- c('02171645','02135200','02240000') # sites that hydropeak or are otherwise not representative
   counties <- readData(viz[['depends']][2])
   sites <- readData(viz[['depends']][1]) %>% 
+    filter(!site_no %in% ignore.sites) %>% 
     arrange(desc(dec_lat_va))
   track <- readData(viz[['depends']][3])
   buffered.track <- gBuffer( track, width=150000, byid=TRUE )

@@ -16,7 +16,7 @@ line, polyline, path{
 		    stroke: #e0e0e0;
 		    stroke-width:1.5;
 		}
-		.sparkline-bold {
+		.sparkline-bold,.sparkline:hover  {
 		    stroke: #e0e0e0;
 		    stroke-width:3.5;
 		}
@@ -48,8 +48,14 @@ line, polyline, path{
 		.legend-title {
 		  font-size: 1.3em;
 		}
-		.nwis-dot:hover {
+		.nwis-dot, .nwis-legend-dot {
 		  fill: grey;
+		}
+		
+		.nwis-dot:hover, .nwis-bold {
+		  fill: grey;
+		  transform: scale(1.8);
+		  fill-opacity: 0.7;
 		}
 		.watermark {
 		  fill: #DCDCDC;
