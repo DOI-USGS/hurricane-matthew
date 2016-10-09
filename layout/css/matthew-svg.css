@@ -16,6 +16,10 @@ line, polyline, path{
 		    stroke: #e0e0e0;
 		    stroke-width:1.5;
 		}
+		.sparkline-bold {
+		    stroke: #e0e0e0;
+		    stroke-width:3.5;
+		}
 		.county-polygon{
 		    fill: #DCDCDC;
 		    stroke: #c6c6c6;
@@ -39,7 +43,7 @@ line, polyline, path{
 		  fill: red;
 		}
 		.time-text {
-		  font-size: 1.5em;
+		  font-size: 1.35em;
 		}
 		.legend-title {
 		  font-size: 1.3em;

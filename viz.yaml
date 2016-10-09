@@ -179,7 +179,7 @@ process:
     processor: matthew_sites
     scripts: scripts/process/process.matthew_counties.R
     reader: rds
-    depends: ["sites-data","matthew-counties"]
+    depends: ["sites-data","matthew-counties", "storm-track"]
   - 
     id: timesteps
     location: target/js/times.json
@@ -283,4 +283,3 @@ publish:
     id: svg-css
     location: layout/css/matthew-svg.css
     mimetype: text/css
-  

@@ -45,15 +45,19 @@ process.matthew_sites <- function(viz){
   library(dplyr)
   
   counties <- readData(viz[['depends']][2])
-  sites <- readData(viz[['depends']][1])
+  sites <- readData(viz[['depends']][1]) %>% 
+    arrange(desc(dec_lat_va))
+  track <- readData(viz[['depends']][3])
+  buffered.track <- gBuffer( track, width=150000, byid=TRUE )
   pts <- cbind(sites$dec_long_va, sites$dec_lat_va)
   sites <- SpatialPointsDataFrame(pts, proj4string=CRS("+proj=longlat +datum=WGS84"), 
                                      data = sites %>% select(site_no, station_nm) %>% data.frame)
   sites <- spTransform(sites, CRS(proj4string(counties)))
+  overlap <- gContains(buffered.track, sites, byid = TRUE) %>% rowSums() %>% as.logical()
   
   # here do "over" analysis for masking?
   
-  saveRDS(sites, viz[['location']])
+  saveRDS(sites[overlap, ], viz[['location']])
 }
 
 process.timesteps <- function(viz){
@@ -71,7 +75,7 @@ grab_spark <- function(vals){
   x = svglite::xmlSVG({
     par(omi=c(0,0,0,0), mai=c(0,0,0,0))
     plot(vals, type='l', axes=F, ann=F)
-  }, height=0.4, width=1)
+  }, height=0.2, width=2)
   xml2::xml_attr(xml2::xml_find_first(x, '//*[local-name()="polyline"]'),'points')
 }
 
