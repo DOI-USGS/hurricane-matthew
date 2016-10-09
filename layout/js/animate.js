@@ -1,6 +1,8 @@
 var prcpColors = undefined;
 var prcpTimes = undefined;
 
+var width = undefined;
+
 var setColors = function() {
   $.get( "js/precip-colors.json", function( data ) {
     prcpColors = data
@@ -8,6 +10,7 @@ var setColors = function() {
   $.get( "js/times.json", function( data ) {
     prcpTimes = data
   });
+  width = document.getElementById('spark-clip-rect').getAttribute('width');
 }
 
 var animatePrcp = function(timestep) {
@@ -30,4 +33,5 @@ var animatePrcp = function(timestep) {
     }
   }
   document.getElementById('timestamp-text').firstChild.data = prcpTimes.times[timestep-1]; // zero indexed
+  document.getElementById('spark-clip-rect').setAttribute('width', width/prcpTimes.times.length*(timestep));
 }
