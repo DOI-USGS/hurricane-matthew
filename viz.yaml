@@ -239,8 +239,7 @@ publish:
     depends: ["header-section", "figure-section", "data-sources", "map-figure-css",
       "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css"]
     context:
-      resources: ["map-figure-css","header-footer-css", "jquery-js", "precip-colors",
-        "timesteps", "animate-js", "svg-css"]
+      resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css"]
       sections: [ "header-section", "figure-section", "data-sources" ]
   -
     id: figure-section
