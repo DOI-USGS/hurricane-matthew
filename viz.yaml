@@ -267,9 +267,9 @@ publish:
     depends: ["usgs-logo"]
     context:
       id: header
-      title: Hurricane Matthew Precipitation
+      title: Hurricane Matthew's Water Footprint
       logo: usgs-logo
-      caption: Precipitation from Hurricane Matthew
+      caption: Water impacts from Hurricane Matthew
   -
     id: data-sources
     template: layout/templates/dataSources.mustache

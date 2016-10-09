@@ -113,3 +113,14 @@ function cursorPoint(evt){
 function changeOpacity(id, val){
   document.getElementById(id).setAttribute("opacity", val);
 }
+function setBold(id){
+  var className = id.split('-')[0];
+  document.getElementById(id).setAttribute('class', className+'-bold');
+}
+function setNormal(id){
+  var className = id.split('-')[0];
+  document.getElementById(id).setAttribute('class', className);
+}
+function openNWIS(id){
+  window.open('http://waterdata.usgs.gov/nwis/uv?site_no='+id,'_blank');
+}
