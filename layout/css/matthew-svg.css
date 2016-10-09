@@ -51,13 +51,15 @@ line, polyline, path{
 		.nwis-dot, .nwis-legend-dot,.nwis-dot:hover, .nwis-bold {
 		  fill: #057083;
 		  stroke: white;
+		}
+		.nwis-dot, .nwis-legend-dot{
 		  stroke-width:0.75;
 		}
 		
 		.nwis-dot:hover, .nwis-bold {
 		  transform: scale(2.2);
 		  fill-opacity: 0.7;
-		  
+		  stroke-width:0.35;
 		}
 		.watermark {
 		  fill: #DCDCDC;
