@@ -17,7 +17,8 @@ fetch.sites <- function(viz){
                           parameterCd="00060",
                           stateCd = i)
     sites_sum <- filter(sites, parm_cd == "00060",
-                        data_type_cd == "uv") %>%
+                        data_type_cd == "uv",
+                        !site_tp_cd %in% c("LK", "ES", "GW")) %>% #others?
       mutate(end_date = as.Date(end_date)) %>%
       filter(end_date >= start.date,
              count_nu >= 3000,
