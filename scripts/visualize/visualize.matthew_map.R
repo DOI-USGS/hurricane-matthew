@@ -37,6 +37,7 @@ visualize.matthew_map <- function(viz){
   
   # let this thing scale:
   xml_attr(svg, "preserveAspectRatio") <- "xMidYMid meet" 
+  xml_attr(svg, "id") <- "matthew-svg"
   vb <- strsplit(xml_attr(svg, 'viewBox'),'[ ]')[[1]]
   
   r <- xml_find_all(svg, '//*[local-name()="rect"]')
