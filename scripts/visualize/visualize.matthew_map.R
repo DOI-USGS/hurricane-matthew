@@ -36,7 +36,7 @@ visualize.matthew_map <- function(viz){
   
   
   # let this thing scale:
-  xml_attr(svg, "preserveAspectRatio") <- "xMinYMin meet" 
+  xml_attr(svg, "preserveAspectRatio") <- "xMidYMid meet" 
   vb <- strsplit(xml_attr(svg, 'viewBox'),'[ ]')[[1]]
   
   r <- xml_find_all(svg, '//*[local-name()="rect"]')
@@ -115,13 +115,13 @@ visualize.matthew_map <- function(viz){
                     onclick=sprintf("openNWIS('%s')", gages$site_no[i]),
                     onmouseover=sprintf("setBold('sparkline-%s');", gages$site_no[i]),
                     onmouseout=sprintf("setNormal('sparkline-%s');hovertext(' ');", gages$site_no[i]),
-                    onmousemove=sprintf("hovertext('NWIS %s',evt);",gages$site_no[i]))
+                    onmousemove=sprintf("hovertext('USGS %s',evt);",gages$site_no[i]))
       g.dot <- xml_add_child(g.storm, 'g', transform=sprintf('translate(%s,%s)', "570", ys[cnt])) 
       xml_add_child(g.dot, 'polyline', points = svg.points[1], class='sparkline', id=paste0('sparkline-',gages$site_no[i]), 
                     onclick=sprintf("openNWIS('%s')", gages$site_no[i]),
                     onmouseover=sprintf("setBold('nwis-%s');", gages$site_no[i]),
                     onmouseout=sprintf("setNormal('nwis-%s');hovertext(' ');", gages$site_no[i]),
-                    style="mask: url(#spark-opacity)",onmousemove=sprintf("hovertext('NWIS %s',evt);",gages$site_no[i]))
+                    style="mask: url(#spark-opacity)",onmousemove=sprintf("hovertext('USGS %s',evt);",gages$site_no[i]))
     }
     
   }
