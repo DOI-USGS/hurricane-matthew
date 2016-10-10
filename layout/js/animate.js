@@ -34,10 +34,12 @@ var animatePrcp = function(timestep) {
     };
     $(selector).css("fill", color);
     $(stormDot).css("opacity", "0");
+    $(stormDot).css("transform", "scale(0.1)");
     var storm = document.getElementById("storm-" + timestep);
     if (!storm){
     } else {
       storm.setAttribute('style','opacity: 1.0;')
+      storm.setAttribute('transform','scale(1.0)')
     }
   }
   document.getElementById('timestamp-text').firstChild.data = prcpTimes.times[timestep-1]; // zero indexed
@@ -101,7 +103,7 @@ function hovertext(text, evt){
     }
     tool_pt.setAttribute("transform","translate("+pt.x+","+pt.y+")");
     tooltip_bg.setAttribute("x",tooltip.getAttribute("x")-length/2-6);
-    tooltip_bg.setAttribute("y",pt.y-32);
+    tooltip_bg.setAttribute("y",pt.y-35);
     tooltip.setAttribute("class","shown");
     tooltip_bg.setAttribute("class","tooltip-box");
     tool_pt.setAttribute("class","tooltip-box");

@@ -6,9 +6,10 @@ process.matthew_counties <- function(viz){
   counties <- readData(viz[['depends']])
   counties <- counties[counties$STATE %in% states, ]
   FIPs <- as.character(counties$FIPS)
+  countyName <- paste0(as.character(counties$COUNTY),', ', as.character(counties$STATE))
   counties <- rgeos::gSimplify(counties, 0.001)
   counties <- spTransform(counties, CRS(epsg_code))
-  counties <- SpatialPolygonsDataFrame(counties, data = data.frame(FIPS=FIPs), match.ID = FALSE)
+  counties <- SpatialPolygonsDataFrame(counties, data = data.frame(FIPS=FIPs, countyName = countyName), match.ID = FALSE)
   
   saveRDS(counties, viz[['location']])
 }
@@ -20,6 +21,19 @@ process.matthew_states <- function(viz){
   epsg_code <- '+init=epsg:3086' 
   states <- readData(viz[['depends']])
   states <- states[!states$STATE %in% skip.states, ]
+  states <- rgeos::gSimplify(states, 0.01)
+  states <- spTransform(states, CRS(epsg_code))
+  
+  saveRDS(states, viz[['location']])
+}
+
+process.matthew_stateborders <- function(viz){
+  library(rgeos)
+  include.states <- c("Florida","Georgia","South Carolina","North Carolina")
+  
+  epsg_code <- '+init=epsg:3086' 
+  states <- readData(viz[['depends']])
+  states <- states[states$STATE %in% include.states, ]
   states <- rgeos::gSimplify(states, 0.01)
   states <- spTransform(states, CRS(epsg_code))
   
@@ -43,7 +57,7 @@ process.matthew_sites <- function(viz){
   library(rgeos)
   library(sp)
   library(dplyr)
-  ignore.sites <- c('02171645','02135200','02240000','02274325','02236500') # sites that hydropeak or are otherwise not representative
+  ignore.sites <- c('02171645','02135200','02240000','02274325','02236500','02133624','02134500','02135000') # sites that hydropeak or are otherwise not representative
   counties <- readData(viz[['depends']][2])
   sites <- readData(viz[['depends']][1]) %>% 
     filter(!site_no %in% ignore.sites) %>% 
