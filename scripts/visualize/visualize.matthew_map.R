@@ -101,11 +101,11 @@ visualize.matthew_map <- function(viz){
   m = xml_add_child(d, 'mask', id="spark-opacity", x="0", y="-1", width="1", height="3", maskContentUnits="objectBoundingBox")
   xml_add_child(m, 'rect', x="0", y="-1", width="1", height="3", style="fill-opacity: 0.25; fill: white;", id='spark-light-mask')
   xml_add_child(m, 'rect', x="0", y="-1", width="0", height="3", style="fill-opacity: 1; fill: white;", id='spark-full-mask')
-  xml_add_child(svg, 'rect', x='580', y='5', width="132", height='40', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
-  xml_add_child(svg, 'text', x='646', y='30', 'USGS stream', dy='-0.5em', 'text-anchor'='middle', class='svg-text')
-  xml_add_child(svg, 'text', x='646', y='30', 'gage discharge', dy='0.5em', "text-anchor"='middle', class='svg-text')
+  g.spark <- xml_add_child(svg, 'g', transform='translate(580,10)')
+  xml_add_child(g.spark, 'rect', width="137", height='1em', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
+  xml_add_child(g.spark, 'text', x='68.5', 'USGS stream gage discharge', dy='1em', 'text-anchor'='middle', class='svg-text', style='font-size: 0.7em;')
   
-  ys <- seq(50,as.numeric(vb[4])-20, length.out = cnt)
+  ys <- seq(20,as.numeric(vb[4])-30, length.out = cnt)
   cnt = 0;
   for (i in 1:length(gages)){ # FRAGILE - assumes all gages are on the map!!
     
@@ -118,8 +118,8 @@ visualize.matthew_map <- function(viz){
                     onmouseover=sprintf("setBold('sparkline-%s');", gages$site_no[i]),
                     onmouseout=sprintf("setNormal('sparkline-%s');hovertext(' ');", gages$site_no[i]),
                     onmousemove=sprintf("hovertext('USGS %s',evt);",gages$site_no[i]))
-      g.dot <- xml_add_child(g.storm, 'g', transform=sprintf('translate(%s,%s)', "570", ys[cnt])) 
-      xml_add_child(g.dot, 'polyline', points = svg.points[1], class='sparkline', id=paste0('sparkline-',gages$site_no[i]), 
+      g.single <- xml_add_child(g.spark, 'g', transform=sprintf('translate(-5,%s)', ys[cnt])) 
+      xml_add_child(g.single, 'polyline', points = svg.points[1], class='sparkline', id=paste0('sparkline-',gages$site_no[i]), 
                     onclick=sprintf("openNWIS('%s')", gages$site_no[i]),
                     onmouseover=sprintf("setBold('nwis-%s');", gages$site_no[i]),
                     onmouseout=sprintf("setNormal('nwis-%s');hovertext(' ');", gages$site_no[i]),
