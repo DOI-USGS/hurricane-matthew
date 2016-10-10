@@ -69,7 +69,7 @@ fetch:
     scripts: scripts/fetch/fetchDischarge.R
     depends: ["precip-data","matthew-sites"]
     reader: rds
-    refetch: FALSE
+    refetch: TRUE
     comment: disabling refetch for now, re-enable to get updates to work
   -
     id: sites-data
@@ -297,4 +297,3 @@ publish:
     id: svg-css
     location: layout/css/matthew-svg.css
     mimetype: text/css
-
