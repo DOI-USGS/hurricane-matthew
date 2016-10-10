@@ -7,7 +7,7 @@ var pt = undefined;
 var running = false;
 var interval = undefined;
 var intervalLength = 200; // 1 sec
-var timestep = 30;
+var timestep = 1;
 
 var setColors = function() {
   $.get( "js/precip-colors.json", function( data ) {
