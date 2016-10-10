@@ -17,7 +17,7 @@ line, polyline, path{
 	stroke-width:1.5;
 }
 .sparkline-bold,.sparkline:hover  {
-  stroke: #6ACDCD;
+  stroke: #A0DFDF;
   stroke-width:3.0;
 }
 .county-polygon{
@@ -57,7 +57,7 @@ line, polyline, path{
 .nwis-dot, .nwis-legend-dot, .nwis{
   stroke-width:0.75;
 }
-.nwis-dot:hover, .nwis-bold{
+.nwis-dot:hover, .nwis-bold, .nwis:hover{
   transform: scale(2.2);
   fill-opacity: 0.7;
   stroke-width:0.35;
