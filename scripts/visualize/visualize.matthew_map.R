@@ -37,6 +37,7 @@ visualize.matthew_map <- function(viz){
   
   # let this thing scale:
   xml_attr(svg, "preserveAspectRatio") <- "xMidYMid meet" 
+  xml_attr(svg, "id") <- "matthew-svg"
   vb <- strsplit(xml_attr(svg, 'viewBox'),'[ ]')[[1]]
   
   r <- xml_find_all(svg, '//*[local-name()="rect"]')
@@ -71,6 +72,7 @@ visualize.matthew_map <- function(viz){
   
   for (j in (i+1):length(p)){
     xml_attr(p[[j]], 'class') <- 'state-polygon'
+    xml_attr(p[[j]], 'clip-path') <- "url(#svg-bounds)"
   }
 
   g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
@@ -84,7 +86,7 @@ visualize.matthew_map <- function(viz){
     xml_add_child(g.track, 'polyline', points = xml_attr(pl[i], 'points'))
   }
   for (i in 1:(length(pl)- length(track))){
-    xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'))
+    xml_add_child(g.rivers, 'polyline', points = xml_attr(pl[i], 'points'), 'clip-path'="url(#svg-bounds)")
   }
   
   
@@ -101,6 +103,9 @@ visualize.matthew_map <- function(viz){
   m = xml_add_child(d, 'mask', id="spark-opacity", x="0", y="-1", width="1", height="3", maskContentUnits="objectBoundingBox")
   xml_add_child(m, 'rect', x="0", y="-1", width="1", height="3", style="fill-opacity: 0.25; fill: white;", id='spark-light-mask')
   xml_add_child(m, 'rect', x="0", y="-1", width="0", height="3", style="fill-opacity: 1; fill: white;", id='spark-full-mask')
+  cp <- xml_add_child(d, 'clipPath', id="svg-bounds")
+  xml_add_child(cp, 'rect', width=vb[3], height=vb[4])
+  
   g.spark <- xml_add_child(svg, 'g', transform='translate(580,10)')
   xml_add_child(g.spark, 'rect', width="137", height='1em', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
   xml_add_child(g.spark, 'text', x='68.5', 'USGS stream gage discharge', dy='1em', 'text-anchor'='middle', class='svg-text', style='font-size: 0.7em;')
