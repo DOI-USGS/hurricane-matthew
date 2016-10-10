@@ -109,6 +109,13 @@ process:
     reader: rds
     depends: "states"
   -
+    id: matthew-borders
+    location: cache/matthew-borders.rds
+    processor: matthew_stateborders
+    scripts: scripts/process/process.matthew_counties.R
+    reader: rds
+    depends: "states"
+  -
     id: matthew-flowlines
     location: cache/matthew-flowlines.rds
     processor: flowlines
@@ -200,7 +207,7 @@ visualize:
     location: figures/matthew-water.svg
     visualizer: matthew_map
     depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 
-      'storm-location',"matthew-sites", "discharge-classify", "precip-colors", "precip-breaks", "discharge-sparks"]
+      'storm-location',"matthew-sites", "discharge-classify", "precip-colors", "precip-breaks", "discharge-sparks","matthew-borders"]
     scripts: scripts/visualize/visualize.matthew_map.R
     mapdata: "matthew-counties"
     mimetype: image/svg+xml

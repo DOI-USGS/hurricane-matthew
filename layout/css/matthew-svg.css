@@ -4,6 +4,14 @@ line, polyline, path{
 	stroke-linejoin: round;
 	stroke-miterlimit: 10.00;
 }
+.svg-text {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* Internet Explorer/Edge */
+	cursor: default;
+}
 .river-polyline {
 	stroke: #1E90FF;
 }
@@ -17,6 +25,7 @@ line, polyline, path{
 	stroke-width:1.5;
 }
 .sparkline-bold,.sparkline:hover  {
+  cursor: pointer;
   stroke: #A0DFDF;
   stroke-width:3.0;
 }
@@ -51,6 +60,7 @@ line, polyline, path{
   font-size: 0.8em;
 }
 .nwis-dot, .nwis-legend-dot,.nwis-dot:hover, .nwis-bold,.nwis {
+  cursor: pointer;
   fill: #057083;
   stroke: white;
 }
@@ -63,6 +73,7 @@ line, polyline, path{
   stroke-width:0.35;
 }
 .watermark {
+  cursor: pointer;
   fill: #DCDCDC;
   stroke: #c6c6c6;
   stroke-width:0.5;
