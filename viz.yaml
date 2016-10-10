@@ -70,7 +70,7 @@ fetch:
     start.date: "2016-10-5"
     depends: ["sites-data","precip-data"]
     reader: rds
-    refetch: true
+    refetch: FALSE
     comment: disabling refetch for now, re-enable to get updates to work
   -
     id: sites-data
@@ -80,7 +80,7 @@ fetch:
     start.date: "2016-10-5"
     states: ["FL","SC","NC","GA"]
     reader: rds
-    refetch: true
+    refetch: FALSE
     comment: disabling refetch for now, re-enable to get updates to work
   -
     id: stats-data
@@ -248,10 +248,11 @@ publish:
     template: fullPage
     publisher: page
     depends: ["header-section", "figure-section", "data-sources", "map-figure-css",
-      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css","thumbnail"]
+      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css","thumbnail",
+      "footer-section"]
     context:
       resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css"]
-      sections: [ "header-section", "figure-section", "data-sources" ]
+      sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
   -
     id: figure-section
     template: layout/templates/mapFigure.mustache
@@ -300,25 +301,25 @@ publish:
       line7: "Storm Track: National Oceanic and Atmospheric Administration National Hurricane Center Preliminary Best Track for Hurricane Matthew ("
       nhcLink: http://www.nhc.noaa.gov/gis/
       line8: )
-# Turning off footer, I think this code needs to be checked in
-#  -
-#    id: footer-section
-#    template: footer
-#    publisher: footer
-#    depends: header-footer-css
-#    blogsInFooter: TRUE
-#    vizzies:
-#      - name: Microplastics in the Great Lakes
-#        org: USGS-VIZLAB
-#        repo: great-lakes-microplastics
-#      - name: Climate Change and Freshwater Fish
-#        org: USGS-VIZLAB
-#        repo: climate-fish-habitat
-#    blogs: 
-#      - name: Using the dataRetrieval Stats Service
-#        url: https://owi.usgs.gov/blog/stats-service-map/
-#        thumbLoc: https://owi.usgs.gov/blog/images/owi-mobile.png
+  -
+    id: footer-section
+    template: footer
+    publisher: footer
+    depends: header-footer-css
+    blogsInFooter: TRUE
+    vizzies:
+      - name: Microplastics in the Great Lakes
+        org: USGS-VIZLAB
+        repo: great-lakes-microplastics
+      - name: Climate Change and Freshwater Fish
+        org: USGS-VIZLAB
+        repo: climate-fish-habitat
+    blogs: 
+      - name: Using the dataRetrieval Stats Service
+        url: https://owi.usgs.gov/blog/stats-service-map/
+        thumbLoc: https://owi.usgs.gov/blog/images/owi-mobile.png
   -
     id: svg-css
     location: layout/css/matthew-svg.css
     mimetype: text/css
+
