@@ -185,8 +185,8 @@ visualize:
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
     inline: true
-    title: "title..."
-    alttext: "alt text..."
+    title: "Hurricane Matthew's impact on precipitation and streamflow"
+    alttext: "Map of Hurricane Matthew's water footprint"
     
 publish:
   -
@@ -246,8 +246,9 @@ publish:
         is due to stream size, storm-surge, reservoir closures, and other local conditions, 
         which can impact the effect of precipitation on flow. Gages shown do not 
         include the US Geological Survey Short-Term Network gages deployed to capture 
-        more detailed effects of the hurricane (SPNLink: "http://stn.wim.usgs.gov/fev/#MatthewOctober2016"
-      line2: ). 
+        more detailed effects of the hurricane (SPNLink: 
+      line2: "http://stn.wim.usgs.gov/fev/#MatthewOctober2016"
+      line3: ). 
   -
     id: header-section
     template: layout/templates/header.mustache
