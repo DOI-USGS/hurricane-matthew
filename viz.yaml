@@ -294,7 +294,7 @@ publish:
     blogs: 
       - name: Using the dataRetrieval Stats Service
         url: https://owi.usgs.gov/blog/stats-service-map/
-        thumbLoc: https://owi.usgs.gov/blog/images/owi-mobile.png
+        thumbLoc: https://owi.usgs.gov/blog/static/stats-service-map/plot-1.png
   -
     id: svg-css
     location: layout/css/matthew-svg.css
