@@ -215,6 +215,12 @@ visualize:
     
 publish:
   -
+    id: thumbnail
+    location: images/matthew_water2.png
+    mimetype: image/png
+    title: "thumbnail"
+    alttext: "viz thumbnail"
+  -
     id: map-figure-css
     location: layout/css/map-figure.css
     mimetype: text/css
@@ -242,7 +248,7 @@ publish:
     template: fullPage
     publisher: page
     depends: ["header-section", "figure-section", "data-sources", "map-figure-css",
-      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css"]
+      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css","thumbnail"]
     context:
       resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css"]
       sections: [ "header-section", "figure-section", "data-sources" ]
