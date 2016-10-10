@@ -295,6 +295,9 @@ publish:
       - name: Using the dataRetrieval Stats Service
         url: https://owi.usgs.gov/blog/stats-service-map/
         thumbLoc: https://owi.usgs.gov/blog/static/stats-service-map/plot-1.png
+      - name: Visualizing Tropical Storm Colin Precipitation using geoknife
+        url: https://owi.usgs.gov/blog/ts-colin-precip/
+        thumbLoc: https://owi.usgs.gov/blog/static/ts-colin-precip/use-functions-1.png
   -
     id: svg-css
     location: layout/css/matthew-svg.css
