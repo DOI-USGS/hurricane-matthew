@@ -67,8 +67,7 @@ fetch:
     fetcher: discharge
     location: cache/discharge.rds
     scripts: scripts/fetch/fetchDischarge.R
-    start.date: "2016-10-5"
-    depends: ["sites-data","precip-data"]
+    depends: ["precip-data","matthew-sites"]
     reader: rds
     refetch: true
     comment: disabling refetch for now, re-enable to get updates to work
@@ -81,15 +80,6 @@ fetch:
     states: ["FL","SC","NC","GA"]
     reader: rds
     refetch: true
-    comment: disabling refetch for now, re-enable to get updates to work
-  -
-    id: stats-data
-    fetcher: stats
-    scripts: scripts/fetch/fetch.stats.R
-    location: cache/stats.rds
-    depends: ["sites-data"]
-    reader: rds
-    refetch: false
     comment: disabling refetch for now, re-enable to get updates to work
 process:
   -
@@ -144,14 +134,6 @@ process:
     mimetype: application/javascript
     export: true
   -
-    id: gage-colors
-    location: cache/gage_colors.rds
-    processor: gage_colors
-    scripts: scripts/process/process.gage_colors.R
-    reader: rds
-    bins: 6
-    pallete: "Reds"
-  -
     id: precip-breaks
     location: cache/precip_breaks.rds
     processor: precip_breaks
@@ -171,13 +153,6 @@ process:
     scripts: scripts/process/process.matthew_counties.R
     reader: rds
     depends: ["discharge-data","timesteps"]
-  -
-    id: discharge-classify
-    location: cache/discharge-classify.rds
-    processor: classify
-    scripts: scripts/process/classify.R
-    reader: rds
-    depends: ["discharge-data","stats-data","gage-colors"]
   -
     id: matthew-sites
     location: cache/sites_geo.rds
@@ -205,7 +180,7 @@ visualize:
     location: figures/matthew-water.svg
     visualizer: matthew_map
     depends: ["matthew-counties","matthew-flowlines", "matthew-states", "storm-track", "classifyBins", 
-      'storm-location',"matthew-sites", "discharge-classify", "precip-colors", "precip-breaks", "discharge-sparks","matthew-borders"]
+      'storm-location',"matthew-sites", "precip-colors", "precip-breaks", "discharge-sparks","matthew-borders"]
     scripts: scripts/visualize/visualize.matthew_map.R
     mapdata: "matthew-counties"
     mimetype: image/svg+xml
