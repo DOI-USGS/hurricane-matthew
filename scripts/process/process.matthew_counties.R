@@ -116,7 +116,7 @@ process.storm_location <- function(viz){
   
   unlink(shp.path)
   
-  t.out <- seq(as.POSIXct("2016-10-5 00:00:00", tz="America/New_York"), by='hours', to = Sys.time())
+  t.out <- seq(as.POSIXct("2016-10-6 12:00:00", tz="America/New_York"), by='hours', to = Sys.time())
   lat.out <- approx(shp.data$DateTime, shp.data$LAT, xout = t.out)$y
   lon.out <- approx(shp.data$DateTime, shp.data$LON, xout = t.out)$y
   pts <- cbind(lon.out[!is.na(lon.out)], lat.out[!is.na(lon.out)])

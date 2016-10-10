@@ -62,7 +62,7 @@ fetch:
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv
-    refetch: false 
+    refetch: true
     comment: disabling refetch to avoid too many GDP requests
   -
     id: discharge-data
@@ -72,7 +72,7 @@ fetch:
     start.date: "2016-10-5"
     depends: ["sites-data","precip-data"]
     reader: rds
-    refetch: false
+    refetch: true
     comment: disabling refetch for now, re-enable to get updates to work
   -
     id: sites-data
@@ -82,7 +82,7 @@ fetch:
     start.date: "2016-10-5"
     states: ["FL","SC","NC","GA"]
     reader: rds
-    refetch: false
+    refetch: true
     comment: disabling refetch for now, re-enable to get updates to work
   -
     id: stats-data
