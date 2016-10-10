@@ -103,10 +103,14 @@ p {
   		padding-top:0;
   		font-size:1.2em;
   	}
-  	#footer f1{
+  	#relatedVizzies{
     width: 760px;
     margin: 0 auto;
-  }
+    }
+    #relatedBlogs{
+    width: 760px;
+    margin: 0 auto;
+    }
   .relatedItem {
     width: 49%;
     margin-right: 1%;
