@@ -13,7 +13,7 @@ line, polyline, path{
   stroke-width:2;
 }
 .sparkline {
-	stroke: #6ACDCD;
+	stroke: #A0DFDF;
 	stroke-width:1.5;
 }
 .sparkline-bold,.sparkline:hover  {
@@ -39,7 +39,7 @@ line, polyline, path{
   stroke: none
 }
 .storm-dot, .storm-dot-legend {
-  fill: red;
+  fill: #F29E4C;
 }
 .time-text {
   font-size: 1.25em;
