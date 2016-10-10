@@ -1,18 +1,16 @@
 vizlab: "0.1.4"
 info:
   id: hurricane-matthew
-  name: A look at Hurricane Matthew
+  name: Hurricane Matthew's Water Footprint
   date: 2016-10-06
   path: /hurricane-matthew
   analytics-id: UA-78530187-4
   description: >-
-    Bringing together a couple different sources of data
-    to look at the effects of Hurricane Matthew on the
-    Southeast United States Coast.
+    Hurricane Matthew approached the southeastern U.S. coast on October 7, 2016. This visualization shows the hurricane’s impact on precipitation and streamflow. 
   keywords: >-
-    water, hurricane, matthew, USGS, NOAA, VIZLAB
+    water, hurricane, matthew, USGS, NOAA, VIZLAB, NWIS, flood, storm track
   thumbnail:    
-    url: !NEED TO MAKE THIS THUMBNAIL!
+    url: https://owi.usgs.gov/vizlab/hurricane-matthew/images/matthew_water2.png
     width: 250
     height: 250
     alttext: Hurricane Matthew
@@ -256,12 +254,12 @@ publish:
     context:
       id: map-figure
       figure: matthew-map
-      title: Hurricane Matthew’s Impact on River Flow
+      title: Hurricane Matthew’s Water Footprint
       line1: >-
-        Hurricane Matthew made landfall in Florida on October 7, 2016.
+        Hurricane Matthew approached the southeastern U.S. coast on October 7, 2016.
         In the map above, the hurricane’s impact on precipitation and streamflow are 
-        shown as the storm moves up the coast of the southeastern US. Discharge (cubic feet per second) 
-        at US Geological Survey gaging stations within ~150 km of the storm cone is shown 
+        shown. Discharge (cubic feet per second) 
+        at US Geological Survey gaging stations within ~150 km of the eye of the hurrican is shown 
         through time (right panel). Gages shown do not include the US Geological Survey 
         Short-Term Network gages deployed to capture more detailed effects of the hurricane (
       SPNLink: "http://stn.wim.usgs.gov/fev/#MatthewOctober2016"
@@ -286,8 +284,8 @@ publish:
       line1: "Streamflow: U.S. Geological Survey National Water Information System ("
       waterDataLink: http://waterdata.usgs.gov/nwis
       line2: >-
-        ). Time series of discharge at gages within 150 km of the storm cone are shown through time, 
-        normalized to site-specific maximum discharge observed over the duration of the hurricane. 
+        ). Time series of discharge at gages within 150 km of the eye of the storm are shown through time, 
+        ordered by latitude and normalized to site-specific maximum discharge observed over the duration of the hurricane. 
       line4: "Precipitation: National Weather Service Environmental Modeling Center National Center for Environmental Prediction Stage IV precipitation analysis ("
       emcLink: http://www.emc.ncep.noaa.gov/mmb/ylin/pcpanl/stage4/
       line5: ), aggregated according to Blodgett (2013, 
