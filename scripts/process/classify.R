@@ -1,6 +1,6 @@
 # viz <- yaml.load_file("viz.yaml")
 # viz <- viz$process 
-# viz <- viz[[9]]
+# viz <- viz[[which(unlist((lapply(viz, function(x) x$id == "matthew-sites"))))]]
 
 process.classify <- function(viz){
   library(dplyr)
