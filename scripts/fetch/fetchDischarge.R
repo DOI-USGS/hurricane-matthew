@@ -5,36 +5,25 @@ fetch.discharge <- function(viz){
   library(lubridate)
   library(dplyr)
   
-  required <- c("depends", "start.date", "location")
+  required <- c("depends", "location")
   checkRequired(viz, required)
   
-  sites <- readData(viz[['depends']][1])
-  precipData <- readData(viz[['depends']][2]) 
+  precipData <- readData(viz[['depends']][1]) 
+  site_geo <- readData(viz[['depends']][2])
+  site_ids <- site_geo@data
+  site_ids <- site_ids$site_no
   precipData$full_dateTime <- as.POSIXct(precipData$DateTime, tz="America/New_York")
   
-  time.steps <- unique(precipData$full_dateTime)
-  
-  start.date <-  as.Date(viz[["start.date"]])
-  n.sites <- nrow(sites)
-  n.bins <- 5
-  site.bins <- 1:(n.sites/n.bins)
-  
-  discharge <- data.frame()
-  
-  for(i in 1:(n.bins+1)){
-    
-    site.to.call <- sites$site_no[(i*site.bins)]
-    site.to.call <- site.to.call[!is.na(site.to.call)]
-    stDV <- renameNWISColumns(readNWISdata(service="iv",
-                                           parameterCd="00060",
-                                           sites = site.to.call,
-                                           startDate = start.date,
-                                           tz = "America/New_York"))
-    
-    discharge <- bind_rows(discharge, stDV)
-  }
-  
-  #downsample to hourly: TODO: get precip data?
+  time.steps <- unique(precipData$DateTime)
+  time.steps <-  gsub(" ","T", time.steps)
+  start.date <-  time.steps[1]
+
+  discharge <- renameNWISColumns(readNWISdata(service="iv",
+                                         parameterCd="00060",
+                                         sites = site_ids,
+                                         startDate = start.date,
+                                         tz = "America/New_York"))
+
   discharge <- filter(discharge, minute(dateTime)==0)
   
   location <- viz[['location']]
