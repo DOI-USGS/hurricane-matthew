@@ -47,6 +47,10 @@ figurecaption{
   text-align: center;
 }
 
+#playButton{
+  background:#ebebeb;
+}
+
 @media screen and (min-width:768px){
   #map-figure,
   #dataSources{
