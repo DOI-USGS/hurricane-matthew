@@ -3,6 +3,7 @@ info:
   id: hurricane-matthew
   name: Hurricane Matthew's Water Footprint
   date: 2016-10-06
+  publish-date: 2016-10-11
   path: /hurricane-matthew
   analytics-id: UA-78530187-4
   description: >-
@@ -96,7 +97,7 @@ fetch:
   -
     id: precip-data
     fetcher: precip
-    start.date: "2016-10-5"
+    start.date: "2016-10-6"
     end.date: "2016-10-9"
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
@@ -117,7 +118,7 @@ fetch:
     fetcher: sites
     scripts: scripts/fetch/fetch.sites.R
     location: cache/sites.rds
-    start.date: "2016-10-5"
+    start.date: "2016-10-6"
     states: ["FL","SC","NC","GA"]
     reader: rds
     refetch: FALSE
@@ -162,7 +163,7 @@ process:
     id: storm-location
     location: cache/storm-location.rds
     processor: storm_location
-    start.date: "2016-10-5"
+    start.date: "2016-10-6"
     end.date: "2016-10-9"
     reader: rds
     depends: ["matthew-track", "matthew-counties"]  
