@@ -41,6 +41,7 @@ fetch:
     fetcher: hurricaneTrack
     scripts: scripts/fetch/hurricaneTrack.R
     mimetype: application/zip
+    refetch: false
     metadata: "Updates every 6 hours on http://www.nhc.noaa.gov/gis/"
     comment: disabling refetch until timestamp is hooked up
   -
