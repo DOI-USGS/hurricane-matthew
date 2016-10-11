@@ -6,14 +6,52 @@ info:
   path: /hurricane-matthew
   analytics-id: UA-78530187-4
   description: >-
-    Hurricane Matthew approached the southeastern U.S. coast on October 7, 2016. This visualization shows the hurricane’s impact on precipitation and streamflow. 
+    Hurricane Matthew approached the southeastern U.S. coast on October 7, 2016.
+    This visualization shows the hurricane’s impact on precipitation and streamflow.
   keywords: >-
     water, hurricane, matthew, USGS, NOAA, VIZLAB, NWIS, flood, storm track
+  audience: General public
+  url: https://owi.usgs.gov/vizlab/hurricane-matthew/
   thumbnail:    
     url: https://owi.usgs.gov/vizlab/hurricane-matthew/images/matthew_water2.png
-    width: 250
-    height: 250
+    width: 1124
+    height: 912
+    type: image/png
     alttext: Hurricane Matthew
+  contributors:
+    -
+      name: Alison Appling
+      email: aappling@usgs.gov
+      affiliation: U.S. Geological Survey
+    -
+      name: Lindsay Carr
+      email: lcarr@usgs.gov
+      affiliation: U.S. Geological Survey
+    -
+      name: Laura DeCicco
+      email: ldecicco@usgs.gov
+      affiliation: U.S. Geological Survey
+    -
+      name: Emily Read
+      email: eread@usgs.gov
+      affiliation: U.S. Geological Survey
+    -
+      name: Jordan Read
+      email: jread@usgs.gov
+      affiliation: U.S. Geological Survey
+    -
+      name: Jordan Walker
+      email: jiwalker@usgs.gov
+      affiliation: U.S. Geological Survey
+    -
+      name: David Watkins
+      email: wwatkins@usgs.gov
+      affiliation: U.S. Geological Survey
+    -
+      name: Marty Wernimont
+      email: mwernimont@usgs.gov
+      affiliation: U.S. Geological Survey
+  twitter: "@USGS_R"
 fetch:
   -
     id: counties
@@ -233,8 +271,9 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["header-section", "figure-section", "data-sources", "map-figure-css",
-      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css","thumbnail", "footer-section"]
+    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", 
+      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js",
+      "svg-css","thumbnail", "footer-section"]
     context:
       resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css"]
       sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
