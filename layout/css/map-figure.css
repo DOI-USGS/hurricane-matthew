@@ -55,3 +55,9 @@ figurecaption{
     font-size:1em;
   }
 }
+
+@media screen and (min-width:1200px){
+  #map-figure{
+    width:1025px;
+  }
+}
