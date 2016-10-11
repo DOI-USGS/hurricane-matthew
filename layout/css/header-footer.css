@@ -23,27 +23,26 @@ p {
 	width:80px;
 	}
 	
-#footer f1{
+footer{
 	background:rgb(0,51,102);
 	min-height:400px;
-	font-size: 1.2em;
 	color:#fff;
 	border-top:5px solid rgb(210,210,210);
-	width:760px;
+	padding:10px;
 	}
 	
-#footer .p-share{
+footer .p-share{
   margin-bottom:15px;
 }
 
-#footer p {
-  font-size:0.85em;
-  font-weight: 300;
-}
-	
-#footer a:visited{
-  color:#008173;
-}
+footer:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
 
 #vizlabPromo {
   height: 100px;
@@ -66,7 +65,7 @@ p {
 #relatedBlogs h4 {
   margin: 0 0 5px 0;
   font-weight: 400;
-  color:#003366;
+  color:#fff;
 }
 .footerThumnail {
   height: 180px;
@@ -109,6 +108,12 @@ p {
   		padding-top:0;
   		font-size:1.2em;
   	}
+  	
+  	#vizlabPromo {
+      width:660px;
+      margin:10px auto;
+    }
+  	
   	#relatedVizzies{
     width: 660px;
     margin: 0 auto;
@@ -126,12 +131,12 @@ p {
   .footerThumnail {
     height: 200px;
   }
-  .blogTitle {
+  .titleHandler {
     height: 45px;
     vertical-align: text-bottom;
     position: relative;
   }
-  .blogTitle h4 {
+  .titleHandler h4 {
     position: absolute;
     bottom: 0;
   }
