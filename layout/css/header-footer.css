@@ -52,6 +52,12 @@ p {
 #vizlabPromo img {
   height: 100%;
 }
+
+#relatedVizzies,
+#relatedBlogs{
+  font-family: "Source Sans Pro", sans-serif;
+} 
+
 #relatedVizzies h5,
 #relatedBlogs h5 {
   margin-bottom: 10px;
@@ -60,11 +66,11 @@ p {
 #relatedBlogs h4 {
   margin: 0 0 5px 0;
   font-weight: 400;
+  color:#003366;
 }
 .footerThumnail {
   height: 180px;
   margin: 0 0 15px 0;
-  border-radius: 10px;
   overflow: hidden;
 }
 .footerThumnail img {
@@ -104,12 +110,13 @@ p {
   		font-size:1.2em;
   	}
   	#relatedVizzies{
-    width: 760px;
+    width: 660px;
     margin: 0 auto;
     }
     #relatedBlogs{
-    width: 760px;
+    width: 660px;
     margin: 0 auto;
+    clear:both;
     }
   .relatedItem {
     width: 49%;
@@ -128,4 +135,4 @@ p {
     position: absolute;
     bottom: 0;
   }
-	}
+}
