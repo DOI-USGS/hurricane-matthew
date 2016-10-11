@@ -16,12 +16,15 @@ fetch.discharge <- function(viz){
   
   time.steps <- unique(precipData$DateTime)
   time.steps <-  gsub(" ","T", time.steps)
+  
   start.date <-  time.steps[1]
+  end.date <- time.steps[length(time.steps)]
 
   discharge <- renameNWISColumns(readNWISdata(service="iv",
                                          parameterCd="00060",
                                          sites = site_ids,
                                          startDate = start.date,
+                                         endDate = end.date,
                                          tz = "America/New_York"))
 
   discharge <- filter(discharge, minute(dateTime)==0)
