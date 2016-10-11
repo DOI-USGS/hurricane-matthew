@@ -57,6 +57,8 @@ fetch:
   -
     id: precip-data
     fetcher: precip
+    start.date: "2016-10-5"
+    end.date: "2016-10-10"
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv

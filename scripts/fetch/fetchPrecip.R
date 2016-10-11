@@ -1,5 +1,9 @@
 #fetch precip data w/geoknife
 fetch.precip <- function(viz){
+  
+  required <- c("location","start.date", "end.date")
+  checkRequired(viz, required)
+  
   getPrecip <- function(states, startDate, endDate){
     
     wg_s <- webgeom(geom = 'derivative:US_Counties', attribute = 'STATE')
@@ -36,10 +40,9 @@ fetch.precip <- function(viz){
   library(dplyr)
   library(geoknife)
   library(tidyr)
-  
-  #TODO: get dates and states from a yaml
-  startDate <- as.POSIXct("2016-10-6 12:00:00", tz="America/New_York")
-  endDate <- NA
+
+  startDate <- as.POSIXct(paste(viz[["start.date"]],"12:00:00"), tz="America/New_York")
+  endDate <- as.POSIXct(paste(viz[["end.date"]],"12:00:00"), tz="America/New_York")
   attr(startDate, 'tzone') <- "UTC"
   
   states <- c("FL","GA","SC","NC")
