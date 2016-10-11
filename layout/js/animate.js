@@ -74,6 +74,7 @@ var playPause = function() {
 
 $(document).ready(function() {
   setColors();
+  setTimeout(playPause, 1000);
 });
 
 
