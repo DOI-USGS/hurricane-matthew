@@ -116,9 +116,9 @@ visualize.matthew_map <- function(viz){
   cp <- xml_add_child(d, 'clipPath', id="svg-bounds")
   xml_add_child(cp, 'rect', width=vb[3], height=vb[4])
   
-  g.spark <- xml_add_child(svg, 'g', transform='translate(580,10)')
+  g.spark <- xml_add_child(svg, 'g', transform='translate(584,10)')
   xml_add_child(g.spark, 'rect', x='-3', width="137", height='1em', class='legend-box')
-  xml_add_child(g.spark, 'text', x='68.5', 'USGS stream gage discharge', dy='1em', 'text-anchor'='middle', class='svg-text', style='font-size: 0.7em;')
+  xml_add_child(g.spark, 'text', x='66', 'USGS stream gage discharge', dy='1em', 'text-anchor'='middle', class='svg-text', style='font-size: 0.7em;')
   
   ys <- seq(20,as.numeric(vb[4])-30, length.out = cnt)
   cnt = 0;
