@@ -240,6 +240,13 @@ publish:
     title: "thumbnail"
     alttext: "viz thumbnail"
   -
+    id: vizlab-favicon
+    location: image/favicon.ico
+    mimetype: image/png
+    comment: saying it is a png to get it in right spot, need handler for ico
+    title: icon
+    alttext: icon
+  -
     id: map-figure-css
     location: layout/css/map-figure.css
     mimetype: text/css
@@ -276,7 +283,8 @@ publish:
       "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js",
       "svg-css","thumbnail", "footer-section"]
     context:
-      resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css"]
+      resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css",
+        "<link rel=\"icon\" type=\"image/ico\" href=\"images/favicon.ico\"/>"]
       sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
   -
     id: figure-section
