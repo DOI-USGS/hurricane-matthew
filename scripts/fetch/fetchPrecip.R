@@ -42,7 +42,7 @@ fetch.precip <- function(viz){
   library(tidyr)
 
   startDate <- as.POSIXct(paste(viz[["start.date"]],"12:00:00"), tz="America/New_York")
-  endDate <- as.POSIXct(paste(viz[["end.date"]],"12:00:00"), tz="America/New_York")
+  endDate <- as.POSIXct(paste(viz[["end.date"]],"22:00:00"), tz="America/New_York")
   attr(startDate, 'tzone') <- "UTC"
   
   states <- c("FL","GA","SC","NC")
