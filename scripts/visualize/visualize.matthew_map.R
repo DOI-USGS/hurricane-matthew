@@ -144,7 +144,7 @@ visualize.matthew_map <- function(viz){
   }
   storm.i <- length(storm)
   for (i in length(cr):(length(gages)+1)){ # assumes that LAST of the storm is on the map!!
-    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('storm-',storm.i), r='8', class='storm-dot')
+    xml_add_child(g.storm, 'circle', cx = xml_attr(cr[i], 'cx'), cy = xml_attr(cr[i], 'cy'), id=paste0('storm-',storm.i), r='8', class='storm-dot', opacity='0.0')
     storm.i <- storm.i - 1
   }
   
