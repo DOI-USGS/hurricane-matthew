@@ -32,9 +32,7 @@ visualize.matthew_map <- function(viz){
   dev.off()
   library(xml2)
   svg <- read_xml(viz[['location']])
-  xml_attr(svg, 'title') <- viz[["title"]]
-  xml_attr(svg, 'desc') <- viz[["alttext"]]
-  
+
   # let this thing scale:
   xml_attr(svg, "preserveAspectRatio") <- "xMidYMid meet" 
   xml_attr(svg, "id") <- "matthew-svg"
@@ -43,6 +41,8 @@ visualize.matthew_map <- function(viz){
   r <- xml_find_all(svg, '//*[local-name()="rect"]')
   
   xml_add_sibling(xml_children(svg)[[1]], 'rect', .where='before', width=vb[3], height=vb[4], class='background')
+  xml_add_sibling(xml_children(svg)[[1]], 'desc', .where='before', viz[["alttext"]])
+  xml_add_sibling(xml_children(svg)[[1]], 'title', .where='before', viz[["title"]])
 
   # clean up junk that svglite adds:
   .junk <- lapply(r, xml_remove)
