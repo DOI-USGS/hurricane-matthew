@@ -117,7 +117,7 @@ visualize.matthew_map <- function(viz){
   xml_add_child(cp, 'rect', width=vb[3], height=vb[4])
   
   g.spark <- xml_add_child(svg, 'g', transform='translate(580,10)')
-  xml_add_child(g.spark, 'rect', width="137", height='1em', class='legend-box')
+  xml_add_child(g.spark, 'rect', x='-3', width="137", height='1em', class='legend-box')
   xml_add_child(g.spark, 'text', x='68.5', 'USGS stream gage discharge', dy='1em', 'text-anchor'='middle', class='svg-text', style='font-size: 0.7em;')
   
   ys <- seq(20,as.numeric(vb[4])-30, length.out = cnt)
@@ -148,23 +148,25 @@ visualize.matthew_map <- function(viz){
     storm.i <- storm.i - 1
   }
   
-  xml_add_child(g.legend, 'rect', x="-8", y="-8", width='175', height='246', class='legend-box')
+  xml_add_child(g.legend, 'rect', x="-8", y="-8", width='175', height='256', class='legend-box')
   xml_add_child(g.legend, 'text', 'Legend', 'class'='legend-title svg-text', dy='0.75em')
+  xml_add_child(g.legend, 'text', 'Inches per hour', 'class'='svg-text', dy='2em')
+  xml_add_child(g.legend, 'text', 'dy'= "3.7em", class='smallprint-text svg-text', "(county average precip)")
   
-  ys <- as.character(seq(24, 160, length.out = length(legend.bins)))
+  ys <- as.character(seq(55, 180, length.out = length(legend.bins)))
   box.w <- '12'
   for (i in 1:length(legend.bins)){
     xml_add_child(g.legend, 'rect', 'height'=box.w, 'width'=box.w, y = ys[i], id=paste0('precip-bin-',i), fill=legend.bins[i], class='precip-legend-bin')
-    leg.txt <- ifelse(i == length(legend.breaks), sprintf('> %s inches per hour', legend.breaks[i]), sprintf('%s to %s', legend.breaks[i], legend.breaks[i+1]))
+    leg.txt <- ifelse(i == length(legend.breaks), sprintf('> %s', legend.breaks[i]), sprintf('%s to %s', legend.breaks[i], legend.breaks[i+1]))
     xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+as.numeric(box.w)/2), 'dy'= "0.33em", class='precip-legend-text svg-text', leg.txt)
   }
-  xml_add_child(g.legend, 'text', x=box.w, 'dx'="-0.3em", y=as.character(as.numeric(ys[i])+as.numeric(box.w)/2), 'dy'= "1.6em", class='smallprint-text svg-text', "(county average precip)")
-  xml_add_child(g.legend, 'path', d=sprintf('M-4,%s h%s',as.character(as.numeric(ys[i])+40), 20), class='track-polyline')
-  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='8', class='storm-dot-legend', cy = as.character(as.numeric(ys[i])+40), class='storm-legend-dot')
-  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+40), 'dy'= "0.33em", class='storm-legend-text svg-text', "Hurricane Matthew")
   
-  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='3', cy = as.character(as.numeric(ys[i])+60), class='nwis-legend-dot')
-  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+60), 'dy'= "0.33em", class='nwis-legend-text svg-text', "USGS stream gage")
+  xml_add_child(g.legend, 'path', d=sprintf('M-4,%s h%s',as.character(as.numeric(ys[i])+30), 20), class='track-polyline')
+  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='8', class='storm-dot-legend', cy = as.character(as.numeric(ys[i])+30), class='storm-legend-dot')
+  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+30), 'dy'= "0.33em", class='storm-legend-text svg-text', "Hurricane Matthew")
+  
+  xml_add_child(g.legend, 'circle', cx = as.character(as.numeric(box.w)/2), r='3', cy = as.character(as.numeric(ys[i])+50), class='nwis-legend-dot')
+  xml_add_child(g.legend, 'text', x=box.w, 'dx'="0.5em", y=as.character(as.numeric(ys[i])+50), 'dy'= "0.33em", class='nwis-legend-text svg-text', "USGS stream gage")
   
   xml_add_child(svg, 'text', ' ', id='timestamp-text', class='time-text svg-text', x="490", y="320", 'text-anchor'="middle")
   

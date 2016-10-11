@@ -97,7 +97,7 @@ line, polyline, path{
 }
 .tooltip-box{
   stroke-width: 0.5;
-  stroke: none;
-  opacity: 1;
+  stroke: grey;
+  opacity: 0.9;
   fill: #E8E8E8;
 }
