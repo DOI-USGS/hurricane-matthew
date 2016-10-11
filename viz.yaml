@@ -254,8 +254,8 @@ publish:
     alttext: "USGS Logo"
   -
     id: vizlab-logo
-    location: images/vizlab06.png
-    mimetype: image/png
+    location: images/vizlab.svg
+    mimetype: image/svg+xml
     title: "Vizlab Logo"
     alttext: "Vizlab Logo"
   -
