@@ -41,6 +41,7 @@ fetch:
     fetcher: hurricaneTrack
     scripts: scripts/fetch/hurricaneTrack.R
     mimetype: application/zip
+    refetch: false
     metadata: "Updates every 6 hours on http://www.nhc.noaa.gov/gis/"
     comment: disabling refetch until timestamp is hooked up
   -
@@ -58,7 +59,7 @@ fetch:
     id: precip-data
     fetcher: precip
     start.date: "2016-10-5"
-    end.date: "2016-10-10"
+    end.date: "2016-10-9"
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv
@@ -123,6 +124,8 @@ process:
     id: storm-location
     location: cache/storm-location.rds
     processor: storm_location
+    start.date: "2016-10-5"
+    end.date: "2016-10-9"
     reader: rds
     depends: ["matthew-track", "matthew-counties"]  
   -

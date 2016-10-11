@@ -27,7 +27,8 @@ fetch.discharge <- function(viz){
                                          endDate = end.date,
                                          tz = "America/New_York"))
 
-  discharge <- filter(discharge, minute(dateTime)==0)
+  # discharge <- filter(discharge, minute(dateTime)==0)
+  discharge <- filter(discharge, dateTime %in% precipData$full_dateTime)
   
   location <- viz[['location']]
   saveRDS(discharge, file=location)
