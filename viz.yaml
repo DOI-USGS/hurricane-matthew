@@ -79,6 +79,7 @@ fetch:
     fetcher: hurricaneTrack
     scripts: scripts/fetch/hurricaneTrack.R
     mimetype: application/zip
+    refetch: false
     metadata: "Updates every 6 hours on http://www.nhc.noaa.gov/gis/"
     comment: disabling refetch until timestamp is hooked up
   -
@@ -96,7 +97,7 @@ fetch:
     id: precip-data
     fetcher: precip
     start.date: "2016-10-5"
-    end.date: "2016-10-10"
+    end.date: "2016-10-9"
     scripts: scripts/fetch/fetchPrecip.R
     location: cache/precip.csv
     mimetype: text/csv
@@ -161,6 +162,8 @@ process:
     id: storm-location
     location: cache/storm-location.rds
     processor: storm_location
+    start.date: "2016-10-5"
+    end.date: "2016-10-9"
     reader: rds
     depends: ["matthew-track", "matthew-counties"]  
   -
@@ -250,6 +253,12 @@ publish:
     title: "USGS Logo"
     alttext: "USGS Logo"
   -
+    id: vizlab-logo
+    location: images/vizlab06.png
+    mimetype: image/png
+    title: "Vizlab Logo"
+    alttext: "Vizlab Logo"
+  -
     id: jquery-js
     location: layout/js/jquery-3.1.1.min.js
     mimetype: application/javascript
@@ -262,9 +271,9 @@ publish:
     name: index
     template: fullPage
     publisher: page
-    depends: ["header-section", "figure-section", "data-sources", "map-figure-css",
-      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css",
-      "thumbnail", "footer-section"]
+    depends: ["header-section", "figure-section", "data-sources", "map-figure-css", 
+      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js",
+      "svg-css","thumbnail", "footer-section"]
     context:
       resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css"]
       sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
@@ -286,7 +295,7 @@ publish:
         is due to stream size, storm-surge, reservoir closures, and other local conditions, 
         which can impact the effect of precipitation on flow. Gages shown do not 
         include the US Geological Survey Short-Term Network gages deployed to capture 
-        more detailed effects of the hurricane (SPNLink: 
+        more detailed effects of the hurricane ( 
       line2: "http://stn.wim.usgs.gov/fev/#MatthewOctober2016"
       line3: ). 
   -
@@ -323,7 +332,9 @@ publish:
     id: footer-section
     template: footer
     publisher: footer
-    depends: header-footer-css
+    depends: [ "header-footer-css", "vizlab-logo" ]
+    context:
+      logo: vizlab-logo
     blogsInFooter: TRUE
     vizzies:
       - name: Microplastics in the Great Lakes

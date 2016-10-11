@@ -130,12 +130,17 @@ process.storm_location <- function(viz){
   
   dbf.file <- file.path(shp.path, 'al142016_pts.dbf')
   shp.data <- foreign::read.dbf(dbf.file) %>% 
-    filter(STORMNAME=="MATTHEW") %>% mutate(DateTime = as.time(YEAR, MONTH, DAY, HHMM)) %>% 
+    filter(STORMNAME=="MATTHEW") %>% 
+    mutate(DateTime = as.time(YEAR, MONTH, DAY, HHMM)) %>% 
     select(LAT, LON, DateTime, INTENSITY)
   
   unlink(shp.path)
   
-  t.out <- seq(as.POSIXct("2016-10-6 12:00:00", tz="America/New_York"), by='hours', to = Sys.time())
+  startDate <- as.POSIXct(paste(viz[["start.date"]],"12:00:00"), tz="America/New_York")
+  endDate <- as.POSIXct(paste(viz[["end.date"]],"12:00:00"), tz="America/New_York")
+  
+  t.out <- seq(startDate, by='hours', to = endDate)
+  
   lat.out <- approx(shp.data$DateTime, shp.data$LAT, xout = t.out)$y
   lon.out <- approx(shp.data$DateTime, shp.data$LON, xout = t.out)$y
   pts <- cbind(lon.out[!is.na(lon.out)], lat.out[!is.na(lon.out)])

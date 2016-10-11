@@ -59,6 +59,6 @@ figurecaption{
 @media screen and (min-width:1200px){
   #map-figure,
   #dataSources{
-    width:1025px;
+    width:960px;
   }
 }
