@@ -68,21 +68,28 @@ visualize.matthew_map <- function(viz){
     xml_attr(p[[i]], 'clip-path') <- NULL
 
   }
-  
-  for (j in (i+1):(i+length(state.borders))){
-    xml_attr(p[[j]], 'class') <- 'state-border'
-    xml_attr(p[[j]], 'clip-path') <- "url(#svg-bounds)"
-  }
-  for (i in (j+1):length(p)){
-    xml_attr(p[[i]], 'class') <- 'state-polygon'
-    xml_attr(p[[i]], 'clip-path') <- "url(#svg-bounds)"
-  }
 
   g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
   g.track <- xml_add_child(svg, 'g', id='track','class'='track-polyline')
   g.storm <- xml_add_child(svg, 'g', id='storm','class'='storm-dots')
   g.legend <- xml_add_child(svg, 'g', id='precip-legend','class'='legend', transform='translate(155,353)scale(0.8)')
   g.watermark <- xml_add_child(svg, 'g', id='usgs-watermark',transform=sprintf('translate(2,%s)scale(0.25)', as.character(as.numeric(vb[4])-40)))
+  
+  g.borders <- xml_add_child(svg, 'g', id='focus-borders') # on top
+  
+  rmv.i <- c()
+  for (j in (i+1):(i+length(state.borders))){
+    xml_add_child(g.track, 'path', d = xml_attr(p[j], 'd'), class='state-border', 'clip-path'= "url(#svg-bounds)")
+    rmv.i <- c(rmv.i, j)
+  }
+  for (i in (j+1):length(p)){
+    xml_attr(p[[i]], 'class') <- 'state-polygon'
+    xml_attr(p[[i]], 'clip-path') <- "url(#svg-bounds)"
+  }
+  
+  #for (i in rmv.i){
+    xml_remove(p[rmv.i])
+  #}
   
   pl <- xml_find_all(svg, '//*[local-name()="polyline"]')
   for (i in (length(pl)+1 - length(track)): length(pl)){
@@ -110,7 +117,7 @@ visualize.matthew_map <- function(viz){
   xml_add_child(cp, 'rect', width=vb[3], height=vb[4])
   
   g.spark <- xml_add_child(svg, 'g', transform='translate(580,10)')
-  xml_add_child(g.spark, 'rect', width="137", height='1em', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
+  xml_add_child(g.spark, 'rect', width="137", height='1em', class='legend-box')
   xml_add_child(g.spark, 'text', x='68.5', 'USGS stream gage discharge', dy='1em', 'text-anchor'='middle', class='svg-text', style='font-size: 0.7em;')
   
   ys <- seq(20,as.numeric(vb[4])-30, length.out = cnt)
@@ -141,7 +148,7 @@ visualize.matthew_map <- function(viz){
     storm.i <- storm.i - 1
   }
   
-  xml_add_child(g.legend, 'rect', x="-8", y="-8", width='175', height='246', fill='white', stroke='grey', class='legend-box', 'fill-opacity'='0.4')
+  xml_add_child(g.legend, 'rect', x="-8", y="-8", width='175', height='246', class='legend-box')
   xml_add_child(g.legend, 'text', 'Legend', 'class'='legend-title svg-text', dy='0.75em')
   
   ys <- as.character(seq(24, 160, length.out = length(legend.bins)))
@@ -167,7 +174,7 @@ visualize.matthew_map <- function(viz){
   xml_add_child(g.watermark,'path', d=wave.d, onclick="window.open('https://www2.usgs.gov/water/','_blank')", 'class'='watermark')
   
   g.tool <- xml_add_child(svg,'g',id='tooltip-group')
-  xml_add_child(g.tool, 'rect', id="tooltip-box", height="24", fill='white')#, class="hidden")
+  xml_add_child(g.tool, 'rect', id="tooltip-box", height="24", class="tooltip-box")
   xml_add_child(g.tool, 'path', id="tooltip-point", d="M-6,-11 l6,10 l6,-11", class="tooltip-box")
   xml_add_child(g.tool, 'text', id="tooltip-text", dy="-1.1em", 'text-anchor'="middle", class="tooltip-text-label svg-text", " ")
   

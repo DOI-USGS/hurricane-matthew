@@ -17,8 +17,9 @@ line, polyline, path{
 }
 .state-border	{
   fill:none;
-  stroke: #2F4F4F;
+  stroke: #8f8f8f;
   stroke-width:2;
+  stroke-opacity: 0.4;
 }
 .track-polyline {
   stroke: #e0eeee;
@@ -50,6 +51,11 @@ line, polyline, path{
 .background {
   fill: #8f8f8f;
   stroke: none
+}
+.legend-box {
+  fill: white;
+  stroke: none;
+  fill-opacity: 0.4;
 }
 .storm-dot, .storm-dot-legend {
   fill: #F29E4C;
@@ -91,7 +97,7 @@ line, polyline, path{
 }
 .tooltip-box{
   stroke-width: 0.5;
-  stroke: #696969;
-  opacity: 0.95;
-  fill: #f2f2f2;
+  stroke: none;
+  opacity: 1;
+  fill: #E8E8E8;
 }
