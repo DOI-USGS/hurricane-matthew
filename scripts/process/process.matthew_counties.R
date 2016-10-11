@@ -137,7 +137,7 @@ process.storm_location <- function(viz){
   unlink(shp.path)
   
   startDate <- as.POSIXct(paste(viz[["start.date"]],"12:00:00"), tz="America/New_York")
-  endDate <- as.POSIXct(paste(viz[["end.date"]],"12:00:00"), tz="America/New_York")
+  endDate <- as.POSIXct(paste(viz[["end.date"]],"22:00:00"), tz="America/New_York")
   
   t.out <- seq(startDate, by='hours', to = endDate)
   
