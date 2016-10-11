@@ -14,7 +14,7 @@ visualize.matthew_map <- function(viz){
   legend.bins <- readData(viz[['depends']][8])
   legend.breaks <- readData(viz[['depends']][9])
   spark.sites <- readData(viz[['depends']][10])
-  
+  state.borders <- readData(viz[['depends']][11])
   library(svglite)
   library(dplyr)
   
@@ -22,6 +22,7 @@ visualize.matthew_map <- function(viz){
   par(mai=c(0,0,0,0), omi=c(0,0,0,0))
   sp::plot(counties)
   sp::plot(flowlines, add=TRUE)
+  sp::plot(state.borders, add=TRUE)
   sp::plot(states, add=TRUE)
   sp::plot(track, add=TRUE)
   sp::plot(gages, pch=20, add=TRUE)
@@ -68,9 +69,13 @@ visualize.matthew_map <- function(viz){
 
   }
   
-  for (j in (i+1):length(p)){
-    xml_attr(p[[j]], 'class') <- 'state-polygon'
+  for (j in (i+1):(i+length(state.borders))){
+    xml_attr(p[[j]], 'class') <- 'state-border'
     xml_attr(p[[j]], 'clip-path') <- "url(#svg-bounds)"
+  }
+  for (i in (j+1):length(p)){
+    xml_attr(p[[i]], 'class') <- 'state-polygon'
+    xml_attr(p[[i]], 'clip-path') <- "url(#svg-bounds)"
   }
 
   g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')

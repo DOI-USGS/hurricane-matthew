@@ -15,7 +15,11 @@ line, polyline, path{
 .river-polyline {
 	stroke: #1E90FF;
 }
-		
+.state-border	{
+  fill:none;
+  stroke: #2F4F4F;
+  stroke-width:2;
+}
 .track-polyline {
   stroke: #e0eeee;
   stroke-width:2;
