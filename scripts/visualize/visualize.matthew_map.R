@@ -32,7 +32,8 @@ visualize.matthew_map <- function(viz){
   dev.off()
   library(xml2)
   svg <- read_xml(viz[['location']])
-  
+  xml_attr(svg, 'title') <- viz[["title"]]
+  xml_attr(svg, 'desc') <- viz[["alttext"]]
   
   # let this thing scale:
   xml_attr(svg, "preserveAspectRatio") <- "xMidYMid meet" 
