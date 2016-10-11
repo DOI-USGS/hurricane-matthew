@@ -215,6 +215,12 @@ publish:
     title: "USGS Logo"
     alttext: "USGS Logo"
   -
+    id: vizlab-logo
+    location: images/vizlab06.png
+    mimetype: image/png
+    title: "Vizlab Logo"
+    alttext: "Vizlab Logo"
+  -
     id: jquery-js
     location: layout/js/jquery-3.1.1.min.js
     mimetype: application/javascript
@@ -228,8 +234,7 @@ publish:
     template: fullPage
     publisher: page
     depends: ["header-section", "figure-section", "data-sources", "map-figure-css",
-      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css","thumbnail",
-      "footer-section"]
+      "header-footer-css", "precip-colors", "timesteps", "jquery-js", "animate-js", "svg-css","thumbnail", "footer-section"]
     context:
       resources: ["map-figure-css","header-footer-css", "jquery-js", "animate-js", "svg-css"]
       sections: [ "header-section", "figure-section", "data-sources", "footer-section" ]
@@ -288,7 +293,9 @@ publish:
     id: footer-section
     template: footer
     publisher: footer
-    depends: header-footer-css
+    depends: [ "header-footer-css", "vizlab-logo" ]
+    context:
+      logo: vizlab-logo
     blogsInFooter: TRUE
     vizzies:
       - name: Microplastics in the Great Lakes
