@@ -141,3 +141,9 @@ footer:after {
     bottom: 0;
   }
 }
+
+@media screen and (min-width:1200px){
+  #logo{
+    width:960px;
+  }
+}
