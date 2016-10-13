@@ -53,6 +53,10 @@ process.matthew_track <- function(viz){
   saveRDS(track, viz[['location']])
 }
 
+# viz <- yaml.load_file("viz.yaml")
+# viz <- viz$process
+# viz <- viz[[which(unlist((lapply(viz, function(x) x$id == "matthew-sites"))))]]
+
 process.matthew_sites <- function(viz){
   library(rgeos)
   library(sp)
@@ -62,13 +66,16 @@ process.matthew_sites <- function(viz){
                     '021989773','02226160','02134170','02236000',
                     '02236000','02231600','02134480','02132320',
                     '02232000','02274505','02130910','02084160',
-                    '02105500') # sites that hydropeak or are otherwise not representative
+                    '02105500','02313100','02273230','02273230',
+                    '02270500','02312598','02148000','02168504',
+                    '02148000','02314500','02312667','02312720',
+                    '02257000','02322500') # sites that hydropeak or are otherwise not representative
   counties <- readData(viz[['depends']][2])
   sites <- readData(viz[['depends']][1]) %>% 
     filter(!site_no %in% ignore.sites) %>% 
     arrange(desc(dec_lat_va))
   track <- readData(viz[['depends']][3])
-  buffered.track <- gBuffer( track, width=150000, byid=TRUE )
+  buffered.track <- gBuffer( track, width=200000, byid=TRUE )
   pts <- cbind(sites$dec_long_va, sites$dec_lat_va)
   sites <- SpatialPointsDataFrame(pts, proj4string=CRS("+proj=longlat +datum=WGS84"), 
                                      data = sites %>% select(site_no, station_nm) %>% data.frame)
