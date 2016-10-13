@@ -62,6 +62,7 @@ line, polyline, path{
 }
 .time-text {
   font-size: 1.25em;
+  fill:white;
 }
 .legend-title {
   font-size: 1.3em;
