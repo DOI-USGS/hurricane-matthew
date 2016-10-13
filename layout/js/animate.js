@@ -6,7 +6,7 @@ var pt = undefined;
 
 var running = false;
 var interval = undefined;
-var intervalLength = 200; // 1 sec
+var intervalLength = 120;
 var timestep = 1;
 
 var setColors = function() {
