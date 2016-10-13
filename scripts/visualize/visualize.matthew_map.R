@@ -70,13 +70,13 @@ visualize.matthew_map <- function(viz){
 
   }
 
-  g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
+  
   g.track <- xml_add_child(svg, 'g', id='track','class'='track-polyline')
   g.storm <- xml_add_child(svg, 'g', id='storm','class'='storm-dots')
   g.legend <- xml_add_child(svg, 'g', id='precip-legend','class'='legend', transform='translate(155,353)scale(0.8)')
   g.watermark <- xml_add_child(svg, 'g', id='usgs-watermark',transform=sprintf('translate(2,%s)scale(0.25)', as.character(as.numeric(vb[4])-40)))
-  
   g.borders <- xml_add_child(svg, 'g', id='focus-borders') # on top
+  g.rivers <- xml_add_child(svg, 'g', id='rivers','class'='river-polyline')
   
   rmv.i <- c()
   for (j in (i+1):(i+length(state.borders))){
