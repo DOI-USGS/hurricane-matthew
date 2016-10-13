@@ -69,7 +69,7 @@ process.matthew_sites <- function(viz){
                     '02105500','02313100','02273230','02273230',
                     '02270500','02312598','02148000','02168504',
                     '02148000','02314500','02312667','02312720',
-                    '02257000','02322500') # sites that hydropeak or are otherwise not representative
+                    '02257000','02322500','0204382800','02105769','02091814') # sites that hydropeak or are otherwise not representative
   counties <- readData(viz[['depends']][2])
   sites <- readData(viz[['depends']][1]) %>% 
     filter(!site_no %in% ignore.sites) %>% 
