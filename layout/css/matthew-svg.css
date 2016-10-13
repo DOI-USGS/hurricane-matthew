@@ -49,7 +49,7 @@ line, polyline, path{
   stroke-width:0.5;
 }
 .background {
-  fill: #8f8f8f;
+  fill: #505050;
   stroke: none
 }
 .legend-box {
