@@ -1,6 +1,6 @@
 # viz <- yaml.load_file("viz.yaml")
 # viz <- viz$visualize
-# viz <- viz[[1]]
+# viz <- viz[[which(unlist((lapply(viz, function(x) x$id == "matthew-map"))))]]
 
 visualize.matthew_map <- function(viz){
   
