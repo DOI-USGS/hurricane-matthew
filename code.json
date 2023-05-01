@@ -4,7 +4,7 @@
     "organization": "U.S. Geological Survey",
     "description": "Visualizing the impacts of hurricane Matthew in the Southeastern US through precipitation and streamflow data.",
     "version": "main",
-    "status": "Development",
+    "status": "Production",
     "permissions": {
       "usageType": "openSource",
       "licenses": [
@@ -19,7 +19,7 @@
     "disclaimerURL": "https://github.com/USGS-VIZLAB/hurricane-matthew/blob/main/DISCLAIMER.md",
     "repositoryURL": "https://github.com/USGS-VIZLAB/hurricane-matthew.git",
     "vcs": "git",
-    "laborHours": -1,
+    "laborHours": 35,
     "tags": [
       "R",
       "USGS"
@@ -29,8 +29,8 @@
       "CSS"
     ],
     "contact": {
-      "name": "jordansread",
-      "email": "FILL ME IN"
+      "name": "Cee Nell",
+      "email": "cnell@usgs.gov"
     },
     "date": {
       "metadataLastUpdated": "2023-04-07"
